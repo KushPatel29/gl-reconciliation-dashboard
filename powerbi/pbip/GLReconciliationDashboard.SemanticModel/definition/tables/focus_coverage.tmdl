@@ -45,3 +45,4 @@ table focus_coverage
 				    Typed = Table.TransformColumnTypes(Promoted, {{"month", type text}, {"billed_total", type number}, {"allocated_total", type number}, {"untagged_total", type number}, {"coverage_pct", type number}})
 				in
 				    Typed
+

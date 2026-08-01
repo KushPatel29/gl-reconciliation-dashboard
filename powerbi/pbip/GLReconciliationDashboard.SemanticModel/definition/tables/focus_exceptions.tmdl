@@ -50,3 +50,4 @@ table focus_exceptions
 				    Typed = Table.TransformColumnTypes(Promoted, {{"transaction_id", type text}, {"account_id", Int64.Type}, {"period", type text}, {"exception_type", type text}, {"erp_amount", type number}, {"variance_amount", type number}})
 				in
 				    Typed
+

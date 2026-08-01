@@ -73,14 +73,6 @@ table _Measures
 		formatString: 0.0%
 		lineageTag: 6dbe3b3e-8b80-49bb-93eb-ad3e5cea3811
 
-	column Value
-		dataType: int64
-		isHidden
-		formatString: 0
-		lineageTag: 6c789bc8-87e2-4056-8772-9930dae564cf
-		summarizeBy: none
-		sourceColumn: Value
-
 	measure 'Cloud Billed $' = SUM(focus_coverage[billed_total])
 		formatString: #,0
 		lineageTag: 3d8446c4-daa0-4c4d-982f-67f6b966d8e9
@@ -100,6 +92,14 @@ table _Measures
 	measure 'Cloud Exception $' = SUMX(focus_exceptions, ABS(COALESCE(focus_exceptions[variance_amount], focus_exceptions[erp_amount])))
 		formatString: #,0
 		lineageTag: c939149e-a0d8-4082-8156-beeffea95edb
+
+	column Value
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6c789bc8-87e2-4056-8772-9930dae564cf
+		summarizeBy: none
+		sourceColumn: Value
 
 	partition _Measures = m
 		mode: import

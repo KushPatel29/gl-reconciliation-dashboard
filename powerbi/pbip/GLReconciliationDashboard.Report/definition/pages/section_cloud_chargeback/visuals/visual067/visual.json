@@ -115,7 +115,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cloud exception detail \u2014 the FINOPS-REC-01 evidence list'"
+                  "Value": "'Cloud exception detail — the FINOPS-REC-01 evidence list'"
                 }
               }
             },

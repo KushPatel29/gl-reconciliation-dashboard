@@ -52,3 +52,4 @@ table focus_control_totals
 				    Typed = Table.TransformColumnTypes(Promoted, {{"account_id", Int64.Type}, {"period", type text}, {"erp_total", type number}, {"subledger_total", type number}, {"variance_amount", type number}, {"variance_pct", type number}})
 				in
 				    Typed
+

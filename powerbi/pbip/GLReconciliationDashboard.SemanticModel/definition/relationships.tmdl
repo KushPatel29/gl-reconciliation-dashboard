@@ -26,7 +26,6 @@ relationship b1000001-0000-4000-8000-000000000007
 	fromColumn: fact_erp_gl.period
 	toColumn: dim_period.period
 
-
 relationship b1000001-0000-4000-8000-000000000101
 	fromColumn: focus_exceptions.account_id
 	toColumn: focus_dim_account.account_id
@@ -34,3 +33,4 @@ relationship b1000001-0000-4000-8000-000000000101
 relationship b1000001-0000-4000-8000-000000000102
 	fromColumn: focus_control_totals.account_id
 	toColumn: focus_dim_account.account_id
+
