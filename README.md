@@ -1,6 +1,6 @@
 # GL/P&L Reconciliation Dashboard
 
-[![CI](https://github.com/KushPatel29/gl-reconciliation-dashboard-/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/gl-reconciliation-dashboard-/actions/workflows/ci.yml)
+[![CI](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml)
 ![SQL](https://img.shields.io/badge/SQL-T--SQL%20%2B%20SQLite-CC2927)
 ![Power BI](https://img.shields.io/badge/Power%20BI-5%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
