@@ -3,8 +3,9 @@
 [![CI](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml)
 ![SQL](https://img.shields.io/badge/SQL-T--SQL%20%2B%20SQLite-CC2927)
 ![Power BI](https://img.shields.io/badge/Power%20BI-5%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
+![Tableau](https://img.shields.io/badge/Tableau-generated%20.twb-E97627?logo=tableau&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-22%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-33%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Every BI resume says "reconciled GL to subledger." Almost nobody can show
@@ -205,17 +206,37 @@ Verify the claims:
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 22 tests — every discrepancy class found, every dollar accounted for,
-                    # in GL mode and FinOps mode, plus Power BI model/report integrity
+pytest tests/ -v    # 33 tests — every discrepancy class found, every dollar accounted for,
+                    # in GL mode and FinOps mode, plus Power BI and Tableau workbook integrity
 ```
 
 ## Tableau version
 
-The close scorecard is also buildable in Tableau in ~15 minutes:
-[`tableau/prepare_tableau_data.py`](tableau/prepare_tableau_data.py)
-produces flat, analysis-ready extracts and
-[`tableau/BUILD_TABLEAU.md`](tableau/BUILD_TABLEAU.md) is the click-by-click
-build + publish guide, themed to match the rest of the portfolio.
+The same close scorecard, rebuilt in Tableau — one dashboard, seven sheets,
+both extracts driven by a single period parameter.
+
+![GL Close Scorecard in Tableau](tableau/screenshots/gl-close-scorecard.png)
+
+The workbook is **generated, not clicked together**:
+[`tableau/build_workbook.py`](tableau/build_workbook.py) emits
+[`GLCloseScorecard.twb`](tableau/GLCloseScorecard.twb) as plain XML with
+relative connections, so it opens on any machine that has this repo checked
+out and every change to it shows up as a reviewable diff rather than a binary
+blob. [`tableau/BUILD_TABLEAU.md`](tableau/BUILD_TABLEAU.md) covers the
+publish step and what to change if you want to rebuild it by hand instead.
+
+```bash
+python engine/run_reconciliation.py
+python tableau/prepare_tableau_data.py
+python tableau/build_workbook.py       # -> tableau/GLCloseScorecard.twb
+```
+
+The numbers on the dashboard are the engine's numbers: 230 exceptions,
+$823,310 of impact, 43 of 60 account-periods outside the 0.5% tolerance.
+Setting the period parameter to `2025-03` moves all three to 47 / $209,341 / 9,
+which is what the same filter returns in pandas — the two data sources stay in
+step because one parameter drives a boolean filter in each, rather than two
+quick filters that can drift apart.
 
 ## Notes on the synthetic data
 

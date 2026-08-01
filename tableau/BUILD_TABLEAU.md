@@ -1,69 +1,85 @@
-# Tableau Close Scorecard — build & publish guide (~15 minutes)
+# Tableau close scorecard — build & publish
 
 The same close scorecard as the Power BI report, rebuilt in Tableau to show
-tool range. Data prep is scripted; the workbook build below is deliberately
-click-by-click so the result is native, idiomatic Tableau.
+tool range. Both the data prep and the workbook itself are scripted.
 
-## 0. Prepare the data
+## Build it
 
 ```bash
 python engine/run_reconciliation.py
 python tableau/prepare_tableau_data.py
+python tableau/build_workbook.py
 ```
 
-Produces two flat extracts in this folder:
+`prepare_tableau_data.py` writes two flat extracts:
+
 - `control_totals_tableau.csv` — account × period with ERP/subledger totals,
   variance, and an `out_of_tolerance` flag (0.5% materiality, precomputed)
 - `exceptions_tableau.csv` — exception log with `impact_amount`
-  (ABS(COALESCE(variance, erp_amount)), precomputed)
+  (`ABS(COALESCE(variance, erp_amount))`, precomputed)
 
-## 1. Connect (Tableau Desktop 2024.1)
+`build_workbook.py` writes `GLCloseScorecard.twb`: two data sources, one
+parameter, seven sheets, one 1280×800 dashboard.
 
-1. **Connect → Text file** → `control_totals_tableau.csv`.
-2. **Add** a second connection → `exceptions_tableau.csv` (keep as a
-   separate data source — the sheets don't blend).
+## What's in it
 
-## 2. Sheets
+| Sheet | Mark | Reads |
+| --- | --- | --- |
+| KPI Exceptions / KPI Impact / KPI Out of Tolerance | Text | both extracts |
+| Variance by Account | Bar, coloured by tolerance status | control totals |
+| Impact by Exception Type | Bar, coloured by type | exceptions |
+| Variance Trend | Line | control totals |
+| Impact Matrix | Text table, account × exception type | exceptions |
 
-**Sheet 1 — "Variance by Account"** (bar)
-- Rows: `Account Name` · Columns: `SUM(Variance Amount)`
-- Color: `MAX(Out Of Tolerance)` — set 1 to red `#C0392B`, 0 to navy `#12436D`
-- Sort descending by variance; label bars, format as currency.
+A single **Period** parameter drives a boolean `Period Filter` calculation in
+*each* data source (`[Parameters].[Parameter 1] = "All" OR [period] = …`).
+Tableau cannot apply one quick filter across unrelated data sources, and two
+separate quick filters drift apart the moment someone changes one; a parameter
+is the honest way to keep them in step. The trend sheet deliberately has no
+period filter — a trend that filters itself to one period is a single dot.
 
-**Sheet 2 — "Match Rate KPI"** (text/KPI)
-- Data source: exceptions. Create calculated fields:
-  - `Total Exceptions` = `COUNT([Transaction Id])`
-  - (On the control-totals source) `Match Rate` = `1 - [Total Exceptions] / 20000`
-    *(20,000 = ERP transaction count — or blend to compute it live)*
-- Show as a big-number text mark.
+Palette is the portfolio's Meridian brand: `#12436D` navy · `#28A197` teal ·
+`#F46A25` orange · `#801650` plum · `#C0392B` red for out-of-tolerance.
 
-**Sheet 3 — "Exception Impact by Type"** (bar)
-- Rows: `Exception Type` · Columns: `SUM(Impact Amount)`
-- Color: `Exception Type` (theme palette below); sort descending.
+## Publish to Tableau Public
 
-**Sheet 4 — "Variance Trend"** (line)
-- Columns: `Period` · Rows: `SUM(Variance Amount)` (control-totals source)
+Tableau Desktop **Free Edition** can do this — a paid licence is only needed
+for Tableau Server/Cloud.
 
-## 3. Dashboard — "GL Close Scorecard"
+1. Open `tableau/GLCloseScorecard.twb`.
+2. **Server → Tableau Public → Save to Tableau Public As…**
+3. Sign in with a free Tableau Public account.
+4. Tableau converts the two text connections to an extract automatically.
+5. Copy the public URL into this README.
 
-- Size: 1280 × 720. Layout: KPI top-left, Variance by Account left,
-  Impact by Type top-right, Trend bottom-right.
-- Add `Period` as a global filter (applies to both data sources via
-  "All Using Related Data Sources").
+## Why a generated .twb and not a hand-built .twbx
 
-Theme (matches the portfolio's Meridian palette):
-`#12436D` navy · `#28A197` teal · `#F46A25` orange · `#801650` plum ·
-background `#F4F6F9` · Segoe UI Semibold titles.
+A `.twbx` is a zip: every save is an unreviewable binary diff, and it bakes in
+absolute paths from whoever last saved it. A generated `.twb` is plain XML with
+`directory='.'` connections, so it opens from a fresh clone and every change is
+a readable diff.
 
-## 4. Publish to Tableau Public
+`tests/test_tableau_integrity.py` (11 tests) parses the workbook and asserts
+every declared column exists in the extracts, every calculation references a
+real field, every shelf and encoding resolves to a declared column-instance,
+every dashboard zone points at a real sheet, the parameter's period list
+matches the data, and the committed file is byte-identical to generator output.
 
-Server → Tableau Public → Save to Tableau Public As… (free account) →
-copy the public URL into the repo README badge/link. Tableau Public
-requires an extract: it will convert the text connections automatically.
+### Three things Tableau's format punishes
 
-## Why a guide and not a committed .twbx?
+Learned while building this; all three are pinned by tests now.
 
-A packaged workbook pins absolute local paths and bloats the repo with a
-binary diff on every save. The scripted extracts + this guide reproduce the
-workbook anywhere in minutes, which is the more honest engineering artifact —
-and the published Tableau Public link (step 4) is the showcase.
+1. **No `<windows>` block → "Internal Error" with no line number.** The
+   document parser asserts `!m_activeSheet.empty()`. Every sheet needs a
+   window and exactly one needs `maximized='true'`.
+2. **Colour palettes live on the `<datasource>`, not the worksheet**, and the
+   style rule's `field` is the *bare* column-instance name — while the
+   `<color>` encoding inside `<panes>` is datasource-qualified. Get this wrong
+   and nothing errors; Tableau just silently uses its default palette.
+3. **A palette binds to a column-instance declared on the datasource.**
+   Declaring the instance only inside a worksheet's `datasource-dependencies`
+   leaves the rule unresolved — again silently.
+
+Tableau validates the XML against its schema on load and reports exact
+line/column numbers and content models, which makes it a fast feedback loop
+once you stop guessing and read the error.

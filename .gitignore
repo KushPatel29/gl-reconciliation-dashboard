@@ -7,3 +7,6 @@ __pycache__/
 **/.pbi/cache.abf
 **/.pbi/unappliedChanges.json
 **/.pbi/editorSettings.json
+
+# Tableau autosave/recovery files
+*.twbr
