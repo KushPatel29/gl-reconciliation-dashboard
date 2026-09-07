@@ -141,7 +141,11 @@ def sla(w: pd.DataFrame, by: str) -> pd.DataFrame:
     out["tail_ratio"] = (out.mean_days / out.median_days).round(2)
     still_open = w[w.is_open == 1].groupby(by).size()
     out["still_open"] = still_open.reindex(out.index).fillna(0).astype(int)
-    return out.sort_values("median_days", ascending=False).reset_index()
+    # `by` is the group key and is unique, so it settles the ties in
+    # median_days - two owners clearing at the same median must not swap rows
+    # between one machine and another.
+    return out.sort_values(["median_days", by],
+                           ascending=[False, True]).reset_index()
 
 
 def throughput(w: pd.DataFrame) -> pd.DataFrame:
@@ -176,8 +180,10 @@ def build() -> tuple:
 
     methods = (cleared.groupby("clear_method")
                .agg(count=("transaction_id", "size"),
-                    exposure=("exposure", "sum")).sort_values(
-                        "count", ascending=False))
+                    exposure=("exposure", "sum"))
+               .sort_values("count", ascending=False, kind="stable"))
+    methods = methods.sort_index().sort_values("count", ascending=False,
+                                               kind="stable")
     methods["share"] = (methods["count"] / methods["count"].sum()).round(4)
 
     summary = {

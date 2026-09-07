@@ -263,8 +263,9 @@ def flag_baselines(e: pd.DataFrame) -> pd.DataFrame:
             "baseline_can_fire": int(math.isfinite(ratio)),
             "discriminates": int(ratio >= DISCRIMINATION_RATIO),
         })
-    return pd.DataFrame(rows).sort_values("manual_entries_flagged",
-                                          ascending=False).reset_index(drop=True)
+    return pd.DataFrame(rows).sort_values(
+        ["manual_entries_flagged", "flag"], ascending=[False, True]
+    ).reset_index(drop=True)
 
 
 def by_user(e: pd.DataFrame) -> pd.DataFrame:
@@ -278,7 +279,8 @@ def by_user(e: pd.DataFrame) -> pd.DataFrame:
     u["avg_risk_score"] = (u.risk_score / u.entries).round(1)
     u["review_rate"] = (u.for_review / u.entries).round(4)
     u["value"] = u.value.round(2)
-    return u.sort_values("risk_score", ascending=False).reset_index(drop=True)
+    return u.sort_values(["risk_score", "poster"],
+                         ascending=[False, True]).reset_index(drop=True)
 
 
 def benford(e: pd.DataFrame, by: str) -> pd.DataFrame:
@@ -315,8 +317,8 @@ def benford(e: pd.DataFrame, by: str) -> pd.DataFrame:
         cols = [by, "entries", "chi_square", "mad", "verdict"] + [
             f"exceeds_{str(lvl).replace('0.', 'p')}" for lvl in CHI2_CRITICAL]
         return pd.DataFrame(columns=cols)
-    return pd.DataFrame(rows).sort_values("chi_square",
-                                          ascending=False).reset_index(drop=True)
+    return pd.DataFrame(rows).sort_values(
+        ["chi_square", by], ascending=[False, True]).reset_index(drop=True)
 
 
 def build() -> tuple:
@@ -403,8 +405,13 @@ def main():
             "cost_center", "journal_source", "poster", "poster_role",
             "approver", "approver_limit", "control_amount", "abs_amount",
             *[f for f in WEIGHTS], "flags_fired", "risk_score", "for_review"]
+    # transaction_id breaks the tie. 1,375 of these entries share a risk
+    # score, and pandas' default sort is not stable - so without a unique
+    # second key the row order of a PUBLISHED file depends on the machine that
+    # wrote it, which is how a "reproducible byte for byte" gate fails on a
+    # Linux runner having passed on Windows.
     e.loc[e.manual_entry == 1, cols].sort_values(
-        "risk_score", ascending=False).to_csv(
+        ["risk_score", "transaction_id"], ascending=[False, True]).to_csv(
             OUT / "journal_risk_entries.csv", index=False)
     users.to_csv(OUT / "journal_risk_by_user.csv", index=False)
     flags.to_csv(OUT / "journal_risk_flags.csv", index=False)
