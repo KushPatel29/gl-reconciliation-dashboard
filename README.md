@@ -207,7 +207,10 @@ Verify the claims:
 ```bash
 pip install pytest
 pytest tests/ -v    # 107 tests — every discrepancy class found, every dollar accounted for,
-                    # in GL mode and FinOps mode, plus Power BI and Tableau workbook integrity
+                    # in GL mode and FinOps mode, plus Power BI and Tableau workbook
+                    # integrity and the semantic-model bindings (every column the
+                    # model binds exists in the CSV it reads; a renamed one renders
+                    # blank rather than failing)
 ```
 
 ## Tableau version
