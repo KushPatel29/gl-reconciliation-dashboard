@@ -18,13 +18,13 @@ table _Measures
 		lineageTag: ce1f8c06-a985-410b-8ef1-3e5595fec5c1
 
 	measure 'Accounts Out of Tolerance' =
-			VAR Threshold = 0.005  // 0.5% materiality
+			VAR vThreshold = 0.005  // 0.5% materiality
 			RETURN
 			    CALCULATE(
 			        DISTINCTCOUNT(gl_control_totals[account_id]),
 			        FILTER(
 			            gl_control_totals,
-			            ABS(DIVIDE(gl_control_totals[subledger_total] - gl_control_totals[erp_total], ABS(gl_control_totals[erp_total]))) > Threshold
+			            ABS(DIVIDE(gl_control_totals[subledger_total] - gl_control_totals[erp_total], ABS(gl_control_totals[erp_total]))) > vThreshold
 			        )
 			    )
 		formatString: #,0
@@ -63,9 +63,9 @@ table _Measures
 		lineageTag: 2c692c79-6834-4e26-96fa-6dd9cb834b6a
 
 	measure 'Match Rate' =
-			VAR TotalErpTxns = COUNTROWS(fact_erp_gl)
+			VAR vTotalErpTxns = COUNTROWS(fact_erp_gl)
 			RETURN
-			    DIVIDE(TotalErpTxns - [Total Exceptions], TotalErpTxns)
+			    DIVIDE(vTotalErpTxns - [Total Exceptions], vTotalErpTxns)
 		formatString: 0.0%
 		lineageTag: ed7c1a53-ab55-4e1b-aea8-07d65bd3f8f7
 
@@ -95,11 +95,11 @@ table _Measures
 
 	/// Exceptions in the previous close period. Blank at the report grain, which is correct: 'the month before all months' is not a month.
 	measure 'Exceptions PM' =
-			VAR CurIdx = SELECTEDVALUE(dim_period[period_index])
+			VAR vCurIdx = SELECTEDVALUE(dim_period[period_index])
 			RETURN
 			    IF(
-			        NOT ISBLANK(CurIdx),
-			        CALCULATE([Total Exceptions], ALL(dim_period), dim_period[period_index] = CurIdx - 1)
+			        NOT ISBLANK(vCurIdx),
+			        CALCULATE([Total Exceptions], ALL(dim_period), dim_period[period_index] = vCurIdx - 1)
 			    )
 		formatString: #,0
 		displayFolder: Comparison
@@ -107,11 +107,11 @@ table _Measures
 
 	/// Prior-period dollar impact.
 	measure 'Exception Impact PM' =
-			VAR CurIdx = SELECTEDVALUE(dim_period[period_index])
+			VAR vCurIdx = SELECTEDVALUE(dim_period[period_index])
 			RETURN
 			    IF(
-			        NOT ISBLANK(CurIdx),
-			        CALCULATE([Exception Dollar Impact], ALL(dim_period), dim_period[period_index] = CurIdx - 1)
+			        NOT ISBLANK(vCurIdx),
+			        CALCULATE([Exception Dollar Impact], ALL(dim_period), dim_period[period_index] = vCurIdx - 1)
 			    )
 		formatString: \$#,0
 		displayFolder: Comparison
@@ -138,13 +138,13 @@ table _Measures
 
 	/// The model decides what 'bad' means, once, instead of every reader deciding for themselves in the meeting.
 	measure 'Match Rate Status' =
-			VAR Gap = [Match Rate] - [Match Rate Target]
+			VAR vGap = [Match Rate] - [Match Rate Target]
 			RETURN
 			    SWITCH(
 			        TRUE(),
 			        ISBLANK([Match Rate]), "No data",
-			        Gap >= 0, "On target",
-			        Gap >= -0.01, "Watch",
+			        vGap >= 0, "On target",
+			        vGap >= -0.01, "Watch",
 			        "Off target"
 			    )
 		displayFolder: Verdict
@@ -164,39 +164,39 @@ table _Measures
 
 	/// Reference label under the callout on the new card visual.
 	measure 'Match Rate Reference' =
-			VAR Gap = [Match Rate vs Target]
-			VAR Above = Gap >= 0
+			VAR vGap = [Match Rate vs Target]
+			VAR vAbove = vGap >= 0
 			RETURN
 			    "Target " & FORMAT([Match Rate Target], "0.0%") & "   "
-			        & IF(Above, "▲", "▼") & " "
-			        & FORMAT(ABS(Gap) * 100, "0.0") & " pts" & IF(Above, " over", " under")
+			        & IF(vAbove, "▲", "▼") & " "
+			        & FORMAT(ABS(vGap) * 100, "0.0") & " pts" & IF(vAbove, " over", " under")
 		displayFolder: Verdict
 		lineageTag: 1fcee59c-2fc2-5ba5-90ab-81c7f29ec0d1
 
 	/// Falls back to the all-period total rather than showing an empty line when no single period is selected.
 	measure 'Exceptions Reference' =
-			VAR Prior = [Exceptions PM]
+			VAR vPrior = [Exceptions PM]
 			RETURN
 			    IF(
-			        ISBLANK(Prior),
+			        ISBLANK(vPrior),
 			        "230 across six periods",
-			        "Prior period " & FORMAT(Prior, "#,0") & "   "
-			            & IF([Total Exceptions] <= Prior, "▼", "▲") & " "
-			            & FORMAT(ABS([Total Exceptions] - Prior), "#,0")
+			        "Prior period " & FORMAT(vPrior, "#,0") & "   "
+			            & IF([Total Exceptions] <= vPrior, "▼", "▲") & " "
+			            & FORMAT(ABS([Total Exceptions] - vPrior), "#,0")
 			    )
 		displayFolder: Verdict
 		lineageTag: 19f29d9d-01c0-5a9a-a131-32fcad4c26c8
 
-	/// Prior-period dollar impact, formatted for the card reference label.
+	/// vPrior-period dollar impact, formatted for the card reference label.
 	measure 'Exception Impact Reference' =
-			VAR Prior = [Exception Impact PM]
+			VAR vPrior = [Exception Impact PM]
 			RETURN
 			    IF(
-			        ISBLANK(Prior),
+			        ISBLANK(vPrior),
 			        "Across all periods in scope",
-			        "Prior period " & FORMAT(Prior, "\$#,0") & "   "
-			            & IF([Exception Dollar Impact] <= Prior, "▼", "▲") & " "
-			            & FORMAT(ABS([Exception Dollar Impact] - Prior), "\$#,0")
+			        "Prior period " & FORMAT(vPrior, "\$#,0") & "   "
+			            & IF([Exception Dollar Impact] <= vPrior, "▼", "▲") & " "
+			            & FORMAT(ABS([Exception Dollar Impact] - vPrior), "\$#,0")
 			    )
 		displayFolder: Verdict
 		lineageTag: 2674a454-fff8-54ce-a6bc-269e35b10227
@@ -214,14 +214,14 @@ table _Measures
 	/// iterating the table walks rows, which is not the axis unless the
 	/// dimension happens to have one row per value.
 	measure 'Exception Type Colour' =
-			VAR Here = [Total Exceptions]
-			VAR Extreme =
+			VAR vHere = [Total Exceptions]
+			VAR vExtreme =
 			    CALCULATE(
 			        MAXX(VALUES(gl_reconciliation_exceptions[exception_type]), [Total Exceptions]),
 			        ALLSELECTED()
 			    )
 			RETURN
-			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+			    IF(vHere = vExtreme, "#FF5C7A", "#454A82")
 		displayFolder: Verdict
 		lineageTag: 8d249e38-8a18-5d46-9a1d-79d4fce0c12c
 
@@ -233,34 +233,34 @@ table _Measures
 	/// iterating the table walks rows, which is not the axis unless the
 	/// dimension happens to have one row per value.
 	measure 'Period Impact Colour' =
-			VAR Here = [Exception Dollar Impact]
-			VAR Extreme =
+			VAR vHere = [Exception Dollar Impact]
+			VAR vExtreme =
 			    CALCULATE(
 			        MAXX(VALUES(dim_period[period]), [Exception Dollar Impact]),
 			        ALLSELECTED()
 			    )
 			RETURN
-			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+			    IF(vHere = vExtreme, "#FF5C7A", "#454A82")
 		displayFolder: Verdict
 		lineageTag: d12f9fa2-a275-5627-a2bd-e8235e4e2a7a
 
 	/// A deterministic narrative. Smart Narrative would write this too, but this version is a measure: it can be unit tested and it cannot drift.
 	measure 'Close Insight' =
-			VAR Rate = [Match Rate]
-			VAR Gap = Rate - [Match Rate Target]
-			VAR Worst =
+			VAR vRate = [Match Rate]
+			VAR vGap = vRate - [Match Rate Target]
+			VAR vWorst =
 			    TOPN(1, VALUES(gl_reconciliation_exceptions[exception_type]), [Total Exceptions], DESC)
-			VAR WorstType = MAXX(Worst, gl_reconciliation_exceptions[exception_type])
-			VAR WorstCount = CALCULATE([Total Exceptions], gl_reconciliation_exceptions[exception_type] = WorstType)
-			VAR WorstShare = DIVIDE(WorstCount, [Total Exceptions])
-			VAR WorstImpact =
-			    CALCULATE([Exception Dollar Impact], gl_reconciliation_exceptions[exception_type] = WorstType)
+			VAR vWorstType = MAXX(vWorst, gl_reconciliation_exceptions[exception_type])
+			VAR vWorstCount = CALCULATE([Total Exceptions], gl_reconciliation_exceptions[exception_type] = vWorstType)
+			VAR vWorstShare = DIVIDE(vWorstCount, [Total Exceptions])
+			VAR vWorstImpact =
+			    CALCULATE([Exception Dollar Impact], gl_reconciliation_exceptions[exception_type] = vWorstType)
 			RETURN
-			    "Match rate " & FORMAT(Rate, "0.0%") & " against a " & FORMAT([Match Rate Target], "0.0%")
-			        & " target — " & IF(Gap >= 0, "on target", FORMAT(ABS(Gap) * 100, "0.0") & " pts short")
-			        & ". " & WorstType & " is the largest class at "
-			        & FORMAT(WorstShare, "0.0%") & " of " & FORMAT([Total Exceptions], "#,0")
-			        & " exceptions, carrying " & FORMAT(WorstImpact, "\$#,0") & " of its own impact."
+			    "Match rate " & FORMAT(vRate, "0.0%") & " against a " & FORMAT([Match Rate Target], "0.0%")
+			        & " target — " & IF(vGap >= 0, "on target", FORMAT(ABS(vGap) * 100, "0.0") & " pts short")
+			        & ". " & vWorstType & " is the largest class at "
+			        & FORMAT(vWorstShare, "0.0%") & " of " & FORMAT([Total Exceptions], "#,0")
+			        & " exceptions, carrying " & FORMAT(vWorstImpact, "\$#,0") & " of its own impact."
 		displayFolder: Verdict
 		lineageTag: ffafd29d-b779-5832-a8a2-a123a06abdc3
 
