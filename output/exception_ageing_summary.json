@@ -7,7 +7,7 @@
   "sla_days": 10,
   "median_days_to_clear": 7.0,
   "mean_days_to_clear": 11.7,
-  "p90_days_to_clear": 29.200000000000017,
+  "p90_days_to_clear": 29.2,
   "worst_days_to_clear": 61,
   "breaches": 95,
   "breach_rate": 0.413,

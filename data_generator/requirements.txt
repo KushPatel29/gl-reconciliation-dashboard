@@ -1,3 +1,15 @@
+# Faker is pinned, the others are not, and the difference matters.
+#
+# generate_gl_data.py draws every posting date from fake.date_between_dates(),
+# which consumes Faker's own seeded generator. A different Faker release makes
+# different draws from the same seed, so the committed source ledger and the
+# one CI regenerates stop matching - and CI asserts the published figures come
+# back byte for byte. It did not fail loudly: it produced a fully rewritten
+# data/journal_control.csv on the Linux runner and passed on Windows.
+#
+# numpy's legacy RandomState is stream-compatible across releases by policy, so
+# the amounts do not need a pin; pandas only formats numbers that are already
+# rounded before they are written.
+faker==40.28.1
 pandas
 numpy
-faker
