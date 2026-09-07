@@ -2,15 +2,15 @@ table _Measures
 	lineageTag: 9b97db27-2385-493b-93cf-5c0c255cd862
 
 	measure 'ERP Total' = SUM(gl_control_totals[erp_total])
-		formatString: #,0.00
+		formatString: \$#,0.00
 		lineageTag: 89e59dbd-1ecd-4be4-9827-d7fba340d812
 
 	measure 'Subledger Total' = SUM(gl_control_totals[subledger_total])
-		formatString: #,0.00
+		formatString: \$#,0.00
 		lineageTag: 49c59d09-1689-4407-bff9-832b38c072da
 
 	measure 'Variance $' = [Subledger Total] - [ERP Total]
-		formatString: #,0.00
+		formatString: \$#,0.00;(\$#,0.00)
 		lineageTag: 9ade3a5a-9fe1-49d7-b485-00663bbef38b
 
 	measure 'Variance %' = DIVIDE([Variance $], ABS([ERP Total]))
@@ -39,7 +39,7 @@ table _Measures
 			    gl_reconciliation_exceptions,
 			    ABS(COALESCE(gl_reconciliation_exceptions[variance_amount], gl_reconciliation_exceptions[erp_amount]))
 			)
-		formatString: #,0.00
+		formatString: \$#,0.00
 		lineageTag: 6d2c88cd-e009-469e-8658-b9abefde9d32
 
 	measure 'Missing Count' = CALCULATE([Total Exceptions], gl_reconciliation_exceptions[exception_type] = "Missing in subledger")
@@ -74,7 +74,7 @@ table _Measures
 		lineageTag: 6dbe3b3e-8b80-49bb-93eb-ad3e5cea3811
 
 	measure 'Cloud Billed $' = SUM(focus_coverage[billed_total])
-		formatString: #,0
+		formatString: \$#,0
 		lineageTag: 3d8446c4-daa0-4c4d-982f-67f6b966d8e9
 
 	measure 'Allocation Coverage %' = DIVIDE(SUM(focus_coverage[allocated_total]), SUM(focus_coverage[billed_total]))
@@ -82,7 +82,7 @@ table _Measures
 		lineageTag: 0e923f17-0663-41b1-a27c-0ca282265d30
 
 	measure 'Untagged Spend $' = SUM(focus_coverage[untagged_total])
-		formatString: #,0
+		formatString: \$#,0
 		lineageTag: 0c0aacf6-7103-4d42-85ef-22439b656d7d
 
 	measure 'Cloud Exceptions' = COUNTROWS(focus_exceptions)
@@ -90,8 +90,179 @@ table _Measures
 		lineageTag: b0fe40c4-bc32-4d25-897f-5fec3bc98df1
 
 	measure 'Cloud Exception $' = SUMX(focus_exceptions, ABS(COALESCE(focus_exceptions[variance_amount], focus_exceptions[erp_amount])))
-		formatString: #,0
+		formatString: \$#,0
 		lineageTag: c939149e-a0d8-4082-8156-beeffea95edb
+
+	/// Exceptions in the previous close period. Blank at the report grain, which is correct: 'the month before all months' is not a month.
+	measure 'Exceptions PM' =
+			VAR CurIdx = SELECTEDVALUE(dim_period[period_index])
+			RETURN
+			    IF(
+			        NOT ISBLANK(CurIdx),
+			        CALCULATE([Total Exceptions], ALL(dim_period), dim_period[period_index] = CurIdx - 1)
+			    )
+		formatString: #,0
+		displayFolder: Comparison
+		lineageTag: 624ffd89-43f0-52d9-907e-2ff034f15ff4
+
+	/// Prior-period dollar impact.
+	measure 'Exception Impact PM' =
+			VAR CurIdx = SELECTEDVALUE(dim_period[period_index])
+			RETURN
+			    IF(
+			        NOT ISBLANK(CurIdx),
+			        CALCULATE([Exception Dollar Impact], ALL(dim_period), dim_period[period_index] = CurIdx - 1)
+			    )
+		formatString: \$#,0
+		displayFolder: Comparison
+		lineageTag: aa081743-15e6-5b73-b81a-79025ffe258b
+
+	/// Signed, so the format string carries the direction and the card does not need a second field to say which way it moved.
+	measure 'Exceptions MoM %' = DIVIDE([Total Exceptions] - [Exceptions PM], [Exceptions PM])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Comparison
+		lineageTag: 01579507-7736-53dc-be36-29bd14b2dbad
+
+	/// Positive means impact grew. Same sign convention as Exceptions MoM %:
+	/// both report change against prior, so a rise in a bad number reads positive.
+	measure 'Exception Impact MoM %' = DIVIDE([Exception Dollar Impact] - [Exception Impact PM], [Exception Impact PM])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Comparison
+		lineageTag: 99de777c-3300-5a7b-9cd8-457fd5d69cbd
+
+	/// The half of the KPI that was missing: 95.7% against what?
+	measure 'Match Rate vs Target' = [Match Rate] - [Match Rate Target]
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Verdict
+		lineageTag: 6659f21d-0e4a-5c56-b544-b58f98c6588c
+
+	/// The model decides what 'bad' means, once, instead of every reader deciding for themselves in the meeting.
+	measure 'Match Rate Status' =
+			VAR Gap = [Match Rate] - [Match Rate Target]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK([Match Rate]), "No data",
+			        Gap >= 0, "On target",
+			        Gap >= -0.01, "Watch",
+			        "Off target"
+			    )
+		displayFolder: Verdict
+		lineageTag: d3daeb5b-6164-5980-853c-d411d7d074e1
+
+	/// Bind to Conditional formatting -> Field value. Hex strings are the Meridian Nocturne semantic colours, so the report and the theme cannot drift apart.
+	measure 'Match Rate Colour' =
+			SWITCH(
+			    [Match Rate Status],
+			    "On target", "#3DD68C",
+			    "Watch", "#F5A524",
+			    "No data", "#454A82",
+			    "#FF5C7A"
+			)
+		displayFolder: Verdict
+		lineageTag: db04b965-a291-56e9-9921-2767a5c7fd50
+
+	/// Reference label under the callout on the new card visual.
+	measure 'Match Rate Reference' =
+			VAR Gap = [Match Rate vs Target]
+			VAR Above = Gap >= 0
+			RETURN
+			    "Target " & FORMAT([Match Rate Target], "0.0%") & "   "
+			        & IF(Above, "▲", "▼") & " "
+			        & FORMAT(ABS(Gap) * 100, "0.0") & " pts" & IF(Above, " over", " under")
+		displayFolder: Verdict
+		lineageTag: 1fcee59c-2fc2-5ba5-90ab-81c7f29ec0d1
+
+	/// Falls back to the all-period total rather than showing an empty line when no single period is selected.
+	measure 'Exceptions Reference' =
+			VAR Prior = [Exceptions PM]
+			RETURN
+			    IF(
+			        ISBLANK(Prior),
+			        "230 across six periods",
+			        "Prior period " & FORMAT(Prior, "#,0") & "   "
+			            & IF([Total Exceptions] <= Prior, "▼", "▲") & " "
+			            & FORMAT(ABS([Total Exceptions] - Prior), "#,0")
+			    )
+		displayFolder: Verdict
+		lineageTag: 19f29d9d-01c0-5a9a-a131-32fcad4c26c8
+
+	/// Prior-period dollar impact, formatted for the card reference label.
+	measure 'Exception Impact Reference' =
+			VAR Prior = [Exception Impact PM]
+			RETURN
+			    IF(
+			        ISBLANK(Prior),
+			        "Across all periods in scope",
+			        "Prior period " & FORMAT(Prior, "\$#,0") & "   "
+			            & IF([Exception Dollar Impact] <= Prior, "▼", "▲") & " "
+			            & FORMAT(ABS([Exception Dollar Impact] - Prior), "\$#,0")
+			    )
+		displayFolder: Verdict
+		lineageTag: 2674a454-fff8-54ce-a6bc-269e35b10227
+
+	/// States the threshold on the card, so the number is not read without it.
+	measure 'Tolerance Reference' = "0.5% materiality on " & FORMAT(DISTINCTCOUNT(gl_control_totals[account_id]), "#,0") & " accounts"
+		displayFolder: Verdict
+		lineageTag: 6b370956-6861-5a4e-9c2a-c2a1f07611bb
+
+	/// Highlights the largest value on the axis and recedes the rest.
+	/// The bare ALLSELECTED() is what makes this work inside a conditional
+	/// format: it restores the VISUAL's filter context, so VALUES() is the
+	/// axis rather than the single data point. Iterating the column alone
+	/// leaves the point's own filter in place and every bar matches itself;
+	/// iterating the table walks rows, which is not the axis unless the
+	/// dimension happens to have one row per value.
+	measure 'Exception Type Colour' =
+			VAR Here = [Total Exceptions]
+			VAR Extreme =
+			    CALCULATE(
+			        MAXX(VALUES(gl_reconciliation_exceptions[exception_type]), [Total Exceptions]),
+			        ALLSELECTED()
+			    )
+			RETURN
+			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+		displayFolder: Verdict
+		lineageTag: 8d249e38-8a18-5d46-9a1d-79d4fce0c12c
+
+	/// Highlights the largest value on the axis and recedes the rest.
+	/// The bare ALLSELECTED() is what makes this work inside a conditional
+	/// format: it restores the VISUAL's filter context, so VALUES() is the
+	/// axis rather than the single data point. Iterating the column alone
+	/// leaves the point's own filter in place and every bar matches itself;
+	/// iterating the table walks rows, which is not the axis unless the
+	/// dimension happens to have one row per value.
+	measure 'Period Impact Colour' =
+			VAR Here = [Exception Dollar Impact]
+			VAR Extreme =
+			    CALCULATE(
+			        MAXX(VALUES(dim_period[period]), [Exception Dollar Impact]),
+			        ALLSELECTED()
+			    )
+			RETURN
+			    IF(Here = Extreme, "#FF5C7A", "#454A82")
+		displayFolder: Verdict
+		lineageTag: d12f9fa2-a275-5627-a2bd-e8235e4e2a7a
+
+	/// A deterministic narrative. Smart Narrative would write this too, but this version is a measure: it can be unit tested and it cannot drift.
+	measure 'Close Insight' =
+			VAR Rate = [Match Rate]
+			VAR Gap = Rate - [Match Rate Target]
+			VAR Worst =
+			    TOPN(1, VALUES(gl_reconciliation_exceptions[exception_type]), [Total Exceptions], DESC)
+			VAR WorstType = MAXX(Worst, gl_reconciliation_exceptions[exception_type])
+			VAR WorstCount = CALCULATE([Total Exceptions], gl_reconciliation_exceptions[exception_type] = WorstType)
+			VAR WorstShare = DIVIDE(WorstCount, [Total Exceptions])
+			VAR WorstImpact =
+			    CALCULATE([Exception Dollar Impact], gl_reconciliation_exceptions[exception_type] = WorstType)
+			RETURN
+			    "Match rate " & FORMAT(Rate, "0.0%") & " against a " & FORMAT([Match Rate Target], "0.0%")
+			        & " target — " & IF(Gap >= 0, "on target", FORMAT(ABS(Gap) * 100, "0.0") & " pts short")
+			        & ". " & WorstType & " is the largest class at "
+			        & FORMAT(WorstShare, "0.0%") & " of " & FORMAT([Total Exceptions], "#,0")
+			        & " exceptions, carrying " & FORMAT(WorstImpact, "\$#,0") & " of its own impact."
+		displayFolder: Verdict
+		lineageTag: ffafd29d-b779-5832-a8a2-a123a06abdc3
 
 	column Value
 		dataType: int64

@@ -17,6 +17,14 @@ table dim_period
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	column period_index
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b6f06afd-55d9-583a-b830-cf9145734f03
+		summarizeBy: none
+		sourceColumn: period_index
+
 	partition dim_period = m
 		mode: import
 		source =
@@ -32,7 +40,12 @@ table dim_period
 				    Combined = Table.Distinct(Table.Combine({CtPeriods, ExPeriods})),
 				    Typed = Table.TransformColumnTypes(Combined, {{"period", type text}}),
 				    AddedStart = Table.AddColumn(Typed, "period_start", each Date.FromText([period] & "-01"), type date),
-				    Sorted = Table.Sort(AddedStart, {{"period", Order.Ascending}})
+				    Sorted = Table.Sort(AddedStart, {{"period", Order.Ascending}}),
+				    // Contiguous month number. dim_period is month grain, so it can
+				    // never be marked as a date table; this is what prior-period
+				    // measures subtract from instead of calling DATEADD.
+				    AddedIndex = Table.AddColumn(Sorted, "period_index",
+				        each Date.Year([period_start]) * 12 + Date.Month([period_start]), Int64.Type)
 				in
-				    Sorted
+				    AddedIndex
 
