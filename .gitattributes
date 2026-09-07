@@ -1,3 +1,10 @@
 * text=auto
 *.png binary
 *.pbix binary
+
+# The workbook is generated, and a test asserts the committed file is exactly
+# what build_workbook.py emits. `text=auto` checks it out with CRLF on Windows
+# while the generator writes LF, so that test failed on a Windows clone and
+# passed on Linux - a gate that depends on who cloned it.
+*.twb text eol=lf
+*.tmdl text eol=lf
