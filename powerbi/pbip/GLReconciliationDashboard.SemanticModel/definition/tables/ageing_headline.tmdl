@@ -1,0 +1,259 @@
+/// One row: the exception-ageing headline figures the cards read.
+table ageing_headline
+	lineageTag: cb646928-06df-531c-a3b5-e6c49e640a57
+
+	column exceptions
+		dataType: int64
+		formatString: #,0
+		lineageTag: 331435d1-912f-5e29-a547-62d431ecc706
+		summarizeBy: none
+		sourceColumn: exceptions
+
+	column cleared
+		dataType: int64
+		formatString: #,0
+		lineageTag: c206402d-a2e6-5818-9871-0f472f365774
+		summarizeBy: none
+		sourceColumn: cleared
+
+	column still_open
+		dataType: int64
+		formatString: #,0
+		lineageTag: 56288e53-bb5e-53fa-8b34-853d258788f8
+		summarizeBy: none
+		sourceColumn: still_open
+
+	column open_exposure
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7ca33014-596e-5da5-b83b-26641dcad346
+		summarizeBy: none
+		sourceColumn: open_exposure
+
+	column total_exposure
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 510cbe3c-4698-575e-96fc-bc240b354c3f
+		summarizeBy: none
+		sourceColumn: total_exposure
+
+	column sla_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3ea85d99-8fe8-53b3-9462-f057d6b6dec6
+		summarizeBy: none
+		sourceColumn: sla_days
+
+	column median_days_to_clear
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a11da2c3-270c-5d92-9252-d3dff403db62
+		summarizeBy: none
+		sourceColumn: median_days_to_clear
+
+	column mean_days_to_clear
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1af8d08b-598d-51cb-81a1-80cc91656daa
+		summarizeBy: none
+		sourceColumn: mean_days_to_clear
+
+	column p90_days_to_clear
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 7484a23d-c410-5486-9f4e-2848db115de6
+		summarizeBy: none
+		sourceColumn: p90_days_to_clear
+
+	column worst_days_to_clear
+		dataType: int64
+		formatString: #,0
+		lineageTag: 552ad099-43b1-5cb5-91c2-247c5dc103f1
+		summarizeBy: none
+		sourceColumn: worst_days_to_clear
+
+	column breaches
+		dataType: int64
+		formatString: #,0
+		lineageTag: f876e3b9-6bdf-5906-be1d-693d8ee3437e
+		summarizeBy: none
+		sourceColumn: breaches
+
+	column breach_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 83636f7a-453d-56c4-a5aa-cde27db97e8e
+		summarizeBy: none
+		sourceColumn: breach_rate
+
+	column slowest_owner
+		dataType: string
+		lineageTag: 0c968937-0581-516f-9c5c-f49b1122d930
+		summarizeBy: none
+		sourceColumn: slowest_owner
+
+	column slowest_owner_median
+		dataType: double
+		formatString: #,0.00
+		lineageTag: a2630125-ce5b-54de-bf55-8ff77dde290f
+		summarizeBy: none
+		sourceColumn: slowest_owner_median
+
+	column slowest_owner_cleared
+		dataType: int64
+		formatString: #,0
+		lineageTag: cec951a9-dad3-51b6-ab5d-70d84a56bf22
+		summarizeBy: none
+		sourceColumn: slowest_owner_cleared
+
+	column slowest_owner_breach_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: b066a733-6f17-53d0-8c14-dd6a1a0d56d9
+		summarizeBy: none
+		sourceColumn: slowest_owner_breach_rate
+
+	column fastest_owner
+		dataType: string
+		lineageTag: dd13f269-348f-505a-bbf9-959eea77276f
+		summarizeBy: none
+		sourceColumn: fastest_owner
+
+	column fastest_owner_median
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 09b5466a-efb1-55f0-923f-6acc249fc252
+		summarizeBy: none
+		sourceColumn: fastest_owner_median
+
+	column owner_spread_multiple
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 227ab6cf-7894-5e08-8a4c-2ee2c352937e
+		summarizeBy: none
+		sourceColumn: owner_spread_multiple
+
+	column worst_tail_owner
+		dataType: string
+		lineageTag: bc4c44d6-6894-5c2b-b349-6d7ce48b0931
+		summarizeBy: none
+		sourceColumn: worst_tail_owner
+
+	column worst_tail_ratio
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5488013e-f80e-59dd-a7f2-c1118cdd003d
+		summarizeBy: none
+		sourceColumn: worst_tail_ratio
+
+	column worst_tail_median
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c189e33e-80b3-5861-98fe-cdf43b405171
+		summarizeBy: none
+		sourceColumn: worst_tail_median
+
+	column worst_tail_mean
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 60c6908c-03e4-5455-8780-7b2725b721ca
+		summarizeBy: none
+		sourceColumn: worst_tail_mean
+
+	column slowest_type
+		dataType: string
+		lineageTag: 593e36b9-f577-533f-8ce2-68ffc739f242
+		summarizeBy: none
+		sourceColumn: slowest_type
+
+	column slowest_type_median
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 6ec61051-4733-51cd-a376-ace9eb61d638
+		summarizeBy: none
+		sourceColumn: slowest_type_median
+
+	column fastest_type
+		dataType: string
+		lineageTag: 444dab2c-bb51-5774-8dfb-16fcf6e203f5
+		summarizeBy: none
+		sourceColumn: fastest_type
+
+	column fastest_type_median
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1467cbe0-6fbd-5840-9057-4472eb6981d4
+		summarizeBy: none
+		sourceColumn: fastest_type_median
+
+	column over_30_days_open
+		dataType: int64
+		formatString: #,0
+		lineageTag: a7163ba7-5470-5467-bfc7-75083790f8ac
+		summarizeBy: none
+		sourceColumn: over_30_days_open
+
+	column oldest_open_days
+		dataType: int64
+		formatString: #,0
+		lineageTag: dc739890-ae79-5b9f-bb7f-0b3866553081
+		summarizeBy: none
+		sourceColumn: oldest_open_days
+
+	column absorbed
+		dataType: int64
+		formatString: #,0
+		lineageTag: 06253ea3-b75f-545c-afe5-aba7684950c2
+		summarizeBy: none
+		sourceColumn: absorbed
+
+	column absorbed_share
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5f103d2a-253a-5ed5-b2dc-4ae4519dcd1a
+		summarizeBy: none
+		sourceColumn: absorbed_share
+
+	column absorbed_exposure
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 25c2a94c-b667-5b66-a9f9-d18e3928dbe5
+		summarizeBy: none
+		sourceColumn: absorbed_exposure
+
+	column top_method
+		dataType: string
+		lineageTag: e2a23d04-a6c7-56b3-8871-fb40f0c6de86
+		summarizeBy: none
+		sourceColumn: top_method
+
+	column top_method_share
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e40bbdbe-8941-5d72-bae3-69909fbbb1cd
+		summarizeBy: none
+		sourceColumn: top_method_share
+
+	column months_backlog_grew
+		dataType: int64
+		formatString: #,0
+		lineageTag: 817664d7-2710-5ded-b164-e4d351494427
+		summarizeBy: none
+		sourceColumn: months_backlog_grew
+
+	column final_backlog
+		dataType: int64
+		formatString: #,0
+		lineageTag: 90490df5-3fb4-5c49-95ee-829a7f385be6
+		summarizeBy: none
+		sourceColumn: final_backlog
+
+	partition ageing_headline = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_ageing_headline.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"exceptions", Int64.Type}, {"cleared", Int64.Type}, {"still_open", Int64.Type}, {"open_exposure", type number}, {"total_exposure", type number}, {"sla_days", Int64.Type}, {"median_days_to_clear", type number}, {"mean_days_to_clear", type number}, {"p90_days_to_clear", type number}, {"worst_days_to_clear", Int64.Type}, {"breaches", Int64.Type}, {"breach_rate", type number}, {"slowest_owner", type text}, {"slowest_owner_median", type number}, {"slowest_owner_cleared", Int64.Type}, {"slowest_owner_breach_rate", type number}, {"fastest_owner", type text}, {"fastest_owner_median", type number}, {"owner_spread_multiple", type number}, {"worst_tail_owner", type text}, {"worst_tail_ratio", type number}, {"worst_tail_median", type number}, {"worst_tail_mean", type number}, {"slowest_type", type text}, {"slowest_type_median", type number}, {"fastest_type", type text}, {"fastest_type_median", type number}, {"over_30_days_open", Int64.Type}, {"oldest_open_days", Int64.Type}, {"absorbed", Int64.Type}, {"absorbed_share", type number}, {"absorbed_exposure", type number}, {"top_method", type text}, {"top_method_share", type number}, {"months_backlog_grew", Int64.Type}, {"final_backlog", Int64.Type}})
+				in
+				    Typed

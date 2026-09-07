@@ -1,0 +1,89 @@
+/// The same clearing cut by exception type: which of the four is quietly consuming the month.
+table exception_sla_by_type
+	lineageTag: 5bb2621e-5b25-5c3f-a7d3-8474e76926a9
+
+	column exception_type
+		dataType: string
+		lineageTag: 40aeee6e-c40d-569d-95f9-83273fb5a595
+		summarizeBy: none
+		sourceColumn: exception_type
+
+	column cleared
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1dc3770c-719c-5c6b-a56a-c53ef3fdfe0b
+		summarizeBy: none
+		sourceColumn: cleared
+
+	column median_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: e7099bc9-8c74-5186-9ab7-c4cc9f33b222
+		summarizeBy: none
+		sourceColumn: median_days
+
+	column mean_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 806625ab-bc8a-507b-a4d6-ff405facd04e
+		summarizeBy: none
+		sourceColumn: mean_days
+
+	column p90_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 783dbf13-9d13-57da-ad0b-655d4fc5af97
+		summarizeBy: none
+		sourceColumn: p90_days
+
+	column worst_days
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e23fb1e7-475c-519b-88f0-98940d161be3
+		summarizeBy: none
+		sourceColumn: worst_days
+
+	column breaches
+		dataType: int64
+		formatString: #,0
+		lineageTag: 37550051-f0ad-50b8-b547-a212a19dd449
+		summarizeBy: none
+		sourceColumn: breaches
+
+	column exposure
+		dataType: double
+		formatString: \$#,0
+		lineageTag: f7176c91-45ec-5e31-aeb6-b2a7b320447b
+		summarizeBy: none
+		sourceColumn: exposure
+
+	column breach_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ee92252c-27bf-5974-ab8f-7670a657d760
+		summarizeBy: none
+		sourceColumn: breach_rate
+
+	column tail_ratio
+		dataType: double
+		formatString: 0.00
+		lineageTag: 392c031f-2db3-5e22-b4eb-6e921376a11c
+		summarizeBy: none
+		sourceColumn: tail_ratio
+
+	column still_open
+		dataType: int64
+		formatString: #,0
+		lineageTag: db1cd6b1-ffeb-5bcf-b9bd-80772bf1a4ad
+		summarizeBy: none
+		sourceColumn: still_open
+
+	partition exception_sla_by_type = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_sla_by_type.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"exception_type", type text}, {"cleared", Int64.Type}, {"median_days", type number}, {"mean_days", type number}, {"p90_days", type number}, {"worst_days", type number}, {"breaches", Int64.Type}, {"exposure", type number}, {"breach_rate", type number}, {"tail_ratio", type number}, {"still_open", Int64.Type}})
+				in
+				    Typed

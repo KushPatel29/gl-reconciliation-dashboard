@@ -1,0 +1,254 @@
+/// One row: the journal-risk headline figures the cards read. A single row cannot be double-counted by a roll-up.
+table risk_headline
+	lineageTag: 83c3cd2e-392f-50e6-8680-2164c7200acc
+
+	column entries
+		dataType: int64
+		formatString: #,0
+		lineageTag: b92cf976-e27f-5af3-bd3f-419634a0944c
+		summarizeBy: none
+		sourceColumn: entries
+
+	column periods
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1a86ecc5-6f86-5a47-87da-c60ec0bd1780
+		summarizeBy: none
+		sourceColumn: periods
+
+	column manual_entries
+		dataType: int64
+		formatString: #,0
+		lineageTag: 20949c20-073f-5789-bec3-31b47855b138
+		summarizeBy: none
+		sourceColumn: manual_entries
+
+	column manual_share
+		dataType: double
+		formatString: #,0.00
+		lineageTag: d28cfa36-b943-533f-a322-d880be361446
+		summarizeBy: none
+		sourceColumn: manual_share
+
+	column manual_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e3e64af2-a78b-55ed-8c48-bbe44d91db89
+		summarizeBy: none
+		sourceColumn: manual_value
+
+	column for_review
+		dataType: int64
+		formatString: #,0
+		lineageTag: 60714b3b-d3ed-5cf2-bdbb-e4ccd38683ab
+		summarizeBy: none
+		sourceColumn: for_review
+
+	column for_review_share_of_manual
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 70be7df9-366d-5330-bb2e-0f8ef1763f38
+		summarizeBy: none
+		sourceColumn: for_review_share_of_manual
+
+	column for_review_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 75c4c563-203c-54d4-a5fe-43372e89bd4b
+		summarizeBy: none
+		sourceColumn: for_review_value
+
+	column review_threshold
+		dataType: int64
+		formatString: #,0
+		lineageTag: d9b9ffd0-85c8-57d3-b271-332c3ec117b2
+		summarizeBy: none
+		sourceColumn: review_threshold
+
+	column self_approved
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9b94695d-7cff-5800-9351-8c7857d7fe2c
+		summarizeBy: none
+		sourceColumn: self_approved
+
+	column self_approved_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e009ae7d-dc20-5a3a-aa07-fa478b4a1530
+		summarizeBy: none
+		sourceColumn: self_approved_value
+
+	column self_approval_top2_share
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 41e518cc-cbaa-563c-80da-54752210cd86
+		summarizeBy: none
+		sourceColumn: self_approval_top2_share
+
+	column self_approval_worst
+		dataType: string
+		lineageTag: 19fe271d-131d-599b-99aa-b707e3d85530
+		summarizeBy: none
+		sourceColumn: self_approval_worst
+
+	column self_approval_worst_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: cede4d01-979b-538b-97d2-2e2c346208b3
+		summarizeBy: none
+		sourceColumn: self_approval_worst_count
+
+	column above_approver_limit
+		dataType: int64
+		formatString: #,0
+		lineageTag: ba6cf63a-ce56-5b76-8c93-a3ef715abb70
+		summarizeBy: none
+		sourceColumn: above_approver_limit
+
+	column above_approver_limit_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 90970a9f-56b2-52d6-93bb-0670b025368d
+		summarizeBy: none
+		sourceColumn: above_approver_limit_value
+
+	column threshold_avoidance
+		dataType: int64
+		formatString: #,0
+		lineageTag: 31f97a18-874c-5b2e-976f-c091442104bb
+		summarizeBy: none
+		sourceColumn: threshold_avoidance
+
+	column threshold_avoidance_value
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 0ba1796a-056c-584b-8cf6-26ca8e52afce
+		summarizeBy: none
+		sourceColumn: threshold_avoidance_value
+
+	column round_dollar
+		dataType: int64
+		formatString: #,0
+		lineageTag: 71d0fd61-5ba3-5323-a0ee-f5c9d83db44e
+		summarizeBy: none
+		sourceColumn: round_dollar
+
+	column after_hours
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9d4d1d58-f7e6-5fdc-8ca8-9f88fdcb08f8
+		summarizeBy: none
+		sourceColumn: after_hours
+
+	column flags_that_discriminate
+		dataType: int64
+		formatString: #,0
+		lineageTag: 61a78489-33b3-5726-8fd0-4f150988ad01
+		summarizeBy: none
+		sourceColumn: flags_that_discriminate
+
+	column flags_that_do_not
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9ea03231-aec8-5cd7-a3c7-e0a7a76ec564
+		summarizeBy: none
+		sourceColumn: flags_that_do_not
+
+	column weekend_manual_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 0a48782d-2f05-58a2-92db-9562658f779b
+		summarizeBy: none
+		sourceColumn: weekend_manual_rate
+
+	column weekend_interfaced_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: edf430db-d130-5de8-bb46-22db8898b823
+		summarizeBy: none
+		sourceColumn: weekend_interfaced_rate
+
+	column after_hours_close_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: ba29026b-41e9-57ab-8b81-7976a788de17
+		summarizeBy: none
+		sourceColumn: after_hours_close_rate
+
+	column after_hours_normal_rate
+		dataType: double
+		formatString: #,0.00
+		lineageTag: ec751627-d44d-5e2e-832a-0af3cdd7797e
+		summarizeBy: none
+		sourceColumn: after_hours_normal_rate
+
+	column worst_poster
+		dataType: string
+		lineageTag: f4f1c7d0-3127-5c0c-bda1-3e8797ea5104
+		summarizeBy: none
+		sourceColumn: worst_poster
+
+	column worst_poster_role
+		dataType: string
+		lineageTag: e82e7130-0d97-5d26-bb3c-c0361e1089ca
+		summarizeBy: none
+		sourceColumn: worst_poster_role
+
+	column worst_poster_score
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 2918e13e-0111-583a-a2e6-e5e3ec0d8600
+		summarizeBy: none
+		sourceColumn: worst_poster_score
+
+	column worst_poster_entries
+		dataType: int64
+		formatString: #,0
+		lineageTag: bbc9deb6-1f4b-5965-8dd8-1b068b643101
+		summarizeBy: none
+		sourceColumn: worst_poster_entries
+
+	column benford_groups
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0183d6f7-fb63-503d-b2b6-8292684c2b90
+		summarizeBy: none
+		sourceColumn: benford_groups
+
+	column benford_deviating
+		dataType: int64
+		formatString: #,0
+		lineageTag: e975f139-9f2b-5ba9-b7c0-25fc8f0f03d9
+		summarizeBy: none
+		sourceColumn: benford_deviating
+
+	column benford_worst
+		dataType: string
+		lineageTag: 126e2712-6b41-589d-957e-e12fbd2429a9
+		summarizeBy: none
+		sourceColumn: benford_worst
+
+	column benford_worst_chi2
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 88790240-be62-5d57-8578-85fdb479b370
+		summarizeBy: none
+		sourceColumn: benford_worst_chi2
+
+	column benford_critical_5pct
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e7470c47-99ae-5eac-a741-beb64be1844b
+		summarizeBy: none
+		sourceColumn: benford_critical_5pct
+
+	partition risk_headline = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\journal_risk_headline.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"entries", Int64.Type}, {"periods", Int64.Type}, {"manual_entries", Int64.Type}, {"manual_share", type number}, {"manual_value", type number}, {"for_review", Int64.Type}, {"for_review_share_of_manual", type number}, {"for_review_value", type number}, {"review_threshold", Int64.Type}, {"self_approved", Int64.Type}, {"self_approved_value", type number}, {"self_approval_top2_share", type number}, {"self_approval_worst", type text}, {"self_approval_worst_count", Int64.Type}, {"above_approver_limit", Int64.Type}, {"above_approver_limit_value", type number}, {"threshold_avoidance", Int64.Type}, {"threshold_avoidance_value", type number}, {"round_dollar", Int64.Type}, {"after_hours", Int64.Type}, {"flags_that_discriminate", Int64.Type}, {"flags_that_do_not", Int64.Type}, {"weekend_manual_rate", type number}, {"weekend_interfaced_rate", type number}, {"after_hours_close_rate", type number}, {"after_hours_normal_rate", type number}, {"worst_poster", type text}, {"worst_poster_role", type text}, {"worst_poster_score", type number}, {"worst_poster_entries", Int64.Type}, {"benford_groups", Int64.Type}, {"benford_deviating", Int64.Type}, {"benford_worst", type text}, {"benford_worst_chi2", type number}, {"benford_critical_5pct", type number}})
+				in
+				    Typed

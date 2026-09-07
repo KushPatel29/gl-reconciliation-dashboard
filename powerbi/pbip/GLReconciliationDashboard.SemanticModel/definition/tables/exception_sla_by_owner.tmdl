@@ -1,0 +1,89 @@
+/// Clearing speed per owner against a 10-day SLA. Median and mean are both here because they disagree, and the disagreement separates a slow queue from one with a long tail - different problems, different fixes.
+table exception_sla_by_owner
+	lineageTag: aa8c815d-5a2e-54d2-87da-970f7a696668
+
+	column owner
+		dataType: string
+		lineageTag: 8aa1a2d0-b492-5f4d-8360-c1ee2fc08408
+		summarizeBy: none
+		sourceColumn: owner
+
+	column cleared
+		dataType: int64
+		formatString: #,0
+		lineageTag: 66220b69-c626-5860-8aa0-871e8adb4f43
+		summarizeBy: none
+		sourceColumn: cleared
+
+	column median_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 3ef82569-2da2-5998-9122-f508aacc5ab7
+		summarizeBy: none
+		sourceColumn: median_days
+
+	column mean_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: c58b2e9a-d660-5a45-ae75-a1a8b10a4277
+		summarizeBy: none
+		sourceColumn: mean_days
+
+	column p90_days
+		dataType: double
+		formatString: 0.0
+		lineageTag: 0b234e5b-7527-51d6-a5bd-5dbd32dfe78a
+		summarizeBy: none
+		sourceColumn: p90_days
+
+	column worst_days
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 70d866a2-d52c-5739-8379-9063f70a85a4
+		summarizeBy: none
+		sourceColumn: worst_days
+
+	column breaches
+		dataType: int64
+		formatString: #,0
+		lineageTag: 56020b51-bd51-5099-81f2-69a9be79a150
+		summarizeBy: none
+		sourceColumn: breaches
+
+	column exposure
+		dataType: double
+		formatString: \$#,0
+		lineageTag: a3dd5742-abd5-575b-9f81-d57c322639aa
+		summarizeBy: none
+		sourceColumn: exposure
+
+	column breach_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e46dea05-964b-5e4a-bec7-7aa91af682ec
+		summarizeBy: none
+		sourceColumn: breach_rate
+
+	column tail_ratio
+		dataType: double
+		formatString: 0.00
+		lineageTag: ae6e8f2d-a9b8-5d9a-a02f-a7b08359b59c
+		summarizeBy: none
+		sourceColumn: tail_ratio
+
+	column still_open
+		dataType: int64
+		formatString: #,0
+		lineageTag: a35c4481-56dc-5e88-b5a8-a513315d88ce
+		summarizeBy: none
+		sourceColumn: still_open
+
+	partition exception_sla_by_owner = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_sla_by_owner.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"owner", type text}, {"cleared", Int64.Type}, {"median_days", type number}, {"mean_days", type number}, {"p90_days", type number}, {"worst_days", type number}, {"breaches", Int64.Type}, {"exposure", type number}, {"breach_rate", type number}, {"tail_ratio", type number}, {"still_open", Int64.Type}})
+				in
+				    Typed

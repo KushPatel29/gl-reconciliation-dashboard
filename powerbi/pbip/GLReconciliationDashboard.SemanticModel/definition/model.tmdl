@@ -24,3 +24,24 @@ ref table focus_exceptions
 ref table focus_control_totals
 ref table focus_dim_account
 
+ref table journal_risk_entries
+
+ref table journal_risk_flags
+
+ref table journal_risk_by_user
+
+ref table benford_by_dimension
+
+ref table exception_ageing
+
+ref table exception_sla_by_owner
+
+ref table exception_sla_by_type
+
+ref table exception_throughput
+
+ref table exception_clear_methods
+
+ref table risk_headline
+
+ref table ageing_headline

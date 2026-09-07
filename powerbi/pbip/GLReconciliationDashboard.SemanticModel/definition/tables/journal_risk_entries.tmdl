@@ -1,0 +1,165 @@
+/// Every manual journal entry with each control test applied and a composite risk score. Interfaced and recurring entries are excluded on purpose: they inherit the controls of the system that raised them, and scoring a scheduled job for posting at 03:00 is how a monitoring programme fills with noise. Published by engine/journal_risk.py.
+table journal_risk_entries
+	lineageTag: 60c22182-d5aa-5a7d-8e00-6f15c362db88
+
+	column transaction_id
+		dataType: string
+		lineageTag: 59bdc1dd-be08-5159-b6c9-7640d20337f6
+		summarizeBy: none
+		sourceColumn: transaction_id
+
+	column period
+		dataType: string
+		lineageTag: 17a91174-fdd5-505d-8183-9e1903aa9ebf
+		summarizeBy: none
+		sourceColumn: period
+
+	column posted_timestamp
+		dataType: string
+		lineageTag: 88af4445-14f9-5bcf-b827-5f8de42cd175
+		summarizeBy: none
+		sourceColumn: posted_timestamp
+
+	column account_name
+		dataType: string
+		lineageTag: b993ec4c-46a8-54ef-9a50-478479fe6057
+		summarizeBy: none
+		sourceColumn: account_name
+
+	column cost_center
+		dataType: string
+		lineageTag: 4ea1afea-1774-5f40-ac9a-47c826fefc3c
+		summarizeBy: none
+		sourceColumn: cost_center
+
+	column journal_source
+		dataType: string
+		lineageTag: 6020b83f-5349-580a-a7ca-5c470c3c4304
+		summarizeBy: none
+		sourceColumn: journal_source
+
+	column poster
+		dataType: string
+		lineageTag: 86a861e8-28f8-59fd-b1ec-dd9ca682c0a8
+		summarizeBy: none
+		sourceColumn: poster
+
+	column poster_role
+		dataType: string
+		lineageTag: 24d61e63-7a2e-5caf-9ec6-eae9f028c3e7
+		summarizeBy: none
+		sourceColumn: poster_role
+
+	column approver
+		dataType: string
+		lineageTag: 9fe8cb6e-e126-55cc-acb5-0682bb2b5921
+		summarizeBy: none
+		sourceColumn: approver
+
+	column approver_limit
+		dataType: int64
+		formatString: \$#,0
+		lineageTag: de1e157b-e973-54d7-9895-cdfe00d62f4c
+		summarizeBy: none
+		sourceColumn: approver_limit
+
+	column control_amount
+		dataType: double
+		formatString: \$#,0
+		lineageTag: b84498c9-b938-5007-8a4d-21ab8b1cf812
+		summarizeBy: none
+		sourceColumn: control_amount
+
+	column abs_amount
+		dataType: double
+		formatString: \$#,0
+		lineageTag: e75a67d5-9167-5f9b-9c47-ee53d239e0e4
+		summarizeBy: none
+		sourceColumn: abs_amount
+
+	column self_approved
+		dataType: int64
+		formatString: #,0
+		lineageTag: d3249e13-4ade-5efd-8d88-d29a8f90c017
+		summarizeBy: none
+		sourceColumn: self_approved
+
+	column above_approver_limit
+		dataType: int64
+		formatString: #,0
+		lineageTag: 99c2796e-3b56-56c0-9329-07c29e948f51
+		summarizeBy: none
+		sourceColumn: above_approver_limit
+
+	column threshold_avoidance
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5ac97dd5-430e-5f8d-ba5d-ab8da573d8ce
+		summarizeBy: none
+		sourceColumn: threshold_avoidance
+
+	column round_dollar
+		dataType: int64
+		formatString: #,0
+		lineageTag: d25819af-bfd4-554a-8a5a-cdecac20ac1f
+		summarizeBy: none
+		sourceColumn: round_dollar
+
+	column after_hours
+		dataType: int64
+		formatString: #,0
+		lineageTag: eb2139c0-a4e8-5bee-aa8b-65deee3d5191
+		summarizeBy: none
+		sourceColumn: after_hours
+
+	column close_window
+		dataType: int64
+		formatString: #,0
+		lineageTag: c91bfec6-3608-5b40-be5c-6d73748110c7
+		summarizeBy: none
+		sourceColumn: close_window
+
+	column reversal
+		dataType: int64
+		formatString: #,0
+		lineageTag: dc4b0285-ef1f-5525-8db2-bc86d090f43e
+		summarizeBy: none
+		sourceColumn: reversal
+
+	column weekend
+		dataType: int64
+		formatString: #,0
+		lineageTag: 48296a91-f962-515c-8b55-9fd4c12926ff
+		summarizeBy: none
+		sourceColumn: weekend
+
+	column flags_fired
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5058f1fa-72fc-5809-ab68-f85eacb8f6c0
+		summarizeBy: none
+		sourceColumn: flags_fired
+
+	column risk_score
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0699b400-5a4e-5083-978c-80f2a1d6521b
+		summarizeBy: none
+		sourceColumn: risk_score
+
+	column for_review
+		dataType: int64
+		formatString: #,0
+		lineageTag: ca08f3b6-04f2-56df-9ea3-a4a517370119
+		summarizeBy: none
+		sourceColumn: for_review
+
+	partition journal_risk_entries = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\journal_risk_entries.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"transaction_id", type text}, {"period", type text}, {"posted_timestamp", type text}, {"account_name", type text}, {"cost_center", type text}, {"journal_source", type text}, {"poster", type text}, {"poster_role", type text}, {"approver", type text}, {"approver_limit", Int64.Type}, {"control_amount", type number}, {"abs_amount", type number}, {"self_approved", Int64.Type}, {"above_approver_limit", Int64.Type}, {"threshold_avoidance", Int64.Type}, {"round_dollar", Int64.Type}, {"after_hours", Int64.Type}, {"close_window", Int64.Type}, {"reversal", Int64.Type}, {"weekend", Int64.Type}, {"flags_fired", Int64.Type}, {"risk_score", Int64.Type}, {"for_review", Int64.Type}})
+				in
+				    Typed

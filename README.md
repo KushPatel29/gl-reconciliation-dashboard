@@ -5,7 +5,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-5%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
 ![Tableau](https://img.shields.io/badge/Tableau-generated%20.twb-E97627?logo=tableau&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-117%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-213%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Every BI resume says "reconciled GL to subledger." Almost nobody can show
@@ -52,7 +52,7 @@ fresh clone in seconds with no database to install — what you read in
 
 ## The dashboard
 
-Five Power BI pages, hand-authored as code (TMDL semantic model + PBIR
+Seven Power BI pages, hand-authored as code (TMDL semantic model + PBIR
 report definition) in [`powerbi/pbip/`](powerbi/pbip/) — open
 `GLReconciliationDashboard.pbip` in Power BI Desktop and hit Refresh.
 
@@ -69,10 +69,21 @@ exception count and dollar impact, accounts out of tolerance:
 
 ![Exception Detail](powerbi/screenshots/03-exception-detail.png)
 
+**Exception Ageing** — what happened to the exceptions after they were
+found: the ageing ladder, clearing speed by owner against the SLA, and opened
+against cleared with the backlog it leaves behind:
+
+![Exception Ageing](powerbi/screenshots/04-exception-ageing.png)
+
+**Journal Entry Risk** — the controls test on every entry rather than a sample
+of forty, with each test scored against a population it should not fire on:
+
+![Journal Entry Risk](powerbi/screenshots/05-journal-entry-risk.png)
+
 **Close Insights** — match-rate gauge vs the 98% SLA, variance waterfall by
 account, exception mix and impact trend:
 
-![Close Insights](powerbi/screenshots/04-close-insights.png)
+![Close Insights](powerbi/screenshots/06-close-insights.png)
 
 ## Reconciliation is a control, not a report
 
@@ -94,6 +105,128 @@ The pytest suite doubles as control testing. An auditor doesn't take your
 word that a control works — they re-perform it. That's literally what the
 tests do: corrupt the data in a known way, run the control, confirm it
 catches exactly what it claims to catch.
+
+## Whether the ledgers agree is one question. Whether the entries were posted under control is another.
+
+Reconciliation asks the first. Journal-entry testing asks the second, and it is
+what an internal audit function, an external auditor's JE procedure, and a
+continuous-controls-monitoring programme all open with. Historically it was
+answered on a sample of forty entries pulled by hand.
+[`engine/journal_risk.py`](engine/journal_risk.py) tests all
+5,400, which is the entire argument for doing it in the warehouse.
+
+The ledger extract had no author. It records what was posted and where — enough
+to reconcile, nothing like enough to control — so
+[`data_generator/generate_journal_detail.py`](data_generator/generate_journal_detail.py)
+adds the three files that were missing: `dim_user.csv` (who works in finance
+and what they may approve), `journal_control.csv` (author, approver, timestamp,
+source system, reversal — one row per existing transaction) and
+`exception_workflow.csv` (owner, opened, cleared, method). All additive:
+`source_erp_gl.csv` and the subledger are untouched and every existing figure
+in this repo keeps its value.
+
+### Most control tests are noise, and the report says which
+
+1,412 of the 5,400 entries are manual
+(26.2%), worth $5,020,901, and every other
+test is conditioned on that — an interfaced entry inherits the controls of the
+system that raised it, and scoring a scheduled job for posting at 03:00 is how
+a monitoring programme fills with noise and stops being read.
+
+Then each test is measured against a population it should **not** fire on. A
+test that hits as often on interfaced entries as on manual ones is describing
+the ledger rather than the behaviour, and
+**3 of 8
+fail that check**: weekend, close_window, reversal. Weekend posting runs
+28.7% on manual entries against
+28.4% on interfaced ones, so it is reported as a
+non-finding and carries a weight of zero — rather than as
+405 exceptions nobody would
+have read.
+
+After-hours needs a different baseline again: a scheduled job posts at night by
+design, so the automated population is 100% out of hours and comparing a human
+to it proves nothing. Manual entries in the close window are compared to manual
+entries away from it — same people, same authority, different time pressure —
+and the excess is real at 23.6% against
+7.4%.
+
+### What is actually wrong
+
+| test | entries | value |
+|---|---|---|
+| posted and approved by the same person | 120 | $416,746 |
+| approved above the approver's own limit | 88 | $1,274,849 |
+| amount sitting just under an approval limit | 106 | $652,461 |
+| round thousands | 20 | |
+| outside business hours | 135 | |
+
+Threshold avoidance is the most-cited red flag in journal testing and is
+invisible unless something looks for it deliberately: an entry at $9,850
+against a $10,000 limit passes every other control in the list.
+
+The self-approval finding is worth more than its count.
+**88% of it is two people**, and
+T. Nakamura alone accounts for
+55. That is a bottleneck being worked around,
+not a policy nobody understands — and it is a different fix.
+
+The composite score uses published weights (self-approval 30, over-limit 25,
+threshold avoidance 20, round dollar 10, after-hours 8) and
+134 entries clear the review threshold —
+9.5% of manual entries,
+$578,644. Sized deliberately: a list of a few hundred is
+a morning's work, and a control report nobody can finish is a control report
+nobody starts.
+
+Benford's law is run per cost centre with a chi-square statistic on 8 degrees
+of freedom against the published critical value of
+15.507, and
+0 of 6 cost centres exceed it.
+Benford is a screen, not evidence: a population that conforms is not clean and
+one that deviates is not fraudulent. A test feeds the function a deliberately
+rigged, 80%-leading-9 population and requires it to fail, because a Benford
+implementation that passes everything is not testing anything.
+
+## What happened to the exceptions afterwards
+
+`run_reconciliation.py` identifies 230 differences and stops
+there, which is where most reconciliation tooling stops. It is also where the
+only question a controller actually has begins: is the close getting better or
+worse, and whose queue is holding it up.
+
+[`engine/exception_ageing.py`](engine/exception_ageing.py) answers it.
+219 cleared and 11 are still open carrying
+$20,372; the median clears in
+7 days against a mean of
+11.7, a P90 of 29 and a
+worst of 61, and 95
+(41.3%) breached the 10-day SLA.
+
+**Median and mean are both reported because they disagree, and the
+disagreement is the finding.** X. Ferreira takes
+8.2× as long as S. Kowalski on the same
+work — a uniformly slow queue. S. Kowalski has the opposite
+problem: a median of 2 days against a mean of
+4.1, which is a handful of exceptions nobody has
+touched rather than a slow queue, and it needs a different fix. Averaging the
+two together produces one number that describes neither.
+
+72 of 219 (33%) were closed by
+accepting them as timing or writing them off below threshold — resolutions that
+clear the ticket and change nothing upstream, carrying
+$232,823. Those exceptions come back next month. The
+backlog grew in 4 of six months and finished at
+11.
+
+One join bug is worth recording, because it is the kind that never errors:
+`transaction_id` does **not** identify an exception — 184 postings produce
+230 of them, because one entry can be both missing from the
+subledger and a timing difference. Joining on it alone fanned the workflow out
+to 310 rows and inflated every count, median and dollar on the page by a third,
+silently. The join now carries `validate="one_to_one"`, and
+[`tests/test_exception_ageing.py`](tests/test_exception_ageing.py) adds every
+cut back up and demands it land on 230.
 
 ## Act two: I pointed the same engine at a cloud bill
 
@@ -130,7 +263,7 @@ you: **allocation coverage**, the share of each month's billed spend that
 reached a cost-center owner. Here it's 99.0%, and the gap is precisely the
 untagged resources. All of it lands on its own dashboard page:
 
-![Cloud Chargeback](powerbi/screenshots/05-cloud-chargeback.png)
+![Cloud Chargeback](powerbi/screenshots/07-cloud-chargeback.png)
 
 And because the GL side gets a control ID, the cloud side gets one too:
 
@@ -177,12 +310,21 @@ flowchart LR
 ```
 data_generator/     synthetic ERP + subledger GL generator (Python)
 data/               generated CSVs (dim_account, dim_cost_center, two GL sources)
+                     + dim_user, journal_control (author/approver/timestamp/source)
+                     and exception_workflow (owner, opened, cleared, method)
 sql/                reconciliation_checks.sql — T-SQL reference for SQL Server/Fabric
 finops/             FinOps mode — FOCUS billing generator, mapping, coverage KPI
 engine/             SQLite-backed runner: the same SQL, executable with no DB setup
+                     journal_risk.py — nine control tests on every entry, each
+                     scored against a population it should not fire on, plus
+                     Benford by cost centre
+                     exception_ageing.py — ageing ladder, clearing SLA by owner,
+                     throughput and the resolutions that fix nothing
 powerbi/            DAX measure library, build guide, and the ready-to-open
-                     PBIP project (TMDL model + PBIR report, 5 pages)
-tests/              pytest suite proving each discrepancy class is detected (GL + FinOps)
+                     PBIP project (TMDL model + PBIR report, 7 pages)
+tests/              pytest suite proving each discrepancy class is detected (GL +
+                     FinOps), the control tests, the exception workflow, the
+                     README's own prose, and the TMDL shape Desktop must parse
 output/             engine results — control totals, exception log, summary
 .github/workflows/  CI — regenerates data, runs the engine, runs the tests
 ```
@@ -193,6 +335,10 @@ output/             engine results — control totals, exception log, summary
 pip install -r data_generator/requirements.txt
 python data_generator/generate_gl_data.py     # create the two GL sources
 python engine/run_reconciliation.py           # run the reconciliation
+python data_generator/generate_journal_detail.py  # authors, approvers, timestamps,
+                                              #   and the exception workflow
+python engine/journal_risk.py                 # journal-entry control tests + Benford
+python engine/exception_ageing.py             # ageing, clearing SLA by owner
 python finops/generate_focus_data.py          # FinOps mode: the cloud bill
 python finops/run_finops_recon.py             # ...reconciled + coverage KPI
 ```
@@ -206,7 +352,7 @@ Verify the claims:
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 117 tests — every discrepancy class found, every dollar accounted for,
+pytest tests/ -v    # 213 tests — every discrepancy class found, every dollar accounted for,
                     # in GL mode and FinOps mode, plus Power BI and Tableau workbook
                     # integrity and the semantic-model bindings (every column the
                     # model binds exists in the CSV it reads; a renamed one renders

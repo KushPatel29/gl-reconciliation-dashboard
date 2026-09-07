@@ -1,0 +1,5 @@
+age_bucket,exceptions,exposure,oldest_days,bucket_order
+0-7 days,0.0,0.0,0.0,0
+8-14 days,9.0,14808.99,14.0,1
+15-30 days,0.0,0.0,0.0,2
+over 30 days,2.0,5563.14,42.0,3

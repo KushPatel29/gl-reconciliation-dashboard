@@ -1,0 +1,5 @@
+exception_type,cleared,median_days,mean_days,p90_days,worst_days,breaches,exposure,breach_rate,tail_ratio,still_open
+Missing in subledger,64,7.5,13.7,35.4,61.0,27,233977.04,0.4219,1.83,4
+Amount mismatch,56,7.0,11.7,27.0,54.0,23,10436.07,0.4107,1.67,5
+Timing difference,46,7.0,13.0,33.0,50.0,19,183446.01,0.413,1.86,0
+Duplicate posting,53,5.0,8.0,16.6,34.0,17,375079.1,0.3208,1.6,2

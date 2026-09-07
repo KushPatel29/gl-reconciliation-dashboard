@@ -1,0 +1,12 @@
+user_id,user_name,role,department,approval_limit,is_service_account
+U001,R. Almeida,Financial Controller,Finance,250000,0
+U002,S. Kowalski,Assistant Controller,Finance,100000,0
+U003,T. Nakamura,Senior Accountant,Finance,25000,0
+U004,U. Brennan,Senior Accountant,Finance,25000,0
+U005,V. Adeyemi,Staff Accountant,Finance,10000,0
+U006,W. Lindgren,Staff Accountant,Finance,10000,0
+U007,X. Ferreira,AP Specialist,Operations,5000,0
+U008,Y. Volkov,AR Specialist,Operations,5000,0
+U009,Z. Osei,FP&A Analyst,Finance,0,0
+U010,SYS_ERP_INTERFACE,Automated interface,IT,0,1
+U011,SYS_RECURRING,Recurring journal engine,IT,0,1

@@ -1,0 +1,9 @@
+flag,weight,manual_entries_flagged,manual_rate,baseline,baseline_rate,excess_ratio,baseline_can_fire,discriminates
+weekend,0,406,0.2875,interfaced entries,0.2839,1.01,1,0
+close_window,4,191,0.1353,interfaced entries,0.1329,1.02,1,0
+after_hours,8,135,0.2356,manual entries away from the close,0.0737,3.2,1,1
+self_approved,30,120,0.085,interfaced entries,0.0,,0,1
+threshold_avoidance,20,106,0.0751,interfaced entries,0.0,,0,1
+above_approver_limit,25,88,0.0623,interfaced entries,0.0,,0,1
+reversal,3,33,0.0234,interfaced entries,0.0361,0.65,1,0
+round_dollar,10,20,0.0142,interfaced entries,0.0,,0,1

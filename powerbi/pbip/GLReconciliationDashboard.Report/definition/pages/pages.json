@@ -4,6 +4,8 @@
     "section_close_scorecard",
     "section_variance_account",
     "section_exception_detail",
+    "section_exception_ageing",
+    "section_journal_risk",
     "section_close_insights",
     "section_cloud_chargeback"
   ],

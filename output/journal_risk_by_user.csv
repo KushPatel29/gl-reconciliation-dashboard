@@ -1,0 +1,10 @@
+posted_by,poster,poster_role,entries,value,risk_score,for_review,self_approved,above_approver_limit,threshold_avoidance,round_dollar,after_hours,close_window,reversal,avg_risk_score,review_rate
+U007,X. Ferreira,AP Specialist,161,492114.44,2229,50,50,9,12,1,16,30,2,13.8,0.3106
+U003,T. Nakamura,Senior Accountant,154,478918.01,2050,55,55,2,7,2,11,21,6,13.3,0.3571
+U006,W. Lindgren,Staff Accountant,164,694317.31,1016,7,2,16,17,2,13,20,4,6.2,0.0427
+U001,R. Almeida,Financial Controller,151,655538.35,967,8,5,12,13,2,20,17,3,6.4,0.053
+U005,V. Adeyemi,Staff Accountant,165,570924.58,851,4,4,10,12,2,15,23,3,5.2,0.0242
+U002,S. Kowalski,Assistant Controller,165,492563.52,818,3,1,13,8,5,19,20,7,5.0,0.0182
+U004,U. Brennan,Senior Accountant,142,518823.51,772,5,2,10,13,1,12,21,4,5.4,0.0352
+U008,Y. Volkov,AR Specialist,150,600538.27,682,1,1,6,14,3,14,20,0,4.5,0.0067
+U009,Z. Osei,FP&A Analyst,160,517163.36,678,1,0,10,10,2,15,19,4,4.2,0.0062

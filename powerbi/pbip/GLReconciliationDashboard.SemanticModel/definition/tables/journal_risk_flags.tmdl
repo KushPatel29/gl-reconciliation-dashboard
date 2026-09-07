@@ -1,0 +1,74 @@
+/// Each control test's hit rate against a population it should NOT fire on. A test that fires as often on interfaced entries as on manual ones is describing the ledger rather than the behaviour, and is reported as a non-finding instead of several hundred exceptions.
+table journal_risk_flags
+	lineageTag: 99139082-af5c-5460-906f-a65a7b856b57
+
+	column flag
+		dataType: string
+		lineageTag: 734eca04-c4f0-5fbb-807c-71aa4ad77e4c
+		summarizeBy: none
+		sourceColumn: flag
+
+	column weight
+		dataType: int64
+		formatString: #,0
+		lineageTag: fba26302-8b28-56f9-b3ea-5d735add36d6
+		summarizeBy: none
+		sourceColumn: weight
+
+	column manual_entries_flagged
+		dataType: int64
+		formatString: #,0
+		lineageTag: 50e36489-1c47-59d8-818a-3a7b3e3ddea6
+		summarizeBy: none
+		sourceColumn: manual_entries_flagged
+
+	column manual_rate
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 4332da2a-1d8e-5513-bb2f-318fd608ce7b
+		summarizeBy: none
+		sourceColumn: manual_rate
+
+	column baseline
+		dataType: string
+		lineageTag: 30caa472-9adb-5092-9090-04f7442ea5d7
+		summarizeBy: none
+		sourceColumn: baseline
+
+	column baseline_rate
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 7790b770-8aae-5828-9a10-03f6387db99c
+		summarizeBy: none
+		sourceColumn: baseline_rate
+
+	column excess_ratio
+		dataType: double
+		formatString: 0.00
+		lineageTag: f72aac64-2a79-5143-a787-c61f29fdcd1e
+		summarizeBy: none
+		sourceColumn: excess_ratio
+
+	column baseline_can_fire
+		dataType: int64
+		formatString: #,0
+		lineageTag: e2fdb38e-0c8b-5bab-b156-b1835beec876
+		summarizeBy: none
+		sourceColumn: baseline_can_fire
+
+	column discriminates
+		dataType: int64
+		formatString: #,0
+		lineageTag: c79f151e-68b7-5d73-8d5e-f139b7297108
+		summarizeBy: none
+		sourceColumn: discriminates
+
+	partition journal_risk_flags = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\journal_risk_flags.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"flag", type text}, {"weight", Int64.Type}, {"manual_entries_flagged", Int64.Type}, {"manual_rate", type number}, {"baseline", type text}, {"baseline_rate", type number}, {"excess_ratio", type number}, {"baseline_can_fire", Int64.Type}, {"discriminates", Int64.Type}})
+				in
+				    Typed

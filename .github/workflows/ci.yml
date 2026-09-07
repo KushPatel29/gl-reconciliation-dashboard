@@ -30,6 +30,16 @@ jobs:
       - name: Run reconciliation engine end-to-end
         run: python engine/run_reconciliation.py
 
+      - name: Journal-entry control tests and exception ageing
+        run: |
+          python data_generator/generate_journal_detail.py
+          python engine/journal_risk.py
+          python engine/exception_ageing.py
+
+      - name: The published control figures must be reproducible byte for byte
+        run: |
+          git diff --exit-code --             output/journal_risk_entries.csv output/journal_risk_flags.csv             output/journal_risk_by_user.csv output/benford_by_dimension.csv             output/journal_risk_summary.json output/journal_risk_headline.csv             output/exception_ageing.csv output/exception_sla_by_owner.csv             output/exception_sla_by_type.csv output/exception_throughput.csv             output/exception_clear_methods.csv             output/exception_ageing_summary.json             output/exception_ageing_headline.csv             data/dim_user.csv data/journal_control.csv             data/exception_workflow.csv
+
       - name: FinOps mode — FOCUS billing demo through the unmodified engine
         run: python finops/focus_demo.py
 

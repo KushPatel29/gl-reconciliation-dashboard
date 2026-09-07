@@ -1,0 +1,183 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "visual206",
+  "position": {
+    "x": 20,
+    "y": 418,
+    "z": 1000,
+    "height": 188,
+    "width": 760,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "transaction_id"
+                }
+              },
+              "queryRef": "journal_risk_entries.transaction_id",
+              "nativeQueryRef": "transaction_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "poster"
+                }
+              },
+              "queryRef": "journal_risk_entries.poster",
+              "nativeQueryRef": "poster"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "approver"
+                }
+              },
+              "queryRef": "journal_risk_entries.approver",
+              "nativeQueryRef": "approver"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "account_name"
+                }
+              },
+              "queryRef": "journal_risk_entries.account_name",
+              "nativeQueryRef": "account_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "control_amount"
+                }
+              },
+              "queryRef": "journal_risk_entries.control_amount",
+              "nativeQueryRef": "control_amount"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "journal_risk_entries"
+                    }
+                  },
+                  "Property": "risk_score"
+                }
+              },
+              "queryRef": "journal_risk_entries.risk_score",
+              "nativeQueryRef": "risk_score"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "journal_risk_entries"
+                  }
+                },
+                "Property": "risk_score"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'The review list'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Every manual entry, worst first. The 134 above the review threshold sit at the top - sized to be a morning's work, because a control report nobody can finish is a control report nobody starts'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,231 @@
+transaction_id,period,exception_type,owner_id,opened_date,cleared_date,status,days_to_clear,age_days,clear_method,breached_sla
+ERP-000021,2025-01,Missing in subledger,U004,2025-02-01,2025-03-20,Cleared,47,47,Escalated to Controller,1
+ERP-000035,2025-01,Missing in subledger,U007,2025-02-01,2025-04-01,Cleared,59,59,Corrected in ERP,1
+ERP-000054,2025-01,Missing in subledger,U002,2025-02-03,2025-02-04,Cleared,1,1,Written off below threshold,0
+ERP-000144,2025-01,Missing in subledger,U004,2025-02-04,2025-03-10,Cleared,34,34,Corrected in ERP,1
+ERP-000176,2025-01,Missing in subledger,U001,2025-02-03,2025-02-05,Cleared,2,2,Accepted as timing,0
+ERP-000455,2025-01,Missing in subledger,U001,2025-02-04,2025-02-10,Cleared,6,6,Corrected in ERP,0
+ERP-000461,2025-01,Missing in subledger,U004,2025-02-02,2025-03-27,Cleared,53,53,Escalated to Controller,1
+ERP-000602,2025-01,Missing in subledger,U004,2025-02-01,2025-02-15,Cleared,14,14,Corrected in ERP,1
+ERP-000633,2025-01,Missing in subledger,U002,2025-02-05,2025-02-06,Cleared,1,1,Escalated to Controller,0
+ERP-000663,2025-01,Missing in subledger,U005,2025-02-03,2025-02-07,Cleared,4,4,Subledger re-posted,0
+ERP-000916,2025-02,Missing in subledger,U009,2025-03-02,2025-03-07,Cleared,5,5,Subledger re-posted,0
+ERP-000978,2025-02,Missing in subledger,U003,2025-03-03,2025-04-12,Cleared,40,40,Corrected in ERP,1
+ERP-000987,2025-02,Missing in subledger,U002,2025-03-05,2025-03-06,Cleared,1,1,Subledger re-posted,0
+ERP-000989,2025-02,Missing in subledger,U006,2025-03-05,2025-03-08,Cleared,3,3,Corrected in ERP,0
+ERP-000993,2025-02,Missing in subledger,U004,2025-03-01,2025-03-02,Cleared,1,1,Accepted as timing,0
+ERP-001068,2025-02,Missing in subledger,U005,2025-03-04,2025-03-15,Cleared,11,11,Subledger re-posted,1
+ERP-001122,2025-02,Missing in subledger,U009,2025-03-03,2025-03-04,Cleared,1,1,Subledger re-posted,0
+ERP-001159,2025-02,Missing in subledger,U003,2025-03-01,2025-03-16,Cleared,15,15,Subledger re-posted,1
+ERP-001288,2025-02,Missing in subledger,U002,2025-03-04,2025-03-06,Cleared,2,2,Subledger re-posted,0
+ERP-001420,2025-02,Missing in subledger,U008,2025-03-05,2025-03-06,Cleared,1,1,Accepted as timing,0
+ERP-001502,2025-02,Missing in subledger,U002,2025-03-05,2025-03-08,Cleared,3,3,Corrected in ERP,0
+ERP-001529,2025-02,Missing in subledger,U001,2025-03-05,2025-03-16,Cleared,11,11,Escalated to Controller,1
+ERP-001607,2025-02,Missing in subledger,U004,2025-03-04,2025-03-20,Cleared,16,16,Corrected in ERP,1
+ERP-001643,2025-02,Missing in subledger,U009,2025-03-03,2025-03-06,Cleared,3,3,Corrected in ERP,0
+ERP-001660,2025-02,Missing in subledger,U007,2025-03-01,2025-03-07,Cleared,6,6,Accepted as timing,0
+ERP-001737,2025-02,Missing in subledger,U006,2025-03-03,2025-03-23,Cleared,20,20,Subledger re-posted,1
+ERP-001810,2025-03,Missing in subledger,U004,2025-04-02,2025-04-15,Cleared,13,13,Subledger re-posted,1
+ERP-001866,2025-03,Missing in subledger,U001,2025-04-04,2025-04-10,Cleared,6,6,Written off below threshold,0
+ERP-002116,2025-03,Missing in subledger,U007,2025-04-03,2025-05-02,Cleared,29,29,Accepted as timing,1
+ERP-002171,2025-03,Missing in subledger,U003,2025-04-01,2025-04-25,Cleared,24,24,Corrected in ERP,1
+ERP-002242,2025-03,Missing in subledger,U006,2025-04-03,2025-05-06,Cleared,33,33,Escalated to Controller,1
+ERP-002248,2025-03,Missing in subledger,U008,2025-04-01,2025-05-07,Cleared,36,36,Subledger re-posted,1
+ERP-002288,2025-03,Missing in subledger,U006,2025-04-05,2025-04-14,Cleared,9,9,Accepted as timing,0
+ERP-002448,2025-03,Missing in subledger,U004,2025-04-02,2025-04-09,Cleared,7,7,Corrected in ERP,0
+ERP-002470,2025-03,Missing in subledger,U007,2025-04-04,2025-04-11,Cleared,7,7,Corrected in ERP,0
+ERP-002502,2025-03,Missing in subledger,U006,2025-04-01,2025-04-02,Cleared,1,1,Subledger re-posted,0
+ERP-002574,2025-03,Missing in subledger,U004,2025-04-05,2025-06-05,Cleared,61,61,Accepted as timing,1
+ERP-002597,2025-03,Missing in subledger,U002,2025-04-03,2025-04-07,Cleared,4,4,Written off below threshold,0
+ERP-002623,2025-03,Missing in subledger,U009,2025-04-02,2025-04-23,Cleared,21,21,Accepted as timing,1
+ERP-002631,2025-03,Missing in subledger,U009,2025-04-03,2025-04-08,Cleared,5,5,Accepted as timing,0
+ERP-003001,2025-04,Missing in subledger,U008,2025-05-05,2025-05-14,Cleared,9,9,Written off below threshold,0
+ERP-003088,2025-04,Missing in subledger,U001,2025-05-03,2025-05-16,Cleared,13,13,Corrected in ERP,1
+ERP-003163,2025-04,Missing in subledger,U003,2025-05-05,2025-05-07,Cleared,2,2,Accepted as timing,0
+ERP-003176,2025-04,Missing in subledger,U007,2025-05-04,2025-05-26,Cleared,22,22,Corrected in ERP,1
+ERP-003201,2025-04,Missing in subledger,U008,2025-05-04,2025-05-05,Cleared,1,1,Accepted as timing,0
+ERP-003202,2025-04,Missing in subledger,U009,2025-05-02,2025-05-25,Cleared,23,23,Corrected in ERP,1
+ERP-003314,2025-04,Missing in subledger,U001,2025-05-04,2025-05-05,Cleared,1,1,Corrected in ERP,0
+ERP-003394,2025-04,Missing in subledger,U005,2025-05-05,2025-05-06,Cleared,1,1,Corrected in ERP,0
+ERP-003396,2025-04,Missing in subledger,U005,2025-05-04,2025-05-09,Cleared,5,5,Subledger re-posted,0
+ERP-003525,2025-04,Missing in subledger,U005,2025-05-03,2025-05-05,Cleared,2,2,Accepted as timing,0
+ERP-003537,2025-04,Missing in subledger,U005,2025-05-01,2025-05-17,Cleared,16,16,Escalated to Controller,1
+ERP-003647,2025-05,Missing in subledger,U008,2025-06-01,2025-06-05,Cleared,4,4,Subledger re-posted,0
+ERP-003759,2025-05,Missing in subledger,U007,2025-06-04,2025-07-11,Cleared,37,37,Corrected in ERP,1
+ERP-003761,2025-05,Missing in subledger,U008,2025-06-03,2025-06-04,Cleared,1,1,Escalated to Controller,0
+ERP-003775,2025-05,Missing in subledger,U008,2025-06-02,2025-06-17,Cleared,15,15,Accepted as timing,1
+ERP-003913,2025-05,Missing in subledger,U001,2025-06-03,,Open,,42,,1
+ERP-003990,2025-05,Missing in subledger,U001,2025-06-02,2025-07-01,Cleared,29,29,Subledger re-posted,1
+ERP-004031,2025-05,Missing in subledger,U002,2025-06-05,2025-06-08,Cleared,3,3,Accepted as timing,0
+ERP-004065,2025-05,Missing in subledger,U003,2025-06-05,,Open,,40,,1
+ERP-004149,2025-05,Missing in subledger,U004,2025-06-04,2025-06-12,Cleared,8,8,Corrected in ERP,0
+ERP-004381,2025-05,Missing in subledger,U007,2025-06-04,2025-06-28,Cleared,24,24,Subledger re-posted,1
+ERP-004417,2025-05,Missing in subledger,U002,2025-06-02,2025-06-03,Cleared,1,1,Accepted as timing,0
+ERP-004419,2025-05,Missing in subledger,U001,2025-06-02,2025-06-23,Cleared,21,21,Accepted as timing,1
+ERP-004621,2025-06,Missing in subledger,U006,2025-07-01,,Open,,14,,1
+ERP-004710,2025-06,Missing in subledger,U001,2025-07-04,,Open,,11,,1
+ERP-004840,2025-06,Missing in subledger,U009,2025-07-01,2025-07-05,Cleared,4,4,Corrected in ERP,0
+ERP-005232,2025-06,Missing in subledger,U006,2025-07-01,2025-07-09,Cleared,8,8,Corrected in ERP,0
+ERP-005358,2025-06,Missing in subledger,U005,2025-07-01,2025-07-11,Cleared,10,10,Written off below threshold,0
+ERP-000021,2025-01,Timing difference,U006,2025-02-01,2025-02-07,Cleared,6,6,Corrected in ERP,0
+ERP-000035,2025-01,Timing difference,U004,2025-02-04,2025-02-11,Cleared,7,7,Corrected in ERP,0
+ERP-000054,2025-01,Timing difference,U008,2025-02-02,2025-02-03,Cleared,1,1,Written off below threshold,0
+ERP-000144,2025-01,Timing difference,U005,2025-02-03,2025-02-09,Cleared,6,6,Written off below threshold,0
+ERP-000176,2025-01,Timing difference,U009,2025-02-04,2025-03-26,Cleared,50,50,Written off below threshold,1
+ERP-000602,2025-01,Timing difference,U001,2025-02-04,2025-02-05,Cleared,1,1,Corrected in ERP,0
+ERP-000633,2025-01,Timing difference,U007,2025-02-01,2025-02-23,Cleared,22,22,Accepted as timing,1
+ERP-000663,2025-01,Timing difference,U004,2025-02-04,2025-02-09,Cleared,5,5,Corrected in ERP,0
+ERP-000978,2025-02,Timing difference,U004,2025-03-05,2025-03-21,Cleared,16,16,Written off below threshold,1
+ERP-000987,2025-02,Timing difference,U001,2025-03-01,2025-03-08,Cleared,7,7,Subledger re-posted,0
+ERP-000989,2025-02,Timing difference,U006,2025-03-01,2025-03-06,Cleared,5,5,Escalated to Controller,0
+ERP-000993,2025-02,Timing difference,U002,2025-03-01,2025-03-07,Cleared,6,6,Subledger re-posted,0
+ERP-001068,2025-02,Timing difference,U008,2025-03-02,2025-03-23,Cleared,21,21,Subledger re-posted,1
+ERP-001122,2025-02,Timing difference,U006,2025-03-01,2025-03-02,Cleared,1,1,Accepted as timing,0
+ERP-001159,2025-02,Timing difference,U005,2025-03-02,2025-03-11,Cleared,9,9,Subledger re-posted,0
+ERP-001288,2025-02,Timing difference,U009,2025-03-03,2025-03-17,Cleared,14,14,Accepted as timing,1
+ERP-001420,2025-02,Timing difference,U007,2025-03-05,2025-03-22,Cleared,17,17,Accepted as timing,1
+ERP-001502,2025-02,Timing difference,U005,2025-03-05,2025-03-11,Cleared,6,6,Accepted as timing,0
+ERP-001529,2025-02,Timing difference,U008,2025-03-03,2025-03-22,Cleared,19,19,Subledger re-posted,1
+ERP-001643,2025-02,Timing difference,U003,2025-03-03,2025-04-10,Cleared,38,38,Corrected in ERP,1
+ERP-001660,2025-02,Timing difference,U009,2025-03-04,2025-03-16,Cleared,12,12,Corrected in ERP,1
+ERP-001737,2025-02,Timing difference,U001,2025-03-05,2025-03-11,Cleared,6,6,Corrected in ERP,0
+ERP-001810,2025-03,Timing difference,U003,2025-04-01,2025-05-13,Cleared,42,42,Corrected in ERP,1
+ERP-002116,2025-03,Timing difference,U007,2025-04-04,2025-04-07,Cleared,3,3,Accepted as timing,0
+ERP-002242,2025-03,Timing difference,U004,2025-04-04,2025-04-11,Cleared,7,7,Subledger re-posted,0
+ERP-002248,2025-03,Timing difference,U005,2025-04-01,2025-04-17,Cleared,16,16,Subledger re-posted,1
+ERP-002288,2025-03,Timing difference,U006,2025-04-04,2025-05-23,Cleared,49,49,Written off below threshold,1
+ERP-002470,2025-03,Timing difference,U004,2025-04-01,2025-04-11,Cleared,10,10,Accepted as timing,0
+ERP-002502,2025-03,Timing difference,U003,2025-04-03,2025-04-07,Cleared,4,4,Accepted as timing,0
+ERP-002597,2025-03,Timing difference,U006,2025-04-05,2025-04-06,Cleared,1,1,Corrected in ERP,0
+ERP-002623,2025-03,Timing difference,U005,2025-04-04,2025-04-05,Cleared,1,1,Corrected in ERP,0
+ERP-003001,2025-04,Timing difference,U008,2025-05-01,2025-06-10,Cleared,40,40,Subledger re-posted,1
+ERP-003088,2025-04,Timing difference,U002,2025-05-05,2025-05-07,Cleared,2,2,Subledger re-posted,0
+ERP-003163,2025-04,Timing difference,U001,2025-05-01,2025-05-07,Cleared,6,6,Corrected in ERP,0
+ERP-003201,2025-04,Timing difference,U001,2025-05-03,2025-05-16,Cleared,13,13,Corrected in ERP,1
+ERP-003202,2025-04,Timing difference,U008,2025-05-01,2025-05-12,Cleared,11,11,Accepted as timing,1
+ERP-003314,2025-04,Timing difference,U002,2025-05-04,2025-05-05,Cleared,1,1,Written off below threshold,0
+ERP-003394,2025-04,Timing difference,U006,2025-05-01,2025-05-27,Cleared,26,26,Corrected in ERP,1
+ERP-003396,2025-04,Timing difference,U009,2025-05-02,2025-05-09,Cleared,7,7,Corrected in ERP,0
+ERP-003759,2025-05,Timing difference,U007,2025-06-04,2025-06-11,Cleared,7,7,Corrected in ERP,0
+ERP-003761,2025-05,Timing difference,U003,2025-06-01,2025-06-14,Cleared,13,13,Corrected in ERP,1
+ERP-003775,2025-05,Timing difference,U008,2025-06-05,2025-06-25,Cleared,20,20,Corrected in ERP,1
+ERP-003913,2025-05,Timing difference,U002,2025-06-05,2025-06-06,Cleared,1,1,Escalated to Controller,0
+ERP-003990,2025-05,Timing difference,U005,2025-06-04,2025-06-11,Cleared,7,7,Subledger re-posted,0
+ERP-004031,2025-05,Timing difference,U002,2025-06-04,2025-06-13,Cleared,9,9,Accepted as timing,0
+ERP-004149,2025-05,Timing difference,U007,2025-06-01,2025-06-29,Cleared,28,28,Subledger re-posted,1
+ERP-000063,2025-01,Amount mismatch,U003,2025-02-04,2025-02-05,Cleared,1,1,Corrected in ERP,0
+ERP-000106,2025-01,Amount mismatch,U002,2025-02-05,2025-02-07,Cleared,2,2,Subledger re-posted,0
+ERP-000157,2025-01,Amount mismatch,U009,2025-02-01,2025-02-12,Cleared,11,11,Corrected in ERP,1
+ERP-000206,2025-01,Amount mismatch,U003,2025-02-01,2025-02-03,Cleared,2,2,Corrected in ERP,0
+ERP-000535,2025-01,Amount mismatch,U003,2025-02-01,2025-02-19,Cleared,18,18,Accepted as timing,1
+ERP-000555,2025-01,Amount mismatch,U006,2025-02-04,2025-02-17,Cleared,13,13,Written off below threshold,1
+ERP-000720,2025-01,Amount mismatch,U001,2025-02-05,2025-03-03,Cleared,26,26,Accepted as timing,1
+ERP-000820,2025-01,Amount mismatch,U006,2025-02-04,2025-02-10,Cleared,6,6,Escalated to Controller,0
+ERP-000832,2025-01,Amount mismatch,U007,2025-02-03,2025-03-21,Cleared,46,46,Escalated to Controller,1
+ERP-000865,2025-01,Amount mismatch,U003,2025-02-02,2025-03-28,Cleared,54,54,Corrected in ERP,1
+ERP-000985,2025-02,Amount mismatch,U006,2025-03-02,2025-03-06,Cleared,4,4,Written off below threshold,0
+ERP-001104,2025-02,Amount mismatch,U004,2025-03-04,2025-03-05,Cleared,1,1,Accepted as timing,0
+ERP-001190,2025-02,Amount mismatch,U009,2025-03-02,2025-03-04,Cleared,2,2,Subledger re-posted,0
+ERP-001262,2025-02,Amount mismatch,U001,2025-03-03,2025-03-05,Cleared,2,2,Escalated to Controller,0
+ERP-001303,2025-02,Amount mismatch,U004,2025-03-03,2025-03-10,Cleared,7,7,Written off below threshold,0
+ERP-001315,2025-02,Amount mismatch,U008,2025-03-04,2025-03-06,Cleared,2,2,Corrected in ERP,0
+ERP-001498,2025-02,Amount mismatch,U001,2025-03-01,2025-03-02,Cleared,1,1,Corrected in ERP,0
+ERP-001571,2025-02,Amount mismatch,U009,2025-03-03,2025-04-02,Cleared,30,30,Accepted as timing,1
+ERP-001576,2025-02,Amount mismatch,U008,2025-03-01,2025-03-23,Cleared,22,22,Written off below threshold,1
+ERP-001597,2025-02,Amount mismatch,U006,2025-03-03,2025-03-17,Cleared,14,14,Corrected in ERP,1
+ERP-001767,2025-02,Amount mismatch,U001,2025-03-02,2025-03-24,Cleared,22,22,Accepted as timing,1
+ERP-002028,2025-03,Amount mismatch,U008,2025-04-01,2025-04-07,Cleared,6,6,Corrected in ERP,0
+ERP-002152,2025-03,Amount mismatch,U006,2025-04-05,2025-05-16,Cleared,41,41,Corrected in ERP,1
+ERP-002155,2025-03,Amount mismatch,U009,2025-04-04,2025-04-06,Cleared,2,2,Written off below threshold,0
+ERP-002334,2025-03,Amount mismatch,U001,2025-04-03,2025-04-05,Cleared,2,2,Subledger re-posted,0
+ERP-002388,2025-03,Amount mismatch,U001,2025-04-02,2025-04-11,Cleared,9,9,Subledger re-posted,0
+ERP-002413,2025-03,Amount mismatch,U009,2025-04-05,2025-04-14,Cleared,9,9,Corrected in ERP,0
+ERP-002505,2025-03,Amount mismatch,U004,2025-04-01,2025-04-15,Cleared,14,14,Subledger re-posted,1
+ERP-002533,2025-03,Amount mismatch,U007,2025-04-04,2025-04-11,Cleared,7,7,Corrected in ERP,0
+ERP-002556,2025-03,Amount mismatch,U009,2025-04-05,2025-04-07,Cleared,2,2,Subledger re-posted,0
+ERP-002586,2025-03,Amount mismatch,U001,2025-04-01,2025-04-29,Cleared,28,28,Corrected in ERP,1
+ERP-002605,2025-03,Amount mismatch,U007,2025-04-04,2025-04-21,Cleared,17,17,Corrected in ERP,1
+ERP-002659,2025-03,Amount mismatch,U009,2025-04-01,2025-04-06,Cleared,5,5,Corrected in ERP,0
+ERP-002714,2025-04,Amount mismatch,U003,2025-05-01,2025-05-15,Cleared,14,14,Accepted as timing,1
+ERP-002798,2025-04,Amount mismatch,U006,2025-05-02,2025-05-05,Cleared,3,3,Accepted as timing,0
+ERP-002812,2025-04,Amount mismatch,U002,2025-05-04,2025-05-27,Cleared,23,23,Subledger re-posted,1
+ERP-003015,2025-04,Amount mismatch,U003,2025-05-02,2025-05-13,Cleared,11,11,Corrected in ERP,1
+ERP-003028,2025-04,Amount mismatch,U008,2025-05-01,2025-05-03,Cleared,2,2,Corrected in ERP,0
+ERP-003185,2025-04,Amount mismatch,U008,2025-05-01,2025-05-09,Cleared,8,8,Corrected in ERP,0
+ERP-003209,2025-04,Amount mismatch,U006,2025-05-02,2025-05-04,Cleared,2,2,Subledger re-posted,0
+ERP-003269,2025-04,Amount mismatch,U007,2025-05-05,2025-06-05,Cleared,31,31,Corrected in ERP,1
+ERP-003309,2025-04,Amount mismatch,U005,2025-05-02,2025-05-26,Cleared,24,24,Accepted as timing,1
+ERP-003747,2025-05,Amount mismatch,U007,2025-06-05,2025-06-11,Cleared,6,6,Accepted as timing,0
+ERP-003865,2025-05,Amount mismatch,U005,2025-06-03,2025-06-14,Cleared,11,11,Accepted as timing,1
+ERP-003881,2025-05,Amount mismatch,U007,2025-06-03,2025-06-19,Cleared,16,16,Corrected in ERP,1
+ERP-003898,2025-05,Amount mismatch,U003,2025-06-03,2025-06-05,Cleared,2,2,Escalated to Controller,0
+ERP-004001,2025-05,Amount mismatch,U005,2025-06-03,2025-06-27,Cleared,24,24,Accepted as timing,1
+ERP-004064,2025-05,Amount mismatch,U002,2025-06-02,2025-06-12,Cleared,10,10,Escalated to Controller,0
+ERP-004107,2025-05,Amount mismatch,U007,2025-06-03,2025-06-09,Cleared,6,6,Corrected in ERP,0
+ERP-004282,2025-05,Amount mismatch,U009,2025-06-01,2025-06-15,Cleared,14,14,Corrected in ERP,1
+ERP-004336,2025-05,Amount mismatch,U001,2025-06-01,2025-06-03,Cleared,2,2,Written off below threshold,0
+ERP-004476,2025-05,Amount mismatch,U007,2025-06-05,2025-06-08,Cleared,3,3,Subledger re-posted,0
+ERP-004517,2025-06,Amount mismatch,U002,2025-07-05,,Open,,10,,0
+ERP-004523,2025-06,Amount mismatch,U001,2025-07-02,,Open,,13,,1
+ERP-004589,2025-06,Amount mismatch,U004,2025-07-05,2025-07-10,Cleared,5,5,Accepted as timing,0
+ERP-004817,2025-06,Amount mismatch,U008,2025-07-02,,Open,,13,,1
+ERP-004904,2025-06,Amount mismatch,U005,2025-07-01,2025-07-02,Cleared,1,1,Subledger re-posted,0
+ERP-004989,2025-06,Amount mismatch,U002,2025-07-05,2025-07-07,Cleared,2,2,Corrected in ERP,0
+ERP-005037,2025-06,Amount mismatch,U007,2025-07-04,,Open,,11,,1
+ERP-005101,2025-06,Amount mismatch,U004,2025-07-03,,Open,,12,,1
+ERP-005158,2025-06,Amount mismatch,U008,2025-07-02,2025-07-09,Cleared,7,7,Subledger re-posted,0
+ERP-000173,2025-01,Duplicate posting,U004,2025-02-03,2025-03-09,Cleared,34,34,Accepted as timing,1
+ERP-000301,2025-01,Duplicate posting,U004,2025-02-01,2025-02-16,Cleared,15,15,Subledger re-posted,1
+ERP-000378,2025-01,Duplicate posting,U005,2025-02-02,2025-02-04,Cleared,2,2,Subledger re-posted,0
+ERP-000379,2025-01,Duplicate posting,U009,2025-02-04,2025-02-06,Cleared,2,2,Written off below threshold,0
+ERP-000618,2025-01,Duplicate posting,U008,2025-02-04,2025-02-14,Cleared,10,10,Escalated to Controller,0
+ERP-000638,2025-01,Duplicate posting,U008,2025-02-04,2025-02-18,Cleared,14,14,Written off below threshold,1
+ERP-000727,2025-01,Duplicate posting,U008,2025-02-01,2025-02-03,Cleared,2,2,Accepted as timing,0
+ERP-000772,2025-01,Duplicate posting,U003,2025-02-01,2025-02-11,Cleared,10,10,Corrected in ERP,0
+ERP-000937,2025-02,Duplicate posting,U009,2025-03-02,2025-03-21,Cleared,19,19,Accepted as timing,1
+ERP-001022,2025-02,Duplicate posting,U005,2025-03-04,2025-03-05,Cleared,1,1,Corrected in ERP,0
+ERP-001115,2025-02,Duplicate posting,U006,2025-03-02,2025-03-07,Cleared,5,5,Written off below threshold,0
+ERP-001125,2025-02,Duplicate posting,U001,2025-03-03,2025-03-08,Cleared,5,5,Corrected in ERP,0
+ERP-001172,2025-02,Duplicate posting,U003,2025-03-04,2025-03-14,Cleared,10,10,Corrected in ERP,0
+ERP-001359,2025-02,Duplicate posting,U005,2025-03-05,2025-03-17,Cleared,12,12,Written off below threshold,1
+ERP-001363,2025-02,Duplicate posting,U009,2025-03-03,2025-03-18,Cleared,15,15,Corrected in ERP,1
+ERP-001382,2025-02,Duplicate posting,U008,2025-03-01,2025-03-05,Cleared,4,4,Accepted as timing,0
+ERP-001540,2025-02,Duplicate posting,U002,2025-03-03,2025-03-04,Cleared,1,1,Corrected in ERP,0
+ERP-001608,2025-02,Duplicate posting,U004,2025-03-03,2025-03-04,Cleared,1,1,Corrected in ERP,0
+ERP-001613,2025-02,Duplicate posting,U002,2025-03-02,2025-03-14,Cleared,12,12,Corrected in ERP,1
+ERP-001719,2025-02,Duplicate posting,U009,2025-03-04,2025-03-05,Cleared,1,1,Accepted as timing,0
+ERP-001871,2025-03,Duplicate posting,U003,2025-04-04,2025-04-07,Cleared,3,3,Escalated to Controller,0
+ERP-001924,2025-03,Duplicate posting,U004,2025-04-02,2025-05-02,Cleared,30,30,Accepted as timing,1
+ERP-001939,2025-03,Duplicate posting,U007,2025-04-03,2025-04-14,Cleared,11,11,Corrected in ERP,1
+ERP-002005,2025-03,Duplicate posting,U005,2025-04-05,2025-04-06,Cleared,1,1,Subledger re-posted,0
+ERP-002036,2025-03,Duplicate posting,U009,2025-04-05,2025-04-22,Cleared,17,17,Escalated to Controller,1
+ERP-002100,2025-03,Duplicate posting,U005,2025-04-03,2025-04-18,Cleared,15,15,Written off below threshold,1
+ERP-002131,2025-03,Duplicate posting,U008,2025-04-02,2025-04-08,Cleared,6,6,Subledger re-posted,0
+ERP-002250,2025-03,Duplicate posting,U004,2025-04-03,2025-04-17,Cleared,14,14,Corrected in ERP,1
+ERP-002365,2025-03,Duplicate posting,U001,2025-04-02,2025-04-04,Cleared,2,2,Corrected in ERP,0
+ERP-002377,2025-03,Duplicate posting,U002,2025-04-03,2025-04-05,Cleared,2,2,Accepted as timing,0
+ERP-002387,2025-03,Duplicate posting,U002,2025-04-03,2025-04-05,Cleared,2,2,Subledger re-posted,0
+ERP-002547,2025-03,Duplicate posting,U005,2025-04-04,2025-04-16,Cleared,12,12,Subledger re-posted,1
+ERP-002723,2025-04,Duplicate posting,U001,2025-05-04,2025-05-06,Cleared,2,2,Corrected in ERP,0
+ERP-002735,2025-04,Duplicate posting,U004,2025-05-04,2025-05-11,Cleared,7,7,Subledger re-posted,0
+ERP-002807,2025-04,Duplicate posting,U002,2025-05-03,2025-05-04,Cleared,1,1,Corrected in ERP,0
+ERP-002820,2025-04,Duplicate posting,U009,2025-05-04,2025-05-17,Cleared,13,13,Corrected in ERP,1
+ERP-002892,2025-04,Duplicate posting,U001,2025-05-04,2025-05-05,Cleared,1,1,Corrected in ERP,0
+ERP-002898,2025-04,Duplicate posting,U009,2025-05-03,2025-05-04,Cleared,1,1,Corrected in ERP,0
+ERP-002908,2025-04,Duplicate posting,U005,2025-05-02,2025-05-11,Cleared,9,9,Written off below threshold,0
+ERP-003160,2025-04,Duplicate posting,U003,2025-05-01,2025-05-03,Cleared,2,2,Accepted as timing,0
+ERP-003212,2025-04,Duplicate posting,U005,2025-05-01,2025-05-02,Cleared,1,1,Written off below threshold,0
+ERP-003499,2025-04,Duplicate posting,U006,2025-05-04,2025-05-05,Cleared,1,1,Accepted as timing,0
+ERP-003565,2025-04,Duplicate posting,U006,2025-05-02,2025-05-16,Cleared,14,14,Corrected in ERP,1
+ERP-003958,2025-05,Duplicate posting,U006,2025-06-04,2025-06-22,Cleared,18,18,Corrected in ERP,1
+ERP-003977,2025-05,Duplicate posting,U008,2025-06-05,2025-06-06,Cleared,1,1,Corrected in ERP,0
+ERP-004226,2025-05,Duplicate posting,U001,2025-06-04,2025-06-05,Cleared,1,1,Subledger re-posted,0
+ERP-004372,2025-05,Duplicate posting,U004,2025-06-01,2025-07-02,Cleared,31,31,Escalated to Controller,1
+ERP-004504,2025-06,Duplicate posting,U006,2025-07-05,2025-07-15,Cleared,10,10,Corrected in ERP,0
+ERP-004594,2025-06,Duplicate posting,U006,2025-07-01,2025-07-06,Cleared,5,5,Subledger re-posted,0
+ERP-004597,2025-06,Duplicate posting,U007,2025-07-05,,Open,,10,,0
+ERP-004777,2025-06,Duplicate posting,U003,2025-07-05,2025-07-06,Cleared,1,1,Corrected in ERP,0
+ERP-004974,2025-06,Duplicate posting,U007,2025-07-03,2025-07-05,Cleared,2,2,Corrected in ERP,0
+ERP-005209,2025-06,Duplicate posting,U005,2025-07-04,,Open,,11,,1
+ERP-005339,2025-06,Duplicate posting,U003,2025-07-04,2025-07-06,Cleared,2,2,Written off below threshold,0
+ERP-005389,2025-06,Duplicate posting,U005,2025-07-02,2025-07-11,Cleared,9,9,Escalated to Controller,0

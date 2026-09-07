@@ -1,0 +1,193 @@
+/// First-digit conformity per cost centre, chi-square on 8 degrees of freedom against the published critical values. Benford is a screen, not evidence: conformity is not innocence and deviation is not fraud.
+table benford_by_dimension
+	lineageTag: 76a10cf9-6031-540d-9a60-224c7a85b930
+
+	column cost_center
+		dataType: string
+		lineageTag: 0c26a41c-e36a-53e0-87a6-0057ce546fc2
+		summarizeBy: none
+		sourceColumn: cost_center
+
+	column entries
+		dataType: int64
+		formatString: #,0
+		lineageTag: c1d0d2a7-fda7-5fbf-b8b0-09956869db1e
+		summarizeBy: none
+		sourceColumn: entries
+
+	column chi_square
+		dataType: double
+		formatString: 0.00
+		lineageTag: af324f82-b3df-5388-9429-b5689bed60e4
+		summarizeBy: none
+		sourceColumn: chi_square
+
+	column mad
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e9344acd-193b-5c51-b37b-a73cdf9591d3
+		summarizeBy: none
+		sourceColumn: mad
+
+	column exceeds_p1
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0f389060-abdc-58ed-bc1e-d67dc6701c34
+		summarizeBy: none
+		sourceColumn: exceeds_p1
+
+	column exceeds_p05
+		dataType: int64
+		formatString: #,0
+		lineageTag: ad4f687a-6556-5ccf-95d8-232476aa70a3
+		summarizeBy: none
+		sourceColumn: exceeds_p05
+
+	column exceeds_p01
+		dataType: int64
+		formatString: #,0
+		lineageTag: e1e248a7-47f8-5c90-835b-46f503f01850
+		summarizeBy: none
+		sourceColumn: exceeds_p01
+
+	column verdict
+		dataType: string
+		lineageTag: 6d246c8b-72c1-5c26-9c87-b73d740bf333
+		summarizeBy: none
+		sourceColumn: verdict
+
+	column digit_1
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0ae86b86-93fd-5b38-98c0-e2bf4f53bb3b
+		summarizeBy: none
+		sourceColumn: digit_1
+
+	column digit_1_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: f6977885-bd7d-57a7-b7ff-37814e69017f
+		summarizeBy: none
+		sourceColumn: digit_1_share
+
+	column digit_2
+		dataType: int64
+		formatString: #,0
+		lineageTag: 56bbb458-9e55-5004-a75a-f454895eb404
+		summarizeBy: none
+		sourceColumn: digit_2
+
+	column digit_2_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 8bbaf4ae-6bcf-5443-a1e7-9970b6284215
+		summarizeBy: none
+		sourceColumn: digit_2_share
+
+	column digit_3
+		dataType: int64
+		formatString: #,0
+		lineageTag: 35c51746-8b3f-5db0-8b43-37801631d797
+		summarizeBy: none
+		sourceColumn: digit_3
+
+	column digit_3_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 05bcd44e-39c6-5bd2-a4e6-1a0e3b16743c
+		summarizeBy: none
+		sourceColumn: digit_3_share
+
+	column digit_4
+		dataType: int64
+		formatString: #,0
+		lineageTag: a6fd1742-e100-5a11-a3de-e664dcd734ca
+		summarizeBy: none
+		sourceColumn: digit_4
+
+	column digit_4_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 41f10a9c-de38-54bc-99fa-bbd030d4dc58
+		summarizeBy: none
+		sourceColumn: digit_4_share
+
+	column digit_5
+		dataType: int64
+		formatString: #,0
+		lineageTag: bcf9d356-3cf9-5bff-be18-def33bee09c6
+		summarizeBy: none
+		sourceColumn: digit_5
+
+	column digit_5_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 500c8025-62d2-5a19-bafd-ab45e1eb1f1f
+		summarizeBy: none
+		sourceColumn: digit_5_share
+
+	column digit_6
+		dataType: int64
+		formatString: #,0
+		lineageTag: c56d2d00-f734-5964-83d0-e2df1e47cf5f
+		summarizeBy: none
+		sourceColumn: digit_6
+
+	column digit_6_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 7f1d9072-3d9d-5df9-b98b-ccdda1cea461
+		summarizeBy: none
+		sourceColumn: digit_6_share
+
+	column digit_7
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9882a82c-892e-5fd9-a7c1-de8292de5954
+		summarizeBy: none
+		sourceColumn: digit_7
+
+	column digit_7_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: b4e1b001-e2c3-5b20-8c7b-b3a257a04d10
+		summarizeBy: none
+		sourceColumn: digit_7_share
+
+	column digit_8
+		dataType: int64
+		formatString: #,0
+		lineageTag: f7cb4d1d-f155-587a-a02b-b9df88f50d5b
+		summarizeBy: none
+		sourceColumn: digit_8
+
+	column digit_8_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: 591e7f04-24d3-58f2-9373-a30ea40179b5
+		summarizeBy: none
+		sourceColumn: digit_8_share
+
+	column digit_9
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5f9c68a8-3198-50a9-854e-26c0282128c4
+		summarizeBy: none
+		sourceColumn: digit_9
+
+	column digit_9_share
+		dataType: double
+		formatString: 0.00%
+		lineageTag: cb8ef91f-fbe5-5e1f-beb3-84faebe88e1e
+		summarizeBy: none
+		sourceColumn: digit_9_share
+
+	partition benford_by_dimension = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\benford_by_dimension.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"cost_center", type text}, {"entries", Int64.Type}, {"chi_square", type number}, {"mad", type number}, {"exceeds_p1", Int64.Type}, {"exceeds_p05", Int64.Type}, {"exceeds_p01", Int64.Type}, {"verdict", type text}, {"digit_1", Int64.Type}, {"digit_1_share", type number}, {"digit_2", Int64.Type}, {"digit_2_share", type number}, {"digit_3", Int64.Type}, {"digit_3_share", type number}, {"digit_4", Int64.Type}, {"digit_4_share", type number}, {"digit_5", Int64.Type}, {"digit_5_share", type number}, {"digit_6", Int64.Type}, {"digit_6_share", type number}, {"digit_7", Int64.Type}, {"digit_7_share", type number}, {"digit_8", Int64.Type}, {"digit_8_share", type number}, {"digit_9", Int64.Type}, {"digit_9_share", type number}})
+				in
+				    Typed

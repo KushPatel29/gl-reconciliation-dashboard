@@ -1,0 +1,47 @@
+/// Opened against cleared per period, and the backlog that leaves behind. One month of clearing fewer than you open is a bad month; four is a trend.
+table exception_throughput
+	lineageTag: 74b09ab8-6626-5472-9934-16ed41e0702d
+
+	column period
+		dataType: string
+		lineageTag: 9b2fdec4-6bcc-5f64-ad7e-d570a3e76428
+		summarizeBy: none
+		sourceColumn: period
+
+	column opened
+		dataType: int64
+		formatString: #,0
+		lineageTag: b5ead5d3-c46f-5b97-8e5f-4490a42447a5
+		summarizeBy: none
+		sourceColumn: opened
+
+	column cleared
+		dataType: int64
+		formatString: #,0
+		lineageTag: d8bc5dd8-f15f-538b-91ec-6e50559e4a3c
+		summarizeBy: none
+		sourceColumn: cleared
+
+	column net
+		dataType: int64
+		formatString: #,0
+		lineageTag: 293951c5-c315-5abb-9fa5-d261d763a2ad
+		summarizeBy: none
+		sourceColumn: net
+
+	column backlog
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8d036b23-4734-5115-bb91-1ec4bd767e10
+		summarizeBy: none
+		sourceColumn: backlog
+
+	partition exception_throughput = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_throughput.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"period", type text}, {"opened", Int64.Type}, {"cleared", Int64.Type}, {"net", Int64.Type}, {"backlog", Int64.Type}})
+				in
+				    Typed

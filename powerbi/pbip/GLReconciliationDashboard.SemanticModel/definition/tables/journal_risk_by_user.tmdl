@@ -1,0 +1,122 @@
+/// Who posts the risk. Concentration matters more than the total: a control two people work around needs a different fix from one nobody understands.
+table journal_risk_by_user
+	lineageTag: a33ec5d5-f6ea-5b04-94f1-e7fa37364c9f
+
+	column posted_by
+		dataType: string
+		lineageTag: 8c611e11-c8fc-56aa-bc5d-10f1baa7f0ac
+		summarizeBy: none
+		sourceColumn: posted_by
+
+	column poster
+		dataType: string
+		lineageTag: bf2359b4-18c1-5c63-ae94-640704cd4359
+		summarizeBy: none
+		sourceColumn: poster
+
+	column poster_role
+		dataType: string
+		lineageTag: 0da5999a-893d-54cd-b181-c95787165daa
+		summarizeBy: none
+		sourceColumn: poster_role
+
+	column entries
+		dataType: int64
+		formatString: #,0
+		lineageTag: 33354d76-7960-5fbc-bda9-99d46c824361
+		summarizeBy: none
+		sourceColumn: entries
+
+	column value
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 249ccc1e-0c45-5c9f-bd5e-d7a0e0462e2e
+		summarizeBy: none
+		sourceColumn: value
+
+	column risk_score
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1456fb5d-2a84-5b76-874b-887a72b4aa2d
+		summarizeBy: none
+		sourceColumn: risk_score
+
+	column for_review
+		dataType: int64
+		formatString: #,0
+		lineageTag: 658d7c63-bb3f-5d5c-9bc7-a8b8bf2573d6
+		summarizeBy: none
+		sourceColumn: for_review
+
+	column self_approved
+		dataType: int64
+		formatString: #,0
+		lineageTag: 46f65ed9-7215-51ba-b1c7-da148914ceab
+		summarizeBy: none
+		sourceColumn: self_approved
+
+	column above_approver_limit
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3059648d-53fc-59df-91e5-a14e34a74bdf
+		summarizeBy: none
+		sourceColumn: above_approver_limit
+
+	column threshold_avoidance
+		dataType: int64
+		formatString: #,0
+		lineageTag: fa8ae1dc-7b1c-5600-ba40-8f023f03908a
+		summarizeBy: none
+		sourceColumn: threshold_avoidance
+
+	column round_dollar
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8f101f49-2059-541d-8e10-2abfd2af3592
+		summarizeBy: none
+		sourceColumn: round_dollar
+
+	column after_hours
+		dataType: int64
+		formatString: #,0
+		lineageTag: 11fd226c-424a-5b1d-823b-023b3e8f49b5
+		summarizeBy: none
+		sourceColumn: after_hours
+
+	column close_window
+		dataType: int64
+		formatString: #,0
+		lineageTag: a4ac6f93-9713-59a5-8c7f-127c952bbf88
+		summarizeBy: none
+		sourceColumn: close_window
+
+	column reversal
+		dataType: int64
+		formatString: #,0
+		lineageTag: a593a4ea-793f-5529-b4d6-99c749be7bad
+		summarizeBy: none
+		sourceColumn: reversal
+
+	column avg_risk_score
+		dataType: double
+		formatString: 0.0
+		lineageTag: dd4dd2e0-f31f-56f0-812c-91516f9a8f84
+		summarizeBy: none
+		sourceColumn: avg_risk_score
+
+	column review_rate
+		dataType: double
+		formatString: 0.0%
+		lineageTag: c217e9f3-ccbe-5eec-ab7c-a42a42d12827
+		summarizeBy: none
+		sourceColumn: review_rate
+
+	partition journal_risk_by_user = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\journal_risk_by_user.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"posted_by", type text}, {"poster", type text}, {"poster_role", type text}, {"entries", Int64.Type}, {"value", type number}, {"risk_score", Int64.Type}, {"for_review", Int64.Type}, {"self_approved", Int64.Type}, {"above_approver_limit", Int64.Type}, {"threshold_avoidance", Int64.Type}, {"round_dollar", Int64.Type}, {"after_hours", Int64.Type}, {"close_window", Int64.Type}, {"reversal", Int64.Type}, {"avg_risk_score", type number}, {"review_rate", type number}})
+				in
+				    Typed

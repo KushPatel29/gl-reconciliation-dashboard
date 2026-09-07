@@ -1,0 +1,49 @@
+/// Open reconciliation exceptions by how long they have been open. The shape of the tail is what says whether a queue is being worked or accumulating.
+table exception_ageing
+	lineageTag: f3b96b52-b874-5d84-809c-1ceaec0068b5
+
+	column age_bucket
+		dataType: string
+		lineageTag: 819a6367-bd78-5a40-b0c3-28b8346a10c1
+		summarizeBy: none
+		sourceColumn: age_bucket
+		sortByColumn: bucket_order
+
+	column exceptions
+		dataType: double
+		formatString: #,0.00
+		lineageTag: fe15e874-3029-5371-978c-df3209490c74
+		summarizeBy: none
+		sourceColumn: exceptions
+
+	column exposure
+		dataType: double
+		formatString: \$#,0
+		lineageTag: e16691d4-7bfd-5abd-8de0-d1186286e66f
+		summarizeBy: none
+		sourceColumn: exposure
+
+	column oldest_days
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c4d6513f-e49d-5a65-b67c-dd027e3b84fc
+		summarizeBy: none
+		sourceColumn: oldest_days
+
+	column bucket_order
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: c3efdf71-0ddd-545b-80e6-9721875b28d6
+		summarizeBy: none
+		sourceColumn: bucket_order
+
+	partition exception_ageing = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_ageing.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"age_bucket", type text}, {"exceptions", type number}, {"exposure", type number}, {"oldest_days", type number}, {"bucket_order", Int64.Type}})
+				in
+				    Typed

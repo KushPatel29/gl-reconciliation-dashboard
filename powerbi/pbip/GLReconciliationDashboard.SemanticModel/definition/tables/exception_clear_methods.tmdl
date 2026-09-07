@@ -1,0 +1,40 @@
+/// How exceptions were resolved. 'Accepted as timing' and 'written off below threshold' close the ticket without changing anything upstream, so those exceptions come back next month.
+table exception_clear_methods
+	lineageTag: 5a610351-a00f-57d9-b7a7-6824cb302e4e
+
+	column clear_method
+		dataType: string
+		lineageTag: c85534d5-53ca-56d6-a7e4-af8ae0897856
+		summarizeBy: none
+		sourceColumn: clear_method
+
+	column count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 695a8a95-c92b-5293-a51e-391e710c75ef
+		summarizeBy: none
+		sourceColumn: count
+
+	column exposure
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 16d802b5-56d2-5eed-9646-b76ed633f6e5
+		summarizeBy: none
+		sourceColumn: exposure
+
+	column share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 06faf864-0f26-5c02-9f95-9026cb41a0b6
+		summarizeBy: none
+		sourceColumn: share
+
+	partition exception_clear_methods = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataPath & "\output\exception_clear_methods.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"clear_method", type text}, {"count", Int64.Type}, {"exposure", type number}, {"share", type number}})
+				in
+				    Typed

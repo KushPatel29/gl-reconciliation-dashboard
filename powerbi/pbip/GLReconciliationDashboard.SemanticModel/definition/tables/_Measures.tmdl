@@ -264,6 +264,293 @@ table _Measures
 		displayFolder: Verdict
 		lineageTag: ffafd29d-b779-5832-a8a2-a123a06abdc3
 
+	/// Every entry in the ledger, not a sample of forty pulled by hand - which is the entire argument for running controls in the warehouse.
+	measure 'Entries Tested' = SUM(risk_headline[entries])
+		formatString: #,0
+		lineageTag: 61116396-a808-506e-b682-314984af7e2a
+		displayFolder: Journal Risk
+
+	measure 'Manual Entries' = SUM(risk_headline[manual_entries])
+		formatString: #,0
+		lineageTag: ed2fce3c-2b18-5f62-a1fa-ea6dd9094330
+		displayFolder: Journal Risk
+
+	/// Entries scoring 30 or more. Sized so the list is a morning's work: a control report nobody can finish is a control report nobody starts.
+	measure 'Entries For Review' = SUM(risk_headline[for_review])
+		formatString: #,0
+		lineageTag: f43b2cd6-94d7-5fa2-b396-11578a2743bf
+		displayFolder: Journal Risk
+
+	/// Posted and approved by the same person.
+	measure 'Self Approved' = SUM(risk_headline[self_approved])
+		formatString: #,0
+		lineageTag: ab2ffdf7-8fec-5969-8941-1e7ef9710207
+		displayFolder: Journal Risk
+
+	measure 'Self Approved Value' = SUM(risk_headline[self_approved_value])
+		formatString: \$#,0
+		lineageTag: d0eeb40c-5444-548c-b6f6-f824638072b0
+		displayFolder: Journal Risk
+
+	/// Entries sitting just under an approval limit - the most-cited red flag in journal testing, and invisible unless something looks for it.
+	measure 'Threshold Avoidance' = SUM(risk_headline[threshold_avoidance])
+		formatString: #,0
+		lineageTag: 8d7f9ef0-804b-5fb1-9ade-e45b7ee60396
+		displayFolder: Journal Risk
+
+	measure 'Threshold Avoidance Value' = SUM(risk_headline[threshold_avoidance_value])
+		formatString: \$#,0
+		lineageTag: 1d237b5f-8881-57a4-a12f-f7d157bfca5a
+		displayFolder: Journal Risk
+
+	measure 'Above Approver Limit' = SUM(risk_headline[above_approver_limit])
+		formatString: #,0
+		lineageTag: cb32b872-a3cf-58be-8fc7-adec2f43b044
+		displayFolder: Journal Risk
+
+	measure 'Flag Hits' = SUM(journal_risk_flags[manual_entries_flagged])
+		formatString: #,0
+		lineageTag: ecd379f3-79f7-58e8-9717-8e924e50a441
+		displayFolder: Journal Risk
+
+	measure 'Flag Rate' = SUM(journal_risk_flags[manual_rate])
+		formatString: 0.0%
+		lineageTag: 9666e2c8-3024-521f-ba55-a66a58d17288
+		displayFolder: Journal Risk
+
+	/// The same test measured on a population it should not fire on.
+	measure 'Baseline Rate' = SUM(journal_risk_flags[baseline_rate])
+		formatString: 0.0%
+		lineageTag: 946711c6-fe3f-515f-acca-cf731cff21ad
+		displayFolder: Journal Risk
+
+	measure 'User Risk Score' = SUM(journal_risk_by_user[risk_score])
+		formatString: #,0
+		lineageTag: 92472269-d811-55ea-9365-e67495f1e94a
+		displayFolder: Journal Risk
+
+	measure 'User Entries' = SUM(journal_risk_by_user[entries])
+		formatString: #,0
+		lineageTag: d0a57658-a47b-5716-9276-645068a20d70
+		displayFolder: Journal Risk
+
+	measure 'User For Review' = SUM(journal_risk_by_user[for_review])
+		formatString: #,0
+		lineageTag: ecf4e502-72ae-5973-a392-0da32c66cd01
+		displayFolder: Journal Risk
+
+	/// Against 15.507, the 5% critical value on 8 degrees of freedom.
+	measure 'Chi Square' = SUM(benford_by_dimension[chi_square])
+		formatString: 0.00
+		lineageTag: c342400f-6bfd-5e32-834d-708936ce64a8
+		displayFolder: Journal Risk
+
+	/// Greys out the tests that fire at the same rate on entries no human chose the timing of - they are describing the ledger, not the behaviour.
+	measure 'Flag Colour' =
+			VAR vDiscriminates = MAX(journal_risk_flags[discriminates])
+			RETURN IF(vDiscriminates = 1, "#FF5C7A", "#454A82")
+		lineageTag: 7d219bbf-d020-5c44-b3d9-9bfed4fb6238
+		displayFolder: Journal Risk
+
+	/// Reddens a cost centre whose first-digit distribution exceeds the 5% critical value.
+	measure 'Benford Colour' =
+			VAR vChi = MAX(benford_by_dimension[chi_square])
+			RETURN IF(vChi > 15.507, "#FF5C7A", "#454A82")
+		lineageTag: 940ebef2-3b07-57e1-82d3-c6094b149a9d
+		displayFolder: Journal Risk
+
+	measure 'Review Reference' = FORMAT(SUM(risk_headline[for_review_share_of_manual]), "0.0%") & " of manual entries   " & FORMAT(SUM(risk_headline[for_review_value]), "$#,0")
+		lineageTag: 2c395dc0-3901-55ab-a5d1-4b4466db5e82
+		displayFolder: Journal Risk
+
+	measure 'Manual Reference' = FORMAT(SUM(risk_headline[manual_share]), "0.0%") & " of " & FORMAT(SUM(risk_headline[entries]), "#,0") & " entries, worth " & FORMAT(SUM(risk_headline[manual_value]), "$#,0")
+		lineageTag: 199c0fc0-3fe9-56c5-a0f6-8fcf425b3e13
+		displayFolder: Journal Risk
+
+	measure 'Self Approval Reference' = FORMAT(SUM(risk_headline[self_approval_top2_share]), "0%") & " of it is two people   " & FORMAT(SUM(risk_headline[self_approved_value]), "$#,0")
+		lineageTag: 52d545d1-9952-5d91-b38d-25a175303453
+		displayFolder: Journal Risk
+
+	measure 'Avoidance Reference' = FORMAT(SUM(risk_headline[threshold_avoidance_value]), "$#,0") & " sitting just under an approval limit"
+		lineageTag: 3289cbc8-919c-5b52-bb40-2704b817dd9b
+		displayFolder: Journal Risk
+
+	/// The controls headline as a deterministic sentence.
+	measure 'Risk Insight' =
+			VAR vEntries = SUM(risk_headline[entries])
+			VAR vManual = SUM(risk_headline[manual_entries])
+			VAR vManualShare = SUM(risk_headline[manual_share])
+			VAR vUseful = SUM(risk_headline[flags_that_discriminate])
+			VAR vUseless = SUM(risk_headline[flags_that_do_not])
+			VAR vWeekendManual = SUM(risk_headline[weekend_manual_rate])
+			VAR vWeekendAuto = SUM(risk_headline[weekend_interfaced_rate])
+			VAR vSelf = SUM(risk_headline[self_approved])
+			VAR vTop2 = SUM(risk_headline[self_approval_top2_share])
+			VAR vWorst = MAX(risk_headline[self_approval_worst])
+			VAR vAvoid = SUM(risk_headline[threshold_avoidance])
+			VAR vAvoidValue = SUM(risk_headline[threshold_avoidance_value])
+			VAR vReview = SUM(risk_headline[for_review])
+			VAR vBenford = SUM(risk_headline[benford_deviating])
+			VAR vGroups = SUM(risk_headline[benford_groups])
+			RETURN
+			    "All " & FORMAT(vEntries, "#,0") & " entries were tested, not a sample of "
+			        & "forty. " & FORMAT(vManual, "#,0") & " are manual ("
+			        & FORMAT(vManualShare, "0.0%") & ") and every other test is conditioned "
+			        & "on that. " & FORMAT(vUseful, "0") & " of "
+			        & FORMAT(vUseful + vUseless, "0") & " tests discriminate on this "
+			        & "ledger: weekend posting runs " & FORMAT(vWeekendManual, "0.0%")
+			        & " on manual entries against " & FORMAT(vWeekendAuto, "0.0%")
+			        & " on interfaced ones, so it is reported as a non-finding rather than "
+			        & "as several hundred exceptions. What is real: " & FORMAT(vSelf, "0")
+			        & " entries were posted and approved by the same person, "
+			        & FORMAT(vTop2, "0%") & " of them by two people with " & vWorst
+			        & " the worst - a bottleneck being worked around, not a policy nobody "
+			        & "understands. " & FORMAT(vAvoid, "0") & " entries ("
+			        & FORMAT(vAvoidValue, "$#,0") & ") sit just under an approval limit. "
+			        & FORMAT(vReview, "0") & " entries make the review list, and "
+			        & FORMAT(vBenford, "0") & " of " & FORMAT(vGroups, "0")
+			        & " cost centres deviate from Benford."
+		lineageTag: d1ddfe7d-7ee2-575c-82f4-bc0c3d2b4525
+		displayFolder: Journal Risk
+
+	measure 'Exceptions' = SUM(ageing_headline[exceptions])
+		formatString: #,0
+		lineageTag: 2cff3a1c-647f-50e2-918b-4d2d63717708
+		displayFolder: Exception Ageing
+
+	measure 'Still Open' = SUM(ageing_headline[still_open])
+		formatString: #,0
+		lineageTag: d2cf7c2f-3f6b-5821-8819-86b55d1fbc52
+		displayFolder: Exception Ageing
+
+	/// What the unresolved exceptions are worth. A variance where one was computed, the whole posting where it was missing - a missing entry puts the full amount at risk, not a difference.
+	measure 'Open Exposure' = SUM(ageing_headline[open_exposure])
+		formatString: \$#,0
+		lineageTag: 2c07ddcf-7fa0-576d-a734-2ff4a7257d4e
+		displayFolder: Exception Ageing
+
+	/// Median, not mean: one exception that sat for two months drags an average into uselessness and a median not at all.
+	measure 'Median Days To Clear' = SUM(ageing_headline[median_days_to_clear])
+		formatString: 0.0
+		lineageTag: 435ce339-67bd-5a30-84e8-25b5c45f56e3
+		displayFolder: Exception Ageing
+
+	/// Against a 10-day target.
+	measure 'SLA Breach Rate' = SUM(ageing_headline[breach_rate])
+		formatString: 0.0%
+		lineageTag: 31236228-4d11-5c0e-a8ca-e7c372ce2358
+		displayFolder: Exception Ageing
+
+	/// Exceptions closed by accepting them as timing or writing them off - resolutions that clear the ticket and change nothing upstream, so the same exception returns next month.
+	measure 'Absorbed Share' = SUM(ageing_headline[absorbed_share])
+		formatString: 0.0%
+		lineageTag: b691ed85-b8d0-50dd-9e52-e2ec3ad7a7ca
+		displayFolder: Exception Ageing
+
+	measure 'Open By Age' = SUM(exception_ageing[exceptions])
+		formatString: #,0
+		lineageTag: 8512e4d2-5671-5412-ac6f-29e258e235e9
+		displayFolder: Exception Ageing
+
+	measure 'Age Exposure' = SUM(exception_ageing[exposure])
+		formatString: \$#,0
+		lineageTag: 7dd3d1fa-3e31-5b90-9644-c4202ac7b48e
+		displayFolder: Exception Ageing
+
+	measure 'Owner Median' = SUM(exception_sla_by_owner[median_days])
+		formatString: 0.0
+		lineageTag: d52ca253-53b7-5f44-9917-ddc5f1762255
+		displayFolder: Exception Ageing
+
+	measure 'Owner Mean' = SUM(exception_sla_by_owner[mean_days])
+		formatString: 0.0
+		lineageTag: 75125295-9be9-5483-a305-19d882a14d66
+		displayFolder: Exception Ageing
+
+	measure 'Owner Breach Rate' = SUM(exception_sla_by_owner[breach_rate])
+		formatString: 0.0%
+		lineageTag: c81eab3c-2794-5d52-a691-5e3b97ea62a5
+		displayFolder: Exception Ageing
+
+	measure 'Opened' = SUM(exception_throughput[opened])
+		formatString: #,0
+		lineageTag: 1e29dc88-1990-530b-8f65-d48a6d0ef217
+		displayFolder: Exception Ageing
+
+	measure 'Cleared' = SUM(exception_throughput[cleared])
+		formatString: #,0
+		lineageTag: f704bae6-c44e-585b-bfa0-0f80f4998814
+		displayFolder: Exception Ageing
+
+	measure 'Backlog' = SUM(exception_throughput[backlog])
+		formatString: #,0
+		lineageTag: 51aae632-f017-5aaa-80d3-dbf47bd031de
+		displayFolder: Exception Ageing
+
+	measure 'Method Count' = SUM(exception_clear_methods[count])
+		formatString: #,0
+		lineageTag: 94690072-80da-5405-8e7e-e5c1dbef9d7e
+		displayFolder: Exception Ageing
+
+	/// Reddens any queue whose median exception takes longer than the SLA allows - measured against the published target, not against the other owners.
+	measure 'Owner Colour' =
+			VAR vHere = [Owner Median]
+			VAR vSla = CALCULATE(MAX(ageing_headline[sla_days]), ALL(ageing_headline))
+			RETURN IF(vHere > vSla, "#FF5C7A", "#454A82")
+		lineageTag: 32992c65-c956-5f93-93f3-b5768ae5ed03
+		displayFolder: Exception Ageing
+
+	measure 'Open Reference' = FORMAT(SUM(ageing_headline[still_open]), "0") & " open of " & FORMAT(SUM(ageing_headline[exceptions]), "0") & "   oldest " & FORMAT(SUM(ageing_headline[oldest_open_days]), "0") & " days"
+		lineageTag: e1383ef0-7aaf-51e9-b4b4-7eedd9826d44
+		displayFolder: Exception Ageing
+
+	measure 'Clear Reference' = "mean " & FORMAT(SUM(ageing_headline[mean_days_to_clear]), "0.0") & ", P90 " & FORMAT(SUM(ageing_headline[p90_days_to_clear]), "0") & ", worst " & FORMAT(SUM(ageing_headline[worst_days_to_clear]), "0")
+		lineageTag: f6f79179-220a-5dd8-a77a-b5324fec4fa0
+		displayFolder: Exception Ageing
+
+	measure 'Breach Reference' = FORMAT(SUM(ageing_headline[breaches]), "0") & " of " & FORMAT(SUM(ageing_headline[exceptions]), "0") & " past the " & FORMAT(SUM(ageing_headline[sla_days]), "0") & "-day target"
+		lineageTag: ae5ddba2-5971-5df2-a4cd-016498368d7d
+		displayFolder: Exception Ageing
+
+	measure 'Absorbed Reference' = FORMAT(SUM(ageing_headline[absorbed]), "0") & " closed without a fix, carrying " & FORMAT(SUM(ageing_headline[absorbed_exposure]), "$#,0")
+		lineageTag: 568fbb30-cc33-5a2a-bd8d-e5b70300a9c1
+		displayFolder: Exception Ageing
+
+	/// The close-quality headline as a deterministic sentence.
+	measure 'Ageing Insight' =
+			VAR vTotal = SUM(ageing_headline[exceptions])
+			VAR vOpen = SUM(ageing_headline[still_open])
+			VAR vExposure = SUM(ageing_headline[open_exposure])
+			VAR vMedian = SUM(ageing_headline[median_days_to_clear])
+			VAR vMean = SUM(ageing_headline[mean_days_to_clear])
+			VAR vBreach = SUM(ageing_headline[breach_rate])
+			VAR vSlow = MAX(ageing_headline[slowest_owner])
+			VAR vSpread = SUM(ageing_headline[owner_spread_multiple])
+			VAR vFast = MAX(ageing_headline[fastest_owner])
+			VAR vTailOwner = MAX(ageing_headline[worst_tail_owner])
+			VAR vTailMedian = SUM(ageing_headline[worst_tail_median])
+			VAR vTailMean = SUM(ageing_headline[worst_tail_mean])
+			VAR vAbsorbed = SUM(ageing_headline[absorbed])
+			VAR vAbsorbedShare = SUM(ageing_headline[absorbed_share])
+			VAR vGrew = SUM(ageing_headline[months_backlog_grew])
+			RETURN
+			    FORMAT(vTotal, "0") & " exceptions were raised and " & FORMAT(vOpen, "0")
+			        & " are still open, carrying " & FORMAT(vExposure, "$#,0")
+			        & ". The median clears in " & FORMAT(vMedian, "0")
+			        & " days against a mean of " & FORMAT(vMean, "0.0")
+			        & ", and " & FORMAT(vBreach, "0.0%") & " breached the target. "
+			        & vSlow & " takes " & FORMAT(vSpread, "0.0")
+			        & "x as long as " & vFast & " on the same work, while " & vTailOwner
+			        & " has the opposite problem - a median of " & FORMAT(vTailMedian, "0")
+			        & " days against a mean of " & FORMAT(vTailMean, "0.0")
+			        & ", which is a long tail rather than a slow queue and needs a "
+			        & "different fix. " & FORMAT(vAbsorbed, "0") & " ("
+			        & FORMAT(vAbsorbedShare, "0%")
+			        & ") were closed by accepting or writing them off, so they return next "
+			        & "month; the backlog grew in " & FORMAT(vGrew, "0") & " months."
+		lineageTag: 3a8ad57b-3685-5945-9874-22106c9c410d
+		displayFolder: Exception Ageing
+
 	column Value
 		dataType: int64
 		isHidden
