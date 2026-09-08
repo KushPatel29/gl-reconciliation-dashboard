@@ -412,13 +412,18 @@ def main():
     # Linux runner having passed on Windows.
     e.loc[e.manual_entry == 1, cols].sort_values(
         ["risk_score", "transaction_id"], ascending=[False, True]).to_csv(
-            OUT / "journal_risk_entries.csv", index=False)
-    users.to_csv(OUT / "journal_risk_by_user.csv", index=False)
-    flags.to_csv(OUT / "journal_risk_flags.csv", index=False)
-    ben.to_csv(OUT / "benford_by_dimension.csv", index=False)
+            OUT / "journal_risk_entries.csv", index=False,
+                     lineterminator="\n")
+    users.to_csv(OUT / "journal_risk_by_user.csv", index=False,
+                     lineterminator="\n")
+    flags.to_csv(OUT / "journal_risk_flags.csv", index=False,
+                     lineterminator="\n")
+    ben.to_csv(OUT / "benford_by_dimension.csv", index=False,
+                     lineterminator="\n")
     (OUT / "journal_risk_summary.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
-    headline(summary).to_csv(OUT / "journal_risk_headline.csv", index=False)
+    headline(summary).to_csv(OUT / "journal_risk_headline.csv", index=False,
+                     lineterminator="\n")
 
     print()
     print("=" * 74)

@@ -8,3 +8,11 @@
 # passed on Linux - a gate that depends on who cloned it.
 *.twb text eol=lf
 *.tmdl text eol=lf
+
+# CI asserts the generated data and figures come back byte for byte identical.
+# Python's csv module writes CRLF on every platform and pandas writes the
+# platform's own line ending, so without this the committed files carry the
+# line endings of whichever machine last ran the generator - and the gate
+# fails on the other one.
+*.csv text eol=lf
+*.json text eol=lf

@@ -263,8 +263,13 @@ def gen_exception_workflow(exceptions, users, rng):
 
 
 def write(path, rows):
+    # newline="" hands line endings to the csv module, which writes CRLF on
+    # every platform; lineterminator makes it LF, which is what the repository
+    # stores. Without it the file's bytes record which machine ran the
+    # generator, and CI compares bytes.
     with path.open("w", newline="", encoding="utf-8") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
+        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()),
+                           lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
     print(f"  wrote {path}  ({len(rows):,} rows)")

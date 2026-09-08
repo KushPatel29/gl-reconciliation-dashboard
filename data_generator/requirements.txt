@@ -1,15 +1,22 @@
-# Faker is pinned, the others are not, and the difference matters.
+# Pinned, and the pins are the point.
 #
-# generate_gl_data.py draws every posting date from fake.date_between_dates(),
-# which consumes Faker's own seeded generator. A different Faker release makes
-# different draws from the same seed, so the committed source ledger and the
-# one CI regenerates stop matching - and CI asserts the published figures come
-# back byte for byte. It did not fail loudly: it produced a fully rewritten
-# data/journal_control.csv on the Linux runner and passed on Windows.
+# CI regenerates every figure and asserts the files come back byte for byte
+# identical. That makes the generator's dependencies part of the contract, and
+# two of them are stream-sensitive in ways that are easy to miss:
 #
-# numpy's legacy RandomState is stream-compatible across releases by policy, so
-# the amounts do not need a pin; pandas only formats numbers that are already
-# rounded before they are written.
+#   pandas   gen_source_erp() picks each posting's account with
+#            accounts.sample(1), which draws through numpy's global RandomState
+#            - seeded, so stable within a version, but pandas has changed HOW
+#            it consumes that stream between releases. A different pandas puts
+#            different accounts on all 5,400 postings from the same seed, which
+#            is what rewrote data/journal_control.csv wholesale on the Linux
+#            runner while passing on Windows.
+#   faker    every posting date comes from fake.date_between_dates(), which
+#            draws on Faker's own seeded generator, and a different release
+#            makes different draws from the same seed.
+#
+# numpy is pinned for the same reason one step removed: the sampling above runs
+# on its legacy RandomState.
+pandas==3.0.3
+numpy==1.26.3
 faker==40.28.1
-pandas
-numpy

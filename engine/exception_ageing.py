@@ -242,14 +242,20 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     summary, age, owners, types, flow, methods = build()
 
-    age.to_csv(OUT / "exception_ageing.csv", index=False)
-    owners.to_csv(OUT / "exception_sla_by_owner.csv", index=False)
-    types.to_csv(OUT / "exception_sla_by_type.csv", index=False)
-    flow.to_csv(OUT / "exception_throughput.csv", index=False)
-    methods.to_csv(OUT / "exception_clear_methods.csv", index=False)
+    age.to_csv(OUT / "exception_ageing.csv", index=False,
+                     lineterminator="\n")
+    owners.to_csv(OUT / "exception_sla_by_owner.csv", index=False,
+                     lineterminator="\n")
+    types.to_csv(OUT / "exception_sla_by_type.csv", index=False,
+                     lineterminator="\n")
+    flow.to_csv(OUT / "exception_throughput.csv", index=False,
+                     lineterminator="\n")
+    methods.to_csv(OUT / "exception_clear_methods.csv", index=False,
+                     lineterminator="\n")
     (OUT / "exception_ageing_summary.json").write_text(
         json.dumps(summary, indent=2), encoding="utf-8")
-    headline(summary).to_csv(OUT / "exception_ageing_headline.csv", index=False)
+    headline(summary).to_csv(OUT / "exception_ageing_headline.csv", index=False,
+                     lineterminator="\n")
 
     print()
     print("=" * 74)
