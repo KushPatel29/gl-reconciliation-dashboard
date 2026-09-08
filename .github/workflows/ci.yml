@@ -24,6 +24,9 @@ jobs:
           pip install -r data_generator/requirements.txt
           pip install pytest
 
+      - name: Record the versions the figures were generated with
+        run: python -c "import pandas,numpy,faker,sys;print('python',sys.version);print('pandas',pandas.__version__);print('numpy',numpy.__version__);print('faker',faker.VERSION)" | while read -r line; do echo "::error::$line"; done
+
       - name: Generate fresh synthetic GL data
         run: python data_generator/generate_gl_data.py
 
