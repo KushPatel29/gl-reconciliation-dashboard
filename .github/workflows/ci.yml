@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r data_generator/requirements.txt
-          pip install pytest
+          pip install pytest jsonschema
 
       - name: Generate fresh synthetic GL data
         run: python data_generator/generate_gl_data.py
