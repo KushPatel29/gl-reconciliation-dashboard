@@ -115,7 +115,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Cloud exception detail — the FINOPS-REC-01 evidence list'"
+                  "Value": "'Cloud exception detail \u2014 the FINOPS-REC-01 evidence list'"
                 }
               }
             },
@@ -123,6 +123,19 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table titled Cloud exception detail \u2014 the FINOPS-REC-01 evidence list. Shows transaction id, period, exception type, erp amount and variance amount.'"
                 }
               }
             }

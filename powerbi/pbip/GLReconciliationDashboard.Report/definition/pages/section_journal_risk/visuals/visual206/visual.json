@@ -162,6 +162,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table titled The review list. Shows transaction id, poster, approver, account name, control amount and risk score.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

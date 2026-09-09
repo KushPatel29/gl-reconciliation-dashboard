@@ -102,6 +102,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table titled ...and whether that means anything. Shows flag, Flag Rate and Baseline Rate.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

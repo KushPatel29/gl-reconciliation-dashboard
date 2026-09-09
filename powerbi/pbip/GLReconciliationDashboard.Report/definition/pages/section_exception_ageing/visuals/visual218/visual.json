@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled How they were resolved. Plots Method Count by clear method.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

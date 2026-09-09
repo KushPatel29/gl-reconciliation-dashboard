@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled Benford by cost centre. Plots Chi Square by cost center.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

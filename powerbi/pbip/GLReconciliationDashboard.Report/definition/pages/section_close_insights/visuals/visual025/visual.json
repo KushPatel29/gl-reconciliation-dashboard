@@ -72,6 +72,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Gauge titled Match Rate vs 98% Target. Shows Match Rate and Match Rate Target.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

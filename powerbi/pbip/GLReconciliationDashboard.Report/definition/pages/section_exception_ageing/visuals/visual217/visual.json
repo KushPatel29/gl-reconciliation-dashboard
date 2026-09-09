@@ -148,6 +148,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Table titled A slow queue and a long tail are different problems. Shows owner, cleared, Owner Median, Owner Mean and Owner Breach Rate.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled Who posts the risk. Plots User Risk Score by poster.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled Whose queue is holding the close up. Plots Owner Median by owner.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

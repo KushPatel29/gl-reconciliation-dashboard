@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Column chart titled What is still open, and for how long. Plots Open By Age by age bucket.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

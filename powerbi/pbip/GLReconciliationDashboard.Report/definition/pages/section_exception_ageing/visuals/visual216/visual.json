@@ -120,6 +120,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Line chart titled Opened against cleared. Plots Opened, Cleared and Backlog by period.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

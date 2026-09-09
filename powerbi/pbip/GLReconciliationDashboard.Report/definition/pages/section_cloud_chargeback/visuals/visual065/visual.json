@@ -73,6 +73,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled Exception dollars by cloud account. Plots Cloud Exception $ by account name.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

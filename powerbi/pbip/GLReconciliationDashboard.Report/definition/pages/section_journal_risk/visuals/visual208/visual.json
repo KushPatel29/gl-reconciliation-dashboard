@@ -54,6 +54,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Card titled What the controls are telling you. Shows Risk Insight.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

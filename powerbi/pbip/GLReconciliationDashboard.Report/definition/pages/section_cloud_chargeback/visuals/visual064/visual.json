@@ -73,6 +73,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Column chart titled Allocation coverage by month (share of billed spend with an owner). Plots Allocation Coverage % by month.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {

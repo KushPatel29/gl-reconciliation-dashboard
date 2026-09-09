@@ -110,6 +110,19 @@
             }
           }
         }
+      ],
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bar chart titled What each test flagged. Plots Flag Hits by flag.'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "objects": {
