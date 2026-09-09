@@ -5,7 +5,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-5%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
 ![Tableau](https://img.shields.io/badge/Tableau-generated%20.twb-E97627?logo=tableau&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-350%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-368%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Every BI resume says "reconciled GL to subledger." Almost nobody can show
@@ -352,7 +352,7 @@ Verify the claims:
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 350 tests — every discrepancy class found, every dollar accounted for,
+pytest tests/ -v    # 368 tests — every discrepancy class found, every dollar accounted for,
                     # in GL mode and FinOps mode, plus Power BI and Tableau workbook
                     # integrity and the semantic-model bindings (every column the
                     # model binds exists in the CSV it reads; a renamed one renders

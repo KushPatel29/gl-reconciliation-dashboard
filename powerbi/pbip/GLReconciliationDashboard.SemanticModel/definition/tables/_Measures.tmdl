@@ -173,13 +173,26 @@ table _Measures
 		displayFolder: Verdict
 		lineageTag: 1fcee59c-2fc2-5ba5-90ab-81c7f29ec0d1
 
-	/// Falls back to the all-period total rather than showing an empty line when no single period is selected.
+	/// Falls back to naming the span rather than showing an empty line when no
+	/// single period is selected.
+	///
+	/// It used to fall back to the string "230 across six periods". That was
+	/// true of the unfiltered book on the day it was typed and of nothing else:
+	/// filter to two accounts, or one cost centre, and the card above it read
+	/// 41 while the line beneath it still said 230 across six periods. A
+	/// hardcoded number under a live one is worse than no reference at all,
+	/// because the reader has no way to tell which of the two moved.
+	///
+	/// Periods are counted on the exceptions themselves, not on dim_period: an
+	/// account filter does not touch the period table, so counting there would
+	/// claim six periods for a selection that only reaches two.
 	measure 'Exceptions Reference' =
 			VAR vPrior = [Exceptions PM]
+			VAR vPeriods = DISTINCTCOUNT(gl_reconciliation_exceptions[period])
 			RETURN
 			    IF(
 			        ISBLANK(vPrior),
-			        "230 across six periods",
+			        "Across " & FORMAT(vPeriods, "#,0") & " period" & IF(vPeriods = 1, "", "s") & " in scope",
 			        "Prior period " & FORMAT(vPrior, "#,0") & "   "
 			            & IF([Total Exceptions] <= vPrior, "▼", "▲") & " "
 			            & FORMAT(ABS([Total Exceptions] - vPrior), "#,0")
@@ -193,7 +206,8 @@ table _Measures
 			RETURN
 			    IF(
 			        ISBLANK(vPrior),
-			        "Across all periods in scope",
+			        "Across " & FORMAT(DISTINCTCOUNT(gl_reconciliation_exceptions[period]), "#,0")
+			            & " periods in scope",
 			        "Prior period " & FORMAT(vPrior, "\$#,0") & "   "
 			            & IF([Exception Dollar Impact] <= vPrior, "▼", "▲") & " "
 			            & FORMAT(ABS([Exception Dollar Impact] - vPrior), "\$#,0")
