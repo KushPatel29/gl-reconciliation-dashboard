@@ -47,7 +47,8 @@ the complete chain; do not edit the generated register manually.
 ## Evidence retained
 
 - Versioned policy and control ID
-- Five source-file SHA-256 hashes
+- Five source-file SHA-256 hashes, with text newlines normalized to LF so the
+  same evidence has the same fingerprint on Windows and Linux
 - Row-level and whole-register fingerprints
 - Named preparer and reviewer assignments with segregation-of-duties result
 - Blocking reasons, exposure and response SLA by account-period

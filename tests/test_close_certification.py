@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -171,8 +170,16 @@ def test_release_manifest_hashes_every_required_input(built):
     assert manifest["required_evidence_complete"] is True
     assert len(manifest["input_sha256"]) == 5
     for relative, claimed in manifest["input_sha256"].items():
-        actual = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+        actual = cc._sha256_path(ROOT / relative)
         assert claimed == actual
+
+
+def test_evidence_hash_is_cross_platform_newline_stable(tmp_path):
+    lf = tmp_path / "lf.csv"
+    crlf = tmp_path / "crlf.csv"
+    lf.write_bytes(b"account,period\n1,2025-01\n")
+    crlf.write_bytes(b"account,period\r\n1,2025-01\r\n")
+    assert cc._sha256_path(lf) == cc._sha256_path(crlf)
 
 
 def test_release_manifest_never_claims_a_human_approval(built):

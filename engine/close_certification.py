@@ -67,7 +67,10 @@ def _sha256_bytes(payload: bytes) -> str:
 
 
 def _sha256_path(path: Path) -> str:
-    return _sha256_bytes(path.read_bytes())
+    # Git may materialize text files with CRLF on Windows and LF on Linux.
+    # Certification fingerprints must represent logical evidence content, not
+    # the checkout platform's newline convention.
+    return _sha256_bytes(path.read_bytes().replace(b"\r\n", b"\n"))
 
 
 def load_policy(path: Path = POLICY_PATH) -> dict[str, Any]:
@@ -385,6 +388,7 @@ def _manifest(policy: dict[str, Any], summary: dict[str, Any]) -> dict[str, Any]
         "release_decision": summary["decision"],
         "register_fingerprint": summary["register_fingerprint"],
         "policy_sha256": _sha256_path(POLICY_PATH),
+        "hash_canonicalization": "Text line endings normalized to LF before SHA-256",
         "input_sha256": {
             path.relative_to(ROOT).as_posix(): _sha256_path(path)
             for path in evidence
