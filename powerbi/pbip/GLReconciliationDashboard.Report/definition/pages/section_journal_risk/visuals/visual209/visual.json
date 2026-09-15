@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "visual209",
   "position": {
-    "x": 330,
-    "y": 148,
+    "x": 340,
+    "y": 202,
     "z": 1000,
-    "height": 260,
-    "width": 310,
+    "height": 187,
+    "width": 300,
     "tabOrder": 1000
   },
   "visual": {
@@ -28,7 +28,8 @@
                 }
               },
               "queryRef": "journal_risk_flags.flag",
-              "nativeQueryRef": "flag"
+              "nativeQueryRef": "flag",
+              "displayName": "Flag"
             },
             {
               "field": {

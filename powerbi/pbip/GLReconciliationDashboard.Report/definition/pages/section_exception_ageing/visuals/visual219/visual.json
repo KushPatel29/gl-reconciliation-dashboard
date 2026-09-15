@@ -3,9 +3,9 @@
   "name": "visual219",
   "position": {
     "x": 20,
-    "y": 616,
+    "y": 584,
     "z": 1090,
-    "height": 94,
+    "height": 120,
     "width": 1240,
     "tabOrder": 1090
   },
@@ -76,7 +76,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "11D"
+                  "Value": "10D"
                 }
               }
             },

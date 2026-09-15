@@ -34,10 +34,11 @@ TABLES = next(ROOT.glob("powerbi/pbip/*.SemanticModel/definition/tables"))
 
 # The properties Desktop writes under a measure. Anything else at this indent
 # directly under a single-line measure is a continuation that should not be
-# there.
+# there. dataCategory is how an SVG measure tells a visual to draw its string as
+# an image (ImageUrl); without it the image visual renders blank.
 PROPERTY = re.compile(
     r"^\t\t(lineageTag|formatString|displayFolder|description|isHidden"
-    r"|formatStringDefinition|annotation|changedProperty|dataType"
+    r"|formatStringDefinition|annotation|changedProperty|dataType|dataCategory"
     r"|isDataTypeInferred|detailRowsDefinition|kpi)\b")
 HEADER = re.compile(r"^\tmeasure ('[^']+'|\S+)\s*=\s*(.*)$")
 
@@ -116,6 +117,29 @@ def test_every_measure_carries_exactly_one_lineage_tag(path):
         if len(tags) != 1:
             missing.append(f"{name}: {len(tags)} lineage tags")
     assert not missing, missing
+
+
+def test_every_column_a_measure_names_exists():
+    """A measure naming a column its table does not have still loads: the
+    measure sits in an error state, every measure that calls it inherits the
+    error, and each visual bound to any of them shows "Something's wrong with
+    one or more fields". The control tower's whole inventory page went that way
+    when its measures moved to `fact_inventory[date_key]`, a column the Power BI
+    table - loaded straight from the bronze snapshot - never had."""
+    columns, bodies = {}, []
+    for f in FILES:
+        text = f.read_text(encoding="utf-8")
+        table = re.search(r"^table '?([^'\n]+?)'?$", text, re.M).group(1)
+        columns[table] = {m.group(1) or m.group(2)
+                          for m in re.finditer(r"^\tcolumn (?:'([^']+)'|([^\s=]+))", text, re.M)}
+        bodies += re.findall(r"^\tmeasure .*?(?=^\t(?:measure|column|partition)\s|\Z)", text, re.M | re.S)
+    dangling = sorted({
+        f"{quoted or bare}[{column}]"
+        for body in bodies
+        for quoted, bare, column in re.findall(r"(?:'([^']+)'|\b([A-Za-z_]\w*))\[([^\]]+)\]", body)
+        if (quoted or bare) in columns and column not in columns[quoted or bare]
+    })
+    assert not dangling, f"measures name columns their tables do not have: {dangling}"
 
 
 @pytest.mark.parametrize("path", FILES, ids=lambda p: p.name)

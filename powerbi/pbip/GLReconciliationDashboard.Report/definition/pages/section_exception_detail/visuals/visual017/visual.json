@@ -3,37 +3,48 @@
   "name": "visual017",
   "position": {
     "x": 20,
-    "y": 20,
+    "y": 88,
     "z": 17000,
-    "height": 110,
+    "height": 100,
     "width": 300,
     "tabOrder": 17000
   },
   "visual": {
-    "visualType": "card",
-    "query": {
-      "queryState": {
-        "Values": {
-          "projections": [
-            {
-              "field": {
+    "visualType": "image",
+    "objects": {
+      "image": [
+        {
+          "properties": {
+            "sourceType": {
+              "expr": {
+                "Literal": {
+                  "Value": "'imageUrl'"
+                }
+              }
+            },
+            "sourceUrl": {
+              "expr": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Missing Count"
+                  "Property": "KPI SVG Missing Count"
                 }
-              },
-              "queryRef": "_Measures.Missing Count",
-              "nativeQueryRef": "Missing Count"
+              }
+            },
+            "fit": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fit'"
+                }
+              }
             }
-          ]
+          }
         }
-      }
+      ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -41,7 +52,54 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Card. Shows Missing Count.'"
+                  "Value": "'KPI tile: Missing Count.'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

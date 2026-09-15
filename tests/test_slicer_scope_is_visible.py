@@ -28,6 +28,13 @@ note about Region cannot stand in for one about Program. A visual with no data
 bindings - a header, a decoration - has nothing to be wrong about and is
 skipped.
 
+Button and list slicers filter exactly like classic ones and are held to the
+same rule. The one exception is a slicer on a parameter table - a calculated
+DATATABLE no relationship touches. It is a switch, not a filter: it changes
+which measure a chart shows, so there is nothing for it to reach. What such a
+switch owes the reader instead (a title naming the metric shown) is checked in
+test_report_interactions.
+
 Nothing here is specific to one report; pages and model are read off disk, so
 this file drops into any PBIP repo unchanged.
 """
@@ -44,6 +51,7 @@ SM = next(PBIP.glob("*.SemanticModel")) / "definition"
 PAGES = next(PBIP.glob("*.Report")) / "definition" / "pages"
 
 MARKER = "not filtered by"
+SLICER_TYPES = {"slicer", "listSlicer", "advancedSlicerVisual"}
 
 MEASURE_RE = re.compile(
     r"^\tmeasure\s+(?:'([^']+)'|([A-Za-z_][\w ]*?))\s*=\s*"
@@ -91,10 +99,24 @@ def _edges():
 EDGES = _edges()
 
 
+def _parameter_tables():
+    related = {t for t, many in EDGES.items() if many} | {t for many in EDGES.values() for t in many}
+    out = set()
+    for f in (SM / "tables").glob("*.tmdl"):
+        text = f.read_text(encoding="utf-8")
+        if (f.stem not in related and "DATATABLE(" in text
+                and re.search(r"^\tpartition .+ = calculated", text, re.M)):
+            out.add(f.stem)
+    return out
+
+
+PARAMETER_TABLES = _parameter_tables()
+
+
 def reachable_from(tables):
     seen, stack = set(tables), list(tables)
     while stack:
-        for nxt in EDGES[stack.pop()]:
+        for nxt in EDGES.get(stack.pop(), set()):
             if nxt not in seen:
                 seen.add(nxt)
                 stack.append(nxt)
@@ -131,7 +153,7 @@ def read_visual(path):
             note += MEASURES.get(expr["Measure"].get("Property", ""), "")
     return {
         "id": path.parent.name,
-        "type": vis.get("visualType", "?"),
+        "type": vis.get("visualType", "group" if "visualGroup" in j else "?"),
         "tables": tables,
         "note": note,
         "title": title,
@@ -163,7 +185,8 @@ def test_the_model_and_pages_were_actually_read():
 
 @pytest.mark.parametrize("page,visuals", CASES)
 def test_every_visual_a_slicer_cannot_reach_says_so(page, visuals):
-    slicers = [v for v in visuals if v["type"] == "slicer"]
+    slicers = [v for v in visuals
+               if v["type"] in SLICER_TYPES and not (v["tables"] and v["tables"] <= PARAMETER_TABLES)]
     if not slicers:
         pytest.skip(f"{page} has no slicers")
 
@@ -173,7 +196,7 @@ def test_every_visual_a_slicer_cannot_reach_says_so(page, visuals):
         names = _names(slicer)
         label = slicer["title"] or ", ".join(slicer["columns"])
         for v in visuals:
-            if v["type"] == "slicer" or not v["tables"] or v["tables"] & reach:
+            if v["type"] in SLICER_TYPES or not v["tables"] or v["tables"] & reach:
                 continue
             note = v["note"].lower()
             if MARKER in note and any(n in note for n in names):

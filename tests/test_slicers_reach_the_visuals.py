@@ -144,7 +144,7 @@ def page_facts(visuals):
     for v in visuals:
         raw = v.read_text(encoding="utf-8")
         refs = set(re.findall(r'"queryRef"\s*:\s*"([^"]+)"', raw))
-        if json.loads(raw).get("visual", {}).get("visualType") == "slicer":
+        if json.loads(raw).get("visual", {}).get("visualType") in {"slicer", "listSlicer", "advancedSlicerVisual"}:
             held |= {r for r in refs if "." in r}
         used |= {r.split(".", 1)[1] for r in refs if r.split(".", 1)[1] in MEASURES}
     return held, used

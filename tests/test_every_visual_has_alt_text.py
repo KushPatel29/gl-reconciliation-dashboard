@@ -23,7 +23,11 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 PBIP = ROOT / "powerbi" / "pbip"
 
-VISUALS = sorted(PBIP.glob("*.Report/definition/pages/*/visuals/*/visual.json"))
+VISUALS = sorted(
+    p for p in PBIP.glob("*.Report/definition/pages/*/visuals/*/visual.json")
+    # a visualGroup container draws nothing itself; the visuals inside it carry the alt text
+    if "visual" in json.loads(p.read_text(encoding="utf-8"))
+)
 CASES = [pytest.param(p, id=f"{p.parent.parent.parent.name}/{p.parent.name}") for p in VISUALS]
 
 

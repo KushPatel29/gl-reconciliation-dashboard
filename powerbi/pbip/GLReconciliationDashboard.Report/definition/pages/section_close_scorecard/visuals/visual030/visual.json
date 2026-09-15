@@ -3,9 +3,9 @@
   "name": "visual030",
   "position": {
     "x": 660,
-    "y": 526,
+    "y": 468,
     "z": 1030,
-    "height": 174,
+    "height": 236,
     "width": 600,
     "tabOrder": 1030
   },
@@ -40,7 +40,7 @@
             "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "11D"
+                  "Value": "10D"
                 }
               }
             },

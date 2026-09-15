@@ -3,9 +3,9 @@
   "name": "visual206",
   "position": {
     "x": 20,
-    "y": 418,
+    "y": 396,
     "z": 1000,
-    "height": 188,
+    "height": 159,
     "width": 760,
     "tabOrder": 1000
   },
@@ -28,7 +28,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.transaction_id",
-              "nativeQueryRef": "transaction_id"
+              "nativeQueryRef": "transaction_id",
+              "displayName": "Transaction ID"
             },
             {
               "field": {
@@ -42,7 +43,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.poster",
-              "nativeQueryRef": "poster"
+              "nativeQueryRef": "poster",
+              "displayName": "Poster"
             },
             {
               "field": {
@@ -56,7 +58,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.approver",
-              "nativeQueryRef": "approver"
+              "nativeQueryRef": "approver",
+              "displayName": "Approver"
             },
             {
               "field": {
@@ -70,7 +73,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.account_name",
-              "nativeQueryRef": "account_name"
+              "nativeQueryRef": "account_name",
+              "displayName": "Account"
             },
             {
               "field": {
@@ -84,7 +88,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.control_amount",
-              "nativeQueryRef": "control_amount"
+              "nativeQueryRef": "control_amount",
+              "displayName": "Control Amount"
             },
             {
               "field": {
@@ -98,7 +103,8 @@
                 }
               },
               "queryRef": "journal_risk_entries.risk_score",
-              "nativeQueryRef": "risk_score"
+              "nativeQueryRef": "risk_score",
+              "displayName": "Risk Score"
             }
           ]
         }
@@ -182,6 +188,105 @@
         {
           "properties": {
             "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "128D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.transaction_id"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "102D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.poster"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "102D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.approver"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "158D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.account_name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "128D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.control_amount"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "99D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "journal_risk_entries.risk_score"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
               "expr": {
                 "Literal": {
                   "Value": "false"

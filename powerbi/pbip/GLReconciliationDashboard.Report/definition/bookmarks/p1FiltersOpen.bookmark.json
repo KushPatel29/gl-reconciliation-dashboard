@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Close Scorecard - filters open",
+  "name": "p1FiltersOpen",
+  "options": {
+    "targetVisualNames": [
+      "p1FilterPanel",
+      "p1PanelBg",
+      "p1PanelTitle",
+      "p1PanelClose",
+      "visual008",
+      "visual009",
+      "p1PanelClear"
+    ],
+    "applyOnlyToTargetVisuals": true,
+    "suppressData": true,
+    "suppressActiveSection": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "section_close_scorecard",
+    "sections": {
+      "section_close_scorecard": {
+        "visualContainers": {
+          "p1PanelBg": {},
+          "p1PanelTitle": {},
+          "p1PanelClose": {},
+          "visual008": {},
+          "visual009": {},
+          "p1PanelClear": {}
+        },
+        "visualContainerGroups": {
+          "p1FilterPanel": {
+            "isHidden": false
+          }
+        }
+      }
+    }
+  }
+}

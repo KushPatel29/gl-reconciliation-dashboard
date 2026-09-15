@@ -3,9 +3,9 @@
   "name": "visual021",
   "position": {
     "x": 20,
-    "y": 150,
+    "y": 206,
     "z": 21000,
-    "height": 550,
+    "height": 498,
     "width": 760,
     "tabOrder": 21000
   },
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "gl_reconciliation_exceptions.transaction_id",
-              "nativeQueryRef": "transaction_id"
+              "nativeQueryRef": "transaction_id",
+              "displayName": "Transaction ID"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "dim_account.account_name",
-              "nativeQueryRef": "account_name"
+              "nativeQueryRef": "account_name",
+              "displayName": "Account"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "gl_reconciliation_exceptions.period",
-              "nativeQueryRef": "period"
+              "nativeQueryRef": "period",
+              "displayName": "Period"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "gl_reconciliation_exceptions.exception_type",
-              "nativeQueryRef": "exception_type"
+              "nativeQueryRef": "exception_type",
+              "displayName": "Exception Type"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "gl_reconciliation_exceptions.erp_amount",
-              "nativeQueryRef": "erp_amount"
+              "nativeQueryRef": "erp_amount",
+              "displayName": "Erp Amount"
             },
             {
               "field": {
@@ -97,7 +102,8 @@
                 }
               },
               "queryRef": "gl_reconciliation_exceptions.variance_amount",
-              "nativeQueryRef": "variance_amount"
+              "nativeQueryRef": "variance_amount",
+              "displayName": "Variance Amount"
             }
           ]
         }
@@ -132,6 +138,107 @@
               "expr": {
                 "Literal": {
                   "Value": "'Table titled Exception Log. Shows transaction id, account name, period, exception type, erp amount and variance amount.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "117D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "gl_reconciliation_exceptions.transaction_id"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_account.account_name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "68D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "gl_reconciliation_exceptions.period"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "151D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "gl_reconciliation_exceptions.exception_type"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "gl_reconciliation_exceptions.erp_amount"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "145D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "gl_reconciliation_exceptions.variance_amount"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

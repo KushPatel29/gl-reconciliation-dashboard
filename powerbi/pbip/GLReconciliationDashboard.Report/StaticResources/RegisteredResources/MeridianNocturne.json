@@ -1,5 +1,5 @@
 {
-  "name": "Meridian Nocturne",
+  "name": "MeridianNocturne.json",
   "dataColors": [
     "#8B8BFF",
     "#2DD4C4",
@@ -87,9 +87,10 @@
                 "color": "#EDEFFA"
               }
             },
+            "border": true,
             "borderColor": {
               "solid": {
-                "color": "#2C2F55"
+                "color": "#454A82"
               }
             },
             "checkboxAndApplyColor": {
@@ -102,8 +103,59 @@
                 "color": "#0B0C1A"
               }
             },
-            "transparency": 0,
-            "border": true
+            "transparency": 0
+          }
+        ],
+        "filterCard": [
+          {
+            "$id": "Available",
+            "backgroundColor": {
+              "solid": {
+                "color": "#191B36"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#EDEFFA"
+              }
+            },
+            "border": true,
+            "borderColor": {
+              "solid": {
+                "color": "#454A82"
+              }
+            },
+            "inputBoxColor": {
+              "solid": {
+                "color": "#141631"
+              }
+            },
+            "transparency": 0
+          },
+          {
+            "$id": "Applied",
+            "backgroundColor": {
+              "solid": {
+                "color": "#212445"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#EDEFFA"
+              }
+            },
+            "border": true,
+            "borderColor": {
+              "solid": {
+                "color": "#8B8BFF"
+              }
+            },
+            "inputBoxColor": {
+              "solid": {
+                "color": "#141631"
+              }
+            },
+            "transparency": 0
           }
         ]
       }
@@ -333,8 +385,7 @@
               "solid": {
                 "color": "#454A82"
               }
-            },
-            "radius": 12
+            }
           }
         ]
       }
@@ -370,7 +421,12 @@
                 "color": "#EDEFFA"
               }
             },
-            "textSize": 10
+            "textSize": 10,
+            "background": {
+              "solid": {
+                "color": "#141631"
+              }
+            }
           }
         ],
         "header": [
@@ -712,6 +768,19 @@
               }
             },
             "weight": 1
+          }
+        ]
+      }
+    },
+    "advancedSlicerVisual": {
+      "*": {
+        "value": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#EDEFFA"
+              }
+            }
           }
         ]
       }

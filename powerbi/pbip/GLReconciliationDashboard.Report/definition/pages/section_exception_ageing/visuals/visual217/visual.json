@@ -3,9 +3,9 @@
   "name": "visual217",
   "position": {
     "x": 20,
-    "y": 418,
+    "y": 413,
     "z": 1000,
-    "height": 188,
+    "height": 162,
     "width": 760,
     "tabOrder": 1000
   },
@@ -28,7 +28,8 @@
                 }
               },
               "queryRef": "exception_sla_by_owner.owner",
-              "nativeQueryRef": "owner"
+              "nativeQueryRef": "owner",
+              "displayName": "Owner"
             },
             {
               "field": {
@@ -42,7 +43,8 @@
                 }
               },
               "queryRef": "exception_sla_by_owner.cleared",
-              "nativeQueryRef": "cleared"
+              "nativeQueryRef": "cleared",
+              "displayName": "Cleared"
             },
             {
               "field": {
@@ -168,6 +170,91 @@
         {
           "properties": {
             "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "136D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "exception_sla_by_owner.owner"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "102D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "exception_sla_by_owner.cleared"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "150D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Owner Median"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "131D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Owner Mean"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "199D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Owner Breach Rate"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "autoSizeColumnWidth": {
               "expr": {
                 "Literal": {
                   "Value": "false"

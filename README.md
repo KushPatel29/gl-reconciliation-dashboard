@@ -2,10 +2,10 @@
 
 [![CI](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml)
 ![SQL](https://img.shields.io/badge/SQL-T--SQL%20%2B%20SQLite-CC2927)
-![Power BI](https://img.shields.io/badge/Power%20BI-5%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
+![Power BI](https://img.shields.io/badge/Power%20BI-7%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
 ![Tableau](https://img.shields.io/badge/Tableau-generated%20.twb-E97627?logo=tableau&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-558%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-682%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Every BI resume says "reconciled GL to subledger." Almost nobody can show
@@ -55,6 +55,28 @@ fresh clone in seconds with no database to install — what you read in
 Seven Power BI pages, hand-authored as code (TMDL semantic model + PBIR
 report definition) in [`powerbi/pbip/`](powerbi/pbip/) — open
 `GLReconciliationDashboard.pbip` in Power BI Desktop and hit Refresh.
+
+### How the report is built
+
+- **24 KPI tiles are SVG drawn by DAX measures** (`dataCategory: ImageUrl`),
+  each from the measure its card already showed, the card's reference line and,
+  where one exists, its status colour. Rates carry a progress rail.
+- **Every page opens with a header** stating the page, its place in the report
+  and the filters in effect, with Previous and Next page buttons.
+- **Slicers:** every slicer sits in a filter panel that two bookmarks open and
+  close without resetting a filter, while the header and the Filters button
+  (`Filters · 2`) keep the filter state on screen.
+- **Tables read as tables:** columns get plain headers (`Transaction ID`, not
+  `transaction_id`) and widths that fill the visual, and each narrative card has
+  room for its whole sentence.
+- **Dark filter chrome:** the theme now styles the filter pane, filter cards and
+  dropdown lists, which had opened white.
+
+Microsoft's `powerbi-report-author validate` passes with no errors or warnings,
+and every page was rendered in Power BI Desktop for the screenshots below. [`tests/test_report_interactions.py`](tests/test_report_interactions.py)
+pins the ways these patterns fail silently: an unescaped `%` turns every SVG
+fill black, a bookmark that also captures data resets the filters, and a button
+pointing at a deleted bookmark does nothing.
 
 **Close Scorecard** — the page a controller opens first: match rate,
 exception count and dollar impact, accounts out of tolerance:

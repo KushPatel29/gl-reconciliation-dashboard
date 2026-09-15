@@ -48,7 +48,7 @@ def test_every_visual_field_resolves(model):
     unresolved = []
     for vf in _visual_files():
         v = json.loads(vf.read_text(encoding="utf-8"))
-        qs = v["visual"].get("query", {}).get("queryState", {})
+        qs = v.get("visual", {}).get("query", {}).get("queryState", {})
         for _, body in qs.items():
             for proj in body["projections"]:
                 fld = proj["field"]
