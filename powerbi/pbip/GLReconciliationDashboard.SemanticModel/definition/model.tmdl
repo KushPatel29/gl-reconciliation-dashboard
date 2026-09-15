@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["dim_account", "dim_cost_center", "dim_period", "gl_control_totals", "gl_reconciliation_exceptions", "fact_erp_gl", "_Measures", "DataPath", "focus_coverage", "focus_exceptions", "focus_control_totals", "focus_dim_account"]
+annotation PBI_QueryOrder = ["dim_account", "dim_cost_center", "dim_period", "gl_control_totals", "gl_reconciliation_exceptions", "fact_erp_gl", "_Measures", "focus_coverage", "focus_exceptions", "focus_control_totals", "focus_dim_account", "ageing_headline", "benford_by_dimension", "exception_ageing", "exception_clear_methods", "exception_sla_by_owner", "exception_sla_by_type", "exception_throughput", "journal_risk_by_user", "journal_risk_entries", "journal_risk_flags", "risk_headline", "DataPath"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 

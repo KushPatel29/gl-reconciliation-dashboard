@@ -155,3 +155,24 @@ def test_no_measure_body_contains_a_property_keyword(path):
                 offenders.append(f"{name}: {line.strip()[:60]}")
                 break
     assert not offenders, offenders
+
+
+def test_every_power_query_table_is_in_the_query_order():
+    """Desktop refreshes the Power Query tables that model.tmdl's
+    `PBI_QueryOrder` annotation lists. Tables added to the model after that
+    list was written were left off it; a refresh skipped some of them without a
+    word and reported errors on others, so pages built on them came up empty or
+    failed to refresh while every file still named a CSV that exists."""
+    import json
+    definition = TABLES.parent
+    match = re.search(r"annotation PBI_QueryOrder = (\[.*?\])",
+                      (definition / "model.tmdl").read_text(encoding="utf-8"))
+    assert match, "model.tmdl carries no PBI_QueryOrder annotation"
+    order = set(json.loads(match.group(1)))
+    unlisted = []
+    for path in sorted(TABLES.glob("*.tmdl")):
+        text = path.read_text(encoding="utf-8")
+        name = re.search(r"^table '?([^'\n]+?)'?$", text, re.M).group(1)
+        if re.search(r"^\tpartition .*?= m\s*$", text, re.M) and name not in order:
+            unlisted.append(name)
+    assert not unlisted, f"Power Query tables a refresh will skip: {sorted(unlisted)}"

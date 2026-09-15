@@ -35,3 +35,16 @@ data to load).
 
 Note the exact error text and file it mentions — the TMDL/PBIR was authored
 by hand, so a version-specific syntax quirk is possible; it's a quick fix.
+
+## Using it in Power BI Desktop
+
+- **Refresh before you read a number.** A `.pbip` stores the model definition,
+  not its data. On first open Desktop shows "Some of the tables have incomplete or
+  no data"; use **Home > Refresh** so every table reloads from the CSVs. If you
+  opened this project in an earlier session, Desktop may also load an old local
+  cache (`.pbi/cache.abf`, not committed) and show last session's figures until
+  the full refresh finishes.
+- **Buttons need Ctrl+click in Desktop.** Desktop is an editor, so a plain click
+  selects a button; **Ctrl+click** follows it. Previous, Next, Filters, Close and
+  Clear all filters say so in their tooltips. In the Power BI service and in
+  reading view a plain click works.
