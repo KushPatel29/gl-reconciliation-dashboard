@@ -5,7 +5,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-7%20pages%20incl.%20FinOps-F2C811?logo=powerbi&logoColor=black)
 ![Tableau](https://img.shields.io/badge/Tableau-generated%20.twb-E97627?logo=tableau&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-pandas-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-682%20passing-3B8C6E)
+![Tests](https://img.shields.io/badge/tests-708%20passing-3B8C6E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 
 Every BI resume says "reconciled GL to subledger." Almost nobody can show
@@ -22,6 +22,11 @@ real financials anywhere), but the logic is the job.
 And because a reconciliation engine shouldn't care what the two systems
 are, the second act points the exact same code at a **cloud bill** — more
 on that below.
+
+**Start with the close decision:** [`output/close_certification_packet.md`](output/close_certification_packet.md)
+is the two-minute controller packet: what can be certified, what requires
+review, what blocks close, who owns the next action, and which evidence was
+used.
 
 ## What actually breaks a month-end close
 
@@ -127,6 +132,44 @@ The pytest suite doubles as control testing. An auditor doesn't take your
 word that a control works — they re-perform it. That's literally what the
 tests do: corrupt the data in a known way, run the control, confirm it
 catches exactly what it claims to catch.
+
+## Close certification is a decision, not a green check
+
+[`engine/close_certification.py`](engine/close_certification.py) converts the
+reconciliation, exception workflow, ageing and control totals into a governed
+account-period certification register. It does not hide an unresolved item
+inside a portfolio-level average: every one of the **60 account-periods** must
+earn its own state.
+
+| Release state | Account-periods | Meaning |
+|---|---:|---|
+| **AUTO-CERTIFIED** | 8 | Low risk, within 0.5% tolerance, and no open, absorbing-closure or overdue evidence |
+| **PREPARED — REVIEW REQUIRED** | 9 | Evidence is prepared, but the risk or exception pattern requires a named reviewer |
+| **BLOCKED** | 43 | A threshold or unresolved control condition prevents certification |
+
+The release decision is therefore **NO-GO**, not because the pipeline failed,
+but because the evidence says close should not be certified yet. The register
+contains **6 critical, 20 high, 26 medium and 8 low-risk** account-periods,
+with 100% simulated preparer/reviewer segregation of duties. The blocked
+population carries **$358,595.64** of absolute variance; 11 exceptions remain
+open, 72 were closed through an absorbing route that still needs review, and
+95 exceeded the 10-day SLA.
+
+The policy is versioned in
+[`governance/close_certification_policy.json`](governance/close_certification_policy.json).
+It assigns deterministic preparers and reviewers, imposes response SLAs by
+risk tier, and permits automation only when every low-risk gate passes. The
+generated evidence is independently inspectable:
+
+- [`close_certification_register.csv`](output/close_certification_register.csv) — one accountable decision row per account-period
+- [`close_certification_summary.json`](output/close_certification_summary.json) — release decision and reconciled totals
+- [`close_certification_manifest.json`](output/close_certification_manifest.json) — source hashes and register fingerprint
+- [`close_certification_packet.md`](output/close_certification_packet.md) — controller-ready review packet
+- [`reverification_evidence.json`](output/reverification_evidence.json) — a controlled mutation changes exactly one previously certified row to blocked and leaves source files untouched
+
+This is a reproducible demonstration over synthetic data. Named roles are
+workflow assignments, not human signatures; no ERP posting, audit opinion or
+real-world approval is claimed.
 
 ## Whether the ledgers agree is one question. Whether the entries were posted under control is another.
 
@@ -342,12 +385,16 @@ engine/             SQLite-backed runner: the same SQL, executable with no DB se
                      Benford by cost centre
                      exception_ageing.py — ageing ladder, clearing SLA by owner,
                      throughput and the resolutions that fix nothing
+                     close_certification.py — risk-tiered account-period decision,
+                     accountable workflow, evidence manifest and re-verification
+governance/          versioned certification policy, thresholds, SLAs and role rules
 powerbi/            DAX measure library, build guide, and the ready-to-open
                      PBIP project (TMDL model + PBIR report, 7 pages)
 tests/              pytest suite proving each discrepancy class is detected (GL +
                      FinOps), the control tests, the exception workflow, the
                      README's own prose, and the TMDL shape Desktop must parse
-output/             engine results — control totals, exception log, summary
+output/             engine results — control totals, exception log, certification
+                    register, controller packet, evidence manifest and summary
 .github/workflows/  CI — regenerates data, runs the engine, runs the tests
 ```
 
@@ -361,6 +408,7 @@ python data_generator/generate_journal_detail.py  # authors, approvers, timestam
                                               #   and the exception workflow
 python engine/journal_risk.py                 # journal-entry control tests + Benford
 python engine/exception_ageing.py             # ageing, clearing SLA by owner
+python engine/close_certification.py           # certify, review or block each account-period
 python finops/generate_focus_data.py          # FinOps mode: the cloud bill
 python finops/run_finops_recon.py             # ...reconciled + coverage KPI
 ```
@@ -374,7 +422,7 @@ Verify the claims:
 
 ```bash
 pip install pytest
-pytest tests/ -v    # 441 tests — every discrepancy class found, every dollar accounted for,
+pytest tests/ -v    # 708 tests — every discrepancy class found, every dollar accounted for,
                     # in GL mode and FinOps mode, plus Power BI and Tableau workbook
                     # integrity and the semantic-model bindings (every column the
                     # model binds exists in the CSV it reads; a renamed one renders
@@ -427,7 +475,7 @@ So CI runs the generator end to end, which proves it works, and then restores
 the committed ledger before reconciling. The gate that follows asserts the
 claim that is actually true and is the one every figure in this document
 depends on: **given this ledger, every published figure regenerates byte for
-byte** — the reconciliation, the control tests, the exception workflow and all
-thirteen output files. Making the ledger itself machine-independent would
+byte** — the reconciliation, the control tests, the exception workflow,
+certification evidence and all published output files. Making the ledger itself machine-independent would
 rewrite every number here, the screenshots and the Tableau workbook with them,
 which is a change of its own rather than a footnote to this one.

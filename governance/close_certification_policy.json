@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "control_id": "GL-REC-01",
+  "control_name": "GL-to-subledger close certification",
+  "data_classification": "Synthetic portfolio demonstration",
+  "frequency": "Monthly",
+  "account_variance_tolerance_pct": 0.005,
+  "exception_sla_days": 10,
+  "absorbing_clear_methods": [
+    "Accepted as timing",
+    "Written off below threshold"
+  ],
+  "open_exception_minimum_risk_tier": "HIGH",
+  "absorbing_closure_minimum_risk_tier": "MEDIUM",
+  "sla_breach_minimum_risk_tier": "MEDIUM",
+  "risk_tiers": [
+    {
+      "name": "CRITICAL",
+      "minimum_abs_variance_pct": 0.05,
+      "reviewer_id": "U001",
+      "response_sla_hours": 4
+    },
+    {
+      "name": "HIGH",
+      "minimum_abs_variance_pct": 0.02,
+      "reviewer_id": "U001",
+      "response_sla_hours": 8
+    },
+    {
+      "name": "MEDIUM",
+      "minimum_abs_variance_pct": 0.005,
+      "reviewer_id": "U002",
+      "response_sla_hours": 24
+    },
+    {
+      "name": "LOW",
+      "minimum_abs_variance_pct": 0.0,
+      "reviewer_id": "SYSTEM:GL-REC-01",
+      "response_sla_hours": 48
+    }
+  ],
+  "preparer_by_account_id": {
+    "1": "U003",
+    "2": "U004",
+    "3": "U005",
+    "4": "U006",
+    "5": "U003",
+    "6": "U004",
+    "7": "U005",
+    "8": "U006",
+    "9": "U008",
+    "10": "U007"
+  },
+  "auto_certification": {
+    "allowed_risk_tier": "LOW",
+    "requires_zero_open_exceptions": true,
+    "requires_zero_absorbing_closures": true,
+    "requires_zero_sla_breaches": true,
+    "requires_variance_within_tolerance": true,
+    "certified_by": "SYSTEM:GL-REC-01"
+  },
+  "required_evidence": [
+    "output/gl_control_totals.csv",
+    "output/gl_reconciliation_exceptions.csv",
+    "data/exception_workflow.csv",
+    "data/dim_account.csv",
+    "data/dim_user.csv"
+  ],
+  "reverification_triggers": [
+    "control total changed",
+    "exception population changed",
+    "workflow status changed",
+    "certification policy changed",
+    "required evidence missing"
+  ],
+  "demonstration_boundary": "Certification decisions and roles are deterministic simulations over synthetic data. No human approval, ERP posting, or audit opinion is claimed."
+}

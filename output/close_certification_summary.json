@@ -1,0 +1,22 @@
+{
+  "absorbing_closures": 72,
+  "account_periods": 60,
+  "auto_certified": 8,
+  "blocked": 43,
+  "blocked_abs_variance": 358595.64,
+  "control_id": "GL-REC-01",
+  "decision": "NO-GO",
+  "demonstration_boundary": "Certification decisions and roles are deterministic simulations over synthetic data. No human approval, ERP posting, or audit opinion is claimed.",
+  "open_exceptions": 11,
+  "open_exposure": 20372.13,
+  "prepared_review_required": 9,
+  "register_fingerprint": "5d53de904ac0b1cf53b026fa4223fa5e67b52a0762b5199fe9475780045b9238",
+  "risk_tiers": {
+    "CRITICAL": 6,
+    "HIGH": 20,
+    "LOW": 8,
+    "MEDIUM": 26
+  },
+  "segregation_of_duties_pass_rate": 1.0,
+  "sla_breaches": 95
+}

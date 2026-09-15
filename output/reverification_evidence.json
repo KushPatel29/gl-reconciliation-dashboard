@@ -1,0 +1,15 @@
+{
+  "account_id": 5,
+  "baseline_register_fingerprint": "5d53de904ac0b1cf53b026fa4223fa5e67b52a0762b5199fe9475780045b9238",
+  "boundary": "The mutation is in-memory test evidence; committed ledger files are unchanged.",
+  "changed_register_fingerprint": "abe0d98566096a3b7c8a303d2f6cf6d719777d0c508e24d4dcac4dd4c51fd030",
+  "changed_rows": 1,
+  "period": "2025-01",
+  "probe": "synthetic control-total mutation",
+  "reverification_required": true,
+  "simulated_delta": 2806.52,
+  "source_data_mutated": false,
+  "status_after": "BLOCKED",
+  "status_before": "AUTO-CERTIFIED",
+  "trigger": "control total changed"
+}

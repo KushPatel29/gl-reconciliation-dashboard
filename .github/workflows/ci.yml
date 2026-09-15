@@ -52,6 +52,7 @@ jobs:
           python data_generator/generate_journal_detail.py
           python engine/journal_risk.py
           python engine/exception_ageing.py
+          python engine/close_certification.py
 
       - name: The published control figures must be reproducible byte for byte
         run: |

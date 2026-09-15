@@ -1,0 +1,25 @@
+{
+  "control_id": "GL-REC-01",
+  "data_classification": "Synthetic portfolio demonstration",
+  "demonstration_boundary": "Certification decisions and roles are deterministic simulations over synthetic data. No human approval, ERP posting, or audit opinion is claimed.",
+  "human_approvals_recorded": 0,
+  "input_sha256": {
+    "data/dim_account.csv": "cfc68fc84ae23fb4a86657f0a747cef5d36bfd0bb4874e7f71c1666b17bd1f09",
+    "data/dim_user.csv": "bbfffcf22477ad9e7e54d9f09d6e00782eb165caf85856384eba83edf104d10f",
+    "data/exception_workflow.csv": "7a98ab228673618e9930f79dce8436cd03bcd3a97d4d6a4d8eaa00e1613c13bf",
+    "output/gl_control_totals.csv": "c99f70ea9ccbc5fbd40c613b0011b83e7cea626c857fe61484fa3dd3cb299089",
+    "output/gl_reconciliation_exceptions.csv": "924486b538daf93f564b9534763ad5681939f7a3296b1181df5b8bc9f15c358b"
+  },
+  "policy_sha256": "b1dc1a281f990fe8eaece33535f2ce983449b4a5c78aac8f354400f642d73a30",
+  "register_fingerprint": "5d53de904ac0b1cf53b026fa4223fa5e67b52a0762b5199fe9475780045b9238",
+  "release_decision": "NO-GO",
+  "required_evidence_complete": true,
+  "reverification_triggers": [
+    "control total changed",
+    "exception population changed",
+    "workflow status changed",
+    "certification policy changed",
+    "required evidence missing"
+  ],
+  "schema_version": 1
+}
