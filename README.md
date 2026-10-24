@@ -1,6 +1,6 @@
 # GL/P&L Reconciliation Dashboard
 
-**[Open the Tableau Public control view](https://public.tableau.com/app/profile/kush.patel4990/viz/GLCloseControls-SyntheticData/Closecontrolsoverview)** — 60 synthetic account-periods, 43 outside 0.5% tolerance; select a monthly bar to filter account variance. This compact web-authored view uses the tested control extract. The repository also retains the fuller two-source, seven-sheet generated desktop workbook.
+**[Open the Tableau Public control view](https://public.tableau.com/views/GLCloseControls-SyntheticData/Closecontrolsoverview?:showVizHome=no)** — 60 synthetic account-periods, 43 outside 0.5% tolerance; select a monthly bar to filter account variance. This compact web-authored view uses the tested control extract. [Author profile](https://public.tableau.com/app/profile/kush.patel4990). The direct view opens the charts without the profile-page embed. The repository also retains the fuller two-source, seven-sheet generated desktop workbook.
 
 [![CI](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/KushPatel29/gl-reconciliation-dashboard/actions/workflows/ci.yml)
 ![SQL](https://img.shields.io/badge/SQL-T--SQL%20%2B%20SQLite-CC2927)
