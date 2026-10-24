@@ -1,0 +1,27 @@
+{
+  "published_date": "2026-10-24",
+  "url": "https://public.tableau.com/app/profile/kush.patel4990/viz/GLCloseControls-SyntheticData/Closecontrolsoverview",
+  "title": "GL Close Controls - Synthetic Data",
+  "variant": "Compact web-authored dashboard; separate from GLCloseScorecard.twb",
+  "data_classification": "synthetic",
+  "source": "tableau/control_totals_tableau.csv",
+  "source_sha256": "093df9190d11a3c829af21917a2feef76f403f65a8eda10a0320a76085224452",
+  "rows": 60,
+  "accounts": 10,
+  "periods": [
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06"
+  ],
+  "out_of_tolerance_count": 43,
+  "variance_amount_sum": "53940.41",
+  "views": [
+    "Net variance by account",
+    "Accounts outside 0.5% tolerance"
+  ],
+  "interaction": "Monthly mark filters the account view; clearing selection restores all periods",
+  "verification": "Published page rendered in a separate signed-out browser; January tooltip reports 7 out-of-tolerance accounts, matching the source; interaction checked separately."
+}

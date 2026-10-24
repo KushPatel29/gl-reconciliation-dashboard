@@ -43,8 +43,11 @@ Palette is the portfolio's Meridian brand: `#12436D` navy · `#28A197` teal ·
 
 ## Publish to Tableau Public
 
-Tableau Desktop **Free Edition** can do this — a paid licence is only needed
-for Tableau Server/Cloud.
+Use **Tableau Desktop Public Edition** or a Professional Edition license.
+Tableau Desktop Free Edition cannot publish to Tableau Public. See the
+[official publishing documentation](https://help.tableau.com/current/pro/desktop/en-us/publish_workbooks_tableaupublic.htm).
+The browser authoring route can upload the synthetic CSV extracts, but does
+not import this generated workbook as the same finished dashboard.
 
 1. Open `tableau/GLCloseScorecard.twb`.
 2. **Server → Tableau Public → Save to Tableau Public As…**
@@ -83,3 +86,14 @@ Learned while building this; all three are pinned by tests now.
 Tableau validates the XML against its schema on load and reports exact
 line/column numbers and content models, which makes it a fast feedback loop
 once you stop guessing and read the error.
+
+## Published compact web view — 24 October 2026
+
+[Open Tableau Public](https://public.tableau.com/app/profile/kush.patel4990/viz/GLCloseControls-SyntheticData/Closecontrolsoverview). The two-chart browser-authored variant uses
+`control_totals_tableau.csv` directly: ten accounts across six periods, 43 of
+60 above the 0.5% materiality threshold. The monthly chart acts as a filter on
+net variance by account. Net values can offset and do not constitute a close
+approval. `publication.json` records the source checksum and expected totals.
+
+This is separate from the generated seven-sheet desktop workbook above; it
+does not present exception-type or certification views that it does not load.
